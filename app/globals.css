@@ -76,12 +76,14 @@
   select {
     height: 55px;
     padding-left: 3px;
-    padding-right: 5px;
+    padding-right: 3px;
   }
   Label {
     color: rgb(2, 132, 199);
   }
   ::-webkit-input-placeholder {
-    color: rgb(179, 179, 179);
+    /* hoe to write tailwind in css note*** */
+    @apply !text-gray-300;
+    @apply !text-sm;
   }
 }

@@ -12,16 +12,21 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { SelectContent } from '@radix-ui/react-select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import ReactDatePicker from 'react-datepicker';
+
 import 'react-datepicker/dist/react-datepicker.css';
+import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import Steps from './steps';
-import { Label } from './ui/label';
 import { motion } from 'framer-motion';
-import React from 'react';
-import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
 
 const FormDataSchema = z.object({
   firstName: z
@@ -72,10 +77,6 @@ const FormDataSchema = z.object({
       message: 'Student National ID  must be only numbers',
     }),
   placeofBirth: z.string().min(3, 'please enter a valid city name'),
-  phone: z
-    .string()
-    .refine((data) => data.trim(), { message: 'Should be trimmed.' })
-    .refine((data) => data !== '', { message: 'Please write your phone.' }),
 
   birthDate: z.date({
     required_error: 'Date is required',
@@ -129,7 +130,7 @@ const FormDataSchema = z.object({
     invalid_type_error: 'Format invalid',
   }),
 });
-function FormFull() {
+function FormScreen() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const delta = currentStep - previousStep;
@@ -150,15 +151,13 @@ function FormFull() {
         'studentNationalID',
         'nationality',
         'placeofBirth',
-        'gender',
-        'currentSchoolName',
-        'currentGrade',
-        'DAS',
-        'applyingforGrade',
-        'enrolmentYear',
-        'religion',
-        'phone',
-        'birthDate',
+        // 'gender',
+        // 'currentSchoolName',
+        // 'currentGrade',
+        // 'DAS',
+        // 'applyingforGrade',
+        // 'enrolmentYear',
+        // 'religion',
       ],
     },
     {
@@ -170,10 +169,6 @@ function FormFull() {
         'fatherEmail',
         'fatherNationality',
         'faterAramcoId',
-        'expDate',
-        'DASalumnus',
-        'DASDhahrani',
-        'DASEmployee',
       ],
     },
     { id: 'Step 3', name: 'Complete' },
@@ -344,6 +339,7 @@ function FormFull() {
                     />
                   </div>
                 </div>
+
                 {/* names */}
                 <div className="mt-5 grid grid-cols-1  gap-6 sm:grid-cols-6">
                   <div className="sm:col-span-3">
@@ -817,70 +813,41 @@ function FormFull() {
                       )}
                     />
                   </div>
-                </div>
-                {/* Date of Birth */}
-                <div>
-                  <FormLabel className="block mb-3">
-                    Select Brith Date:
-                  </FormLabel>
-                  <Controller
-                    control={form.control}
-                    name="birthDate"
-                    render={({ field: { onChange, value }, fieldState }) => (
-                      <>
-                        <ReactDatePicker
-                          placeholderText="Select Date Picker"
-                          onChange={onChange}
-                          selected={value}
-                          maxDate={new Date()}
-                          className={`border-2 rounded-sm p-2 border-gray-600 ${
-                            fieldState.error && 'border-red-600'
-                          }`}
-                        />
-                        {fieldState.error && (
-                          <FormMessage>{fieldState.error.message}</FormMessage>
-                        )}
-                      </>
-                    )}
-                  />
-                </div>
 
-                {/* Date of Birth */}
-                <div>
-                  <FormLabel className="block mb-3">
-                    Select Brith Date:
-                  </FormLabel>
-                  <Controller
-                    name="phone"
-                    control={form.control}
-                    rules={{
-                      required: true,
-                    }}
-                    render={({ field: { onChange, value }, fieldState }) => (
-                      <>
-                        <div className="div-dir">
-                          <PhoneInput
-                            value={value}
+                  {/* Date of Birth */}
+                  <div>
+                    <FormLabel className="block mb-3">
+                      Select Brith Date:
+                    </FormLabel>
+                    <Controller
+                      control={form.control}
+                      name="birthDate"
+                      render={({ field: { onChange, value }, fieldState }) => (
+                        <>
+                          <ReactDatePicker
+                            placeholderText="Select Date Picker"
                             onChange={onChange}
-                            defaultCountry="JO"
-                            id="phoneInput"
-                            //
-                            className={`p-2 w-full border border-solid border-white  dark:border-dark-color rounded`}
+                            selected={value}
+                            maxDate={new Date()}
+                            className={`border-2 rounded-sm p-2 border-gray-600 ${
+                              fieldState.error && 'border-red-600'
+                            }`}
                           />
-                        </div>
-                        {fieldState.error && (
-                          <FormMessage>{fieldState.error.message}</FormMessage>
-                        )}
-                      </>
-                    )}
-                  />
+                          {fieldState.error && (
+                            <FormMessage>
+                              {fieldState.error.message}
+                            </FormMessage>
+                          )}
+                        </>
+                      )}
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
           )}
 
           {/* father info */}
-
           {currentStep === 1 && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
@@ -1166,7 +1133,6 @@ function FormFull() {
           )}
         </form>
       </Form>
-
       <div className="mt-3  pt-5 pb-5">
         <div className="flex justify-between">
           <Button
@@ -1219,4 +1185,4 @@ function FormFull() {
   );
 }
 
-export default FormFull;
+export default FormScreen;
