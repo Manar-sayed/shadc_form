@@ -10,11 +10,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import 'react-datepicker/dist/react-datepicker.css';
+
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import ReactDatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
 import Steps from './steps';
 import { Label } from './ui/label';
@@ -22,6 +23,7 @@ import { motion } from 'framer-motion';
 import React from 'react';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
+import { CalendarCheck2 } from 'lucide-react';
 
 const FormDataSchema = z.object({
   firstName: z
@@ -75,7 +77,7 @@ const FormDataSchema = z.object({
   phone: z
     .string()
     .refine((data) => data.trim(), { message: 'Should be trimmed.' })
-    .refine((data) => data !== '', { message: 'Please write your phone.' }),
+    .refine((data) => data !== '', { message: 'Please write  phone.' }),
 
   birthDate: z.date({
     required_error: 'Date is required',
@@ -83,22 +85,22 @@ const FormDataSchema = z.object({
   }),
   currentSchoolName: z
     .string()
-    .min(1, { message: 'please enter your School Name' }),
+    .min(1, { message: 'please enter  School Name' }),
 
   gender: z.enum(['male', 'female'], {
-    required_error: 'Please Select Your Gender',
+    required_error: 'Please Select  Gender',
   }),
-  // father info----------------
+  // father Info----------------
   fatherNationalID: z.coerce
     .string()
     .min(12, {
-      message: 'Student National ID  must have ayt least 12 numbers',
+      message: 'Father National ID  must have ayt least 12 numbers',
     })
     .max(14, {
-      message: 'Student National ID  cannot have more than 14 numbers',
+      message: 'Father National ID  cannot have more than 14 numbers',
     })
     .refine((data) => /^\d+$/.test(data), {
-      message: 'Student National ID  must be only numbers',
+      message: 'Father National ID  must be only numbers',
     }),
 
   fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
@@ -112,6 +114,10 @@ const FormDataSchema = z.object({
     .email('Invalid email address'),
 
   fatherwork: z.string().min(3, 'father work is required'),
+  expDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: 'Format invalid',
+  }),
   faterAramcoId: z.coerce
     .string()
     .min(12, {
@@ -124,10 +130,51 @@ const FormDataSchema = z.object({
       message: 'fater Aramco Id  must be only numbers',
     }),
 
-  expDate: z.date({
+  // mother Info----------------
+  motherDASalumnus: z.enum(['yes', 'no']),
+  motherDASDhahrani: z.enum(['yes', 'no']),
+  motherDASEmployee: z.enum(['yes', 'no']),
+  motherEmail: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  motherNationalID: z.coerce
+    .string()
+    .min(12, {
+      message: 'Mother National ID  must have ayt least 12 numbers',
+    })
+    .max(14, {
+      message: 'Mother National ID  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Mother National ID  must be only numbers',
+    }),
+  motherAramcoId: z.coerce
+    .string()
+    .min(12, {
+      message: 'mother Aramco Id  must have at least 12 numbers',
+    })
+    .max(14, {
+      message: 'mother Aramco Id  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'mother Aramco Id  must be only numbers',
+    }),
+  motherwork: z.string().min(3, 'mother work is required'),
+  motherexpDate: z.date({
     required_error: 'Date is required',
     invalid_type_error: 'Format invalid',
   }),
+  motherPhone: z
+    .string()
+    .refine((data) => data.trim(), { message: 'Should be trimmed.' })
+    .refine((data) => data !== '', { message: 'Please write  phone.' }),
+  motherName: z
+    .string()
+    .min(3, { message: 'mother name must be at least 3 char' }),
+  motherNameArabic: z
+    .string()
+    .min(3, { message: 'mother name must be at least 3 char' }),
 });
 function FormFull() {
   const [previousStep, setPreviousStep] = useState(0);
@@ -163,7 +210,6 @@ function FormFull() {
     },
     {
       id: 'Father Information',
-      // name: 'Father Information',
       fields: [
         'fatherNationalID',
         'fatherwork',
@@ -176,7 +222,24 @@ function FormFull() {
         'DASEmployee',
       ],
     },
-    { id: 'Step 3', name: 'Complete' },
+    {
+      id: 'Mother Information',
+      fields: [
+        'motherEmail',
+        'motherDASalumnus',
+        'motherDASDhahrani',
+        'motherDASEmployee',
+        'mptherphone',
+        'motherwork',
+        'motherNationalID',
+        'motherAramcoId',
+        'motherexpDate',
+        'motherName',
+        'motherNameArabic',
+        'motherPhone',
+      ],
+    },
+    { id: 'Complete' },
   ];
 
   const form = useForm<z.infer<typeof FormDataSchema>>({
@@ -199,6 +262,14 @@ function FormFull() {
       fatherwork: '',
       currentSchoolName: '',
       placeofBirth: '',
+      motherEmail: '',
+      motherNationalID: '',
+      motherAramcoId: '',
+      motherName: '',
+      motherNameArabic: '',
+      motherwork: '',
+      phone: '',
+      motherPhone: '',
     },
   });
 
@@ -233,13 +304,11 @@ function FormFull() {
   };
 
   return (
-    <div className="absolute inset-0 flex flex-col justify-between p-20 ">
+    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-24">
+      {' '}
       <Steps currentStep={currentStep} steps={steps}></Steps>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(processForm)}
-          className="max-w-md w-full flex flex-col gap-4"
-        >
+        <form onSubmit={form.handleSubmit(processForm)} className=" py-12 ">
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
@@ -275,14 +344,14 @@ function FormFull() {
                                 // autoComplete="nationality-name"
                                 className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
                                  ring-gray-300 focus:ring-2 focus:ring-inset
-                                  focus:ring-sky-600  sm:text-sm sm:leading-6"
+                                  focus:ring-green-500  sm:text-sm sm:leading-6"
                               >
                                 <option
                                   className="text-gray-200 text-sm"
                                   value=""
                                   disabled
                                 >
-                                  Select your nationality
+                                  Select nationality
                                 </option>
                                 <option value={'saudi arabia'}>
                                   Saudi Arabia
@@ -316,6 +385,7 @@ function FormFull() {
                               className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -361,6 +431,7 @@ function FormFull() {
                               className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -381,6 +452,7 @@ function FormFull() {
                               className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -524,6 +596,7 @@ function FormFull() {
                     />
                   </div>
                 </div>
+
                 <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* place of birth */}
                   <div className="">
@@ -548,6 +621,7 @@ function FormFull() {
                       )}
                     />
                   </div>
+
                   {/* email */}
                   <div className="">
                     <FormField
@@ -572,66 +646,113 @@ function FormFull() {
                       )}
                     />
                   </div>
-                  {/* current school name */}
-                  <div className="">
-                    <FormField
+                  {/* phone */}
+                  <div>
+                    <FormLabel className="block mb-3">Phone Number:</FormLabel>
+                    <Controller
+                      name="phone"
                       control={form.control}
-                      name="currentSchoolName"
-                      render={({ field }) => (
-                        <FormItem className="bg-transparent">
-                          <FormLabel className="block text-sm font-medium leading-6 ">
-                            Current SchoolName
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder={'current school name'}
-                              {...field}
-                              className="mt-10 h-14  text-sm md:text-lg font-normal "
+                      rules={{
+                        required: true,
+                      }}
+                      render={({ field: { onChange, value }, fieldState }) => (
+                        <>
+                          <div className="div-dir">
+                            <PhoneInput
+                              value={value}
+                              onChange={onChange}
+                              defaultCountry="JO"
+                              id="PhoneInput"
+                              //
+                              className={`mt-4 p-2 w-full border border-solid    dark:border-dark-color rounded`}
                             />
-                          </FormControl>
-
-                          <FormMessage />
-                        </FormItem>
+                          </div>
+                          {fieldState.error && (
+                            <FormMessage>
+                              {fieldState.error.message}
+                            </FormMessage>
+                          )}
+                        </>
                       )}
                     />
                   </div>
                 </div>
+                <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Date of Birth */}
 
-                {/* gender */}
-                <FormField
-                  control={form.control}
-                  name="gender"
-                  render={({ field }) => (
-                    <FormItem className="space-y-3">
-                      <FormLabel>Select Gender...</FormLabel>
-                      <FormControl>
-                        <RadioGroup
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          className="flex flex-col space-y-1"
-                        >
-                          <FormItem className="flex items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value="male" />
-                            </FormControl>
-                            <FormLabel className="font-normal">Male</FormLabel>
-                          </FormItem>
-                          <FormItem className="flex items-center space-x-3 space-y-0">
-                            <FormControl>
-                              <RadioGroupItem value="female" />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              Female
-                            </FormLabel>
-                          </FormItem>
-                        </RadioGroup>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  <div>
+                    <FormLabel className="block mb-3">
+                      Select Brith Date:
+                    </FormLabel>
+                    <Controller
+                      control={form.control}
+                      name="birthDate"
+                      render={({ field: { onChange, value }, fieldState }) => (
+                        <>
+                          <div
+                            className={`border-2 rounded-sm  border-gray-200 flex justify-between items-center px-3 `}
+                          >
+                            <ReactDatePicker
+                              placeholderText="Select Date Picker"
+                              id="ReactDatePicker"
+                              onChange={onChange}
+                              selected={value}
+                              maxDate={new Date()}
+                              className={`
+                               text-sm md:text-lg font-normal
+                                placeholder:text-gray-300 placeholder:text-sm
+                                rounded-md  sm:text-sm
+                                  ${fieldState.error && 'border-red-600'}`}
+                            />
+                            <CalendarCheck2 className=" text-gray-300" />
+                          </div>
+                          {fieldState.error && (
+                            <FormMessage>
+                              {fieldState.error.message}
+                            </FormMessage>
+                          )}
+                        </>
+                      )}
+                    />
+                  </div>
+                  {/* gender */}
+                  <FormField
+                    control={form.control}
+                    name="gender"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel>Select Gender...</FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex  space-x-5"
+                          >
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="male" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                Male
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="female" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                Female
+                              </FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
 
-                <div className="mt-5 gap-6  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                <div className="mt-5 gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
                   {/* Religion */}
                   <div className="">
                     <FormField
@@ -649,14 +770,15 @@ function FormFull() {
                                 id="religion"
                                 {...field}
                                 // autoComplete="religion-name"
-                                className=" px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                className=" px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset 
+                                focus:ring-green-500  sm:text-sm sm:leading-6"
                               >
                                 <option
                                   className="text-gray-200 text-sm"
                                   value=""
                                   disabled
                                 >
-                                  Select your Religion
+                                  Select Religion
                                 </option>
                                 <option value={'muslim'}>Muslim</option>
                                 <option value={'christian'}>Christian</option>
@@ -685,14 +807,14 @@ function FormFull() {
                                 id="currentGrade"
                                 {...field}
                                 // autoComplete="currentGrade-name"
-                                className=" px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                className=" px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
                               >
                                 <option
                                   className="text-gray-200 text-sm"
                                   value=""
                                   disabled
                                 >
-                                  Select your current grade
+                                  Select current grade
                                 </option>
 
                                 <option value={'excellent'}>Excellent</option>
@@ -724,14 +846,14 @@ function FormFull() {
                                 id="enrolmentYear"
                                 {...field}
                                 // autoComplete="enrolmentYear-name"
-                                className=" px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                className=" px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
                               >
                                 <option
                                   className="text-gray-200 text-sm"
                                   value=""
                                   disabled
                                 >
-                                  Select your Enrolment year
+                                  Select Enrolment year
                                 </option>
                                 <option value={'2016-2017'}>2016-2017</option>
                                 <option value={'2017-2018'}>2017-2018</option>
@@ -762,14 +884,14 @@ function FormFull() {
                                 // autoComplete="applyingforGrade-name"
                                 className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 
                                   py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 
-                                  focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                  focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
                               >
                                 <option
                                   className="text-gray-200 text-sm"
                                   value=""
                                   disabled
                                 >
-                                  Select your grade
+                                  Select grade
                                 </option>
                                 <option value={'grade 11'}>Grade 11</option>
                                 <option value={'grade 12'}>Grade 12</option>
@@ -798,7 +920,10 @@ function FormFull() {
                                 id="DAS"
                                 {...field}
                                 // autoComplete="DAS-name"
-                                className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                className="px-3 placeholder:text-gray-300 placeholder:text-sm block
+                                 w-full rounded-md border-0 py-1.5  s
+                                 hadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 
+                                 focus:ring-inset focus:ring-green-500  sm:leading-6"
                               >
                                 <option
                                   className="text-gray-200 text-sm"
@@ -817,63 +942,29 @@ function FormFull() {
                       )}
                     />
                   </div>
-                </div>
-                {/* Date of Birth */}
-                <div>
-                  <FormLabel className="block mb-3">
-                    Select Brith Date:
-                  </FormLabel>
-                  <Controller
-                    control={form.control}
-                    name="birthDate"
-                    render={({ field: { onChange, value }, fieldState }) => (
-                      <>
-                        <ReactDatePicker
-                          placeholderText="Select Date Picker"
-                          onChange={onChange}
-                          selected={value}
-                          maxDate={new Date()}
-                          className={`border-2 rounded-sm p-2 border-gray-600 ${
-                            fieldState.error && 'border-red-600'
-                          }`}
-                        />
-                        {fieldState.error && (
-                          <FormMessage>{fieldState.error.message}</FormMessage>
-                        )}
-                      </>
-                    )}
-                  />
-                </div>
+                  {/* current school name */}
+                  <div className="">
+                    <FormField
+                      control={form.control}
+                      name="currentSchoolName"
+                      render={({ field }) => (
+                        <FormItem className="bg-transparent">
+                          <FormLabel className="block text-sm font-medium leading-6 ">
+                            Current SchoolName
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder={'current school name'}
+                              {...field}
+                              className="mt-10 h-14  text-sm md:text-lg font-normal "
+                            />
+                          </FormControl>
 
-                {/* Date of Birth */}
-                <div>
-                  <FormLabel className="block mb-3">
-                    Select Brith Date:
-                  </FormLabel>
-                  <Controller
-                    name="phone"
-                    control={form.control}
-                    rules={{
-                      required: true,
-                    }}
-                    render={({ field: { onChange, value }, fieldState }) => (
-                      <>
-                        <div className="div-dir">
-                          <PhoneInput
-                            value={value}
-                            onChange={onChange}
-                            defaultCountry="JO"
-                            id="phoneInput"
-                            //
-                            className={`p-2 w-full border border-solid border-white  dark:border-dark-color rounded`}
-                          />
-                        </div>
-                        {fieldState.error && (
-                          <FormMessage>{fieldState.error.message}</FormMessage>
-                        )}
-                      </>
-                    )}
-                  />
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -891,31 +982,7 @@ function FormFull() {
               <p className="mt-1 text-sm leading-6 text-gray-600">
                 Father details Info
               </p>
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
-                {/* Father National ID*/}
-                <div className="">
-                  <FormField
-                    control={form.control}
-                    name="fatherNationalID"
-                    render={({ field }) => (
-                      <FormItem className="bg-transparent">
-                        <FormLabel className="block text-sm font-medium leading-6 ">
-                          Father National ID
-                        </FormLabel>
-                        <FormControl>
-                          <Input
-                            placeholder={'father national id'}
-                            type="text"
-                            {...field}
-                            // {...register('fatherNationalID')}
-                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3">
                 {/* nationality */}
                 <div className="">
                   <FormField
@@ -934,14 +1001,14 @@ function FormFull() {
                               {...field}
                               className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
                                  ring-gray-300 focus:ring-2 focus:ring-inset
-                                  focus:ring-sky-600  sm:text-sm sm:leading-6"
+                                  focus:ring-green-500   sm:leading-6"
                             >
                               <option
                                 className="text-gray-200 text-sm"
                                 value=""
                                 disabled
                               >
-                                Select your nationality
+                                Select nationality
                               </option>
                               <option value={'saudi arabia'}>
                                 Saudi Arabia
@@ -957,6 +1024,70 @@ function FormFull() {
                   />
                 </div>
 
+                {/* Father work*/}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="fatherwork"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          Father work
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={'father work'}
+                            type="text"
+                            {...field}
+                            // {...register('fatherwork')}
+                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Exp Date */}
+                <div>
+                  <FormLabel className="block mb-3">
+                    Father Aramco Exp Date
+                  </FormLabel>
+
+                  <Controller
+                    control={form.control}
+                    name="expDate"
+                    render={({ field: { onChange, value }, fieldState }) => (
+                      <>
+                        <div
+                          className={`border-2 rounded-sm  border-gray-200 flex justify-between items-center px-3 `}
+                        >
+                          <ReactDatePicker
+                            placeholderText="Select Date Picker"
+                            id="ReactDatePicker"
+                            onChange={onChange}
+                            selected={value}
+                            maxDate={new Date()}
+                            className={`
+                            text-sm md:text-lg font-normal
+                             placeholder:text-gray-300 placeholder:text-sm
+                             rounded-md  sm:text-sm
+                               ${fieldState.error && 'border-red-600'}`}
+                          />
+                          <CalendarCheck2 className=" text-gray-300" />
+                        </div>
+
+                        {fieldState.error && (
+                          <FormMessage>{fieldState.error.message}</FormMessage>
+                        )}
+                      </>
+                    )}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3 ">
                 {/* father email */}
                 <div className="">
                   <FormField
@@ -982,25 +1113,26 @@ function FormFull() {
                   />
                 </div>
 
-                {/* Father work*/}
+                {/* Father National ID*/}
                 <div className="">
                   <FormField
                     control={form.control}
-                    name="fatherwork"
+                    name="fatherNationalID"
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
-                          Father work
+                          Father National ID
                         </FormLabel>
                         <FormControl>
                           <Input
-                            placeholder={'father work'}
+                            placeholder={'father national id'}
                             type="text"
                             {...field}
-                            // {...register('fatherwork')}
+                            // {...register('fatherNationalID')}
                             className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -1024,37 +1156,14 @@ function FormFull() {
                             className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
+              </div>
 
-                {/* Exp Date */}
-                <div>
-                  <FormLabel className="block mb-3">
-                    Father Aramco Exp Date
-                  </FormLabel>
-                  <Controller
-                    control={form.control}
-                    name="expDate"
-                    render={({ field: { onChange, value }, fieldState }) => (
-                      <>
-                        <ReactDatePicker
-                          placeholderText="Select Date Picker"
-                          onChange={onChange}
-                          selected={value}
-                          maxDate={new Date()}
-                          className={`border-2 rounded-sm p-2 border-gray-600 ${
-                            fieldState.error && 'border-red-600'
-                          }`}
-                        />
-                        {fieldState.error && (
-                          <FormMessage>{fieldState.error.message}</FormMessage>
-                        )}
-                      </>
-                    )}
-                  />
-                </div>
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3 ">
                 {/* DAS Employee */}
                 <div className="">
                   <FormField
@@ -1071,14 +1180,14 @@ function FormFull() {
                               defaultValue=""
                               id="DASEmployee"
                               {...field}
-                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500   sm:leading-6"
                             >
                               <option
                                 className="text-gray-200 text-sm"
                                 value=""
                                 disabled
                               >
-                                Select DAS Dhahrani
+                                Select DAS Employee
                               </option>
                               <option value={'yes'}>Yes</option>
                               <option value={'no'}>No</option>
@@ -1107,7 +1216,7 @@ function FormFull() {
                               defaultValue=""
                               id="DASDhahrani"
                               {...field}
-                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
                             >
                               <option
                                 className="text-gray-200 text-sm"
@@ -1142,7 +1251,7 @@ function FormFull() {
                             <select
                               defaultValue=""
                               {...field}
-                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
                             >
                               <option
                                 className="text-gray-200 text-sm"
@@ -1164,16 +1273,352 @@ function FormFull() {
               </div>
             </motion.div>
           )}
+
+          {/* mother info */}
+
+          {currentStep === 2 && (
+            <motion.div
+              initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <p className="mt-1 text-sm leading-6 text-gray-600">
+                Mother details Info
+              </p>
+
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3 ">
+                {/* father email */}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherEmail"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          mother Email Address
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={'motherEmail'}
+                            type="motherEmail"
+                            {...field}
+                            className=" p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Mother National ID*/}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherNationalID"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          mother National ID
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={'mother national id'}
+                            type="text"
+                            {...field}
+                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* mother Aramco ID*/}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherAramcoId"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          mother Aramco ID
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={'mother aramco id'}
+                            type="text"
+                            {...field}
+                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3 ">
+                {/* DAS Employee */}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherDASEmployee"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          Is the mother a DAS employee
+                        </FormLabel>
+                        <FormControl>
+                          <>
+                            <select
+                              defaultValue=""
+                              id="motherDASEmployee"
+                              {...field}
+                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500   sm:leading-6"
+                            >
+                              <option
+                                className="text-gray-200 text-sm"
+                                value=""
+                                disabled
+                              >
+                                Select DAS Employee
+                              </option>
+                              <option value={'yes'}>Yes</option>
+                              <option value={'no'}>No</option>
+                            </select>
+                            <FormMessage />
+                          </>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* DAS Dhahrani */}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherDASDhahrani"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          Did the mother study in DAS (Dhahrani)
+                        </FormLabel>
+                        <FormControl>
+                          <>
+                            <select
+                              defaultValue=""
+                              id="motherDASDhahrani"
+                              {...field}
+                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
+                            >
+                              <option
+                                className="text-gray-200 text-sm"
+                                value=""
+                                disabled
+                              >
+                                Select DAS Dhahrani
+                              </option>
+                              <option value={'yes'}>Yes</option>
+                              <option value={'no'}>No</option>
+                            </select>
+                            <FormMessage />
+                          </>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* DASalumnus */}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherDASalumnus"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          Is the mother a DAS alumnus
+                        </FormLabel>
+                        <FormControl>
+                          <>
+                            <select
+                              defaultValue=""
+                              id="motherDASalumnus"
+                              {...field}
+                              className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
+                            >
+                              <option
+                                className="text-gray-200 text-sm"
+                                value=""
+                                disabled
+                              >
+                                Select DAS Alumnus
+                              </option>
+                              <option value={'yes'}>Yes</option>
+                              <option value={'no'}>No</option>
+                            </select>
+                            <FormMessage />
+                          </>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3">
+                {/* mother work*/}
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherwork"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          Mother work
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={'mother work'}
+                            type="text"
+                            {...field}
+                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* Exp Date */}
+                <div>
+                  <FormLabel className="block mb-3">
+                    Mother Aramco Exp Date
+                  </FormLabel>
+
+                  <Controller
+                    control={form.control}
+                    name="motherexpDate"
+                    render={({ field: { onChange, value }, fieldState }) => (
+                      <>
+                        <div
+                          className={`border-2 rounded-sm  border-gray-200 flex justify-between items-center px-3 `}
+                        >
+                          <ReactDatePicker
+                            placeholderText="Select Date Picker"
+                            id="ReactDatePicker"
+                            onChange={onChange}
+                            selected={value}
+                            maxDate={new Date()}
+                            className={`
+                            text-sm md:text-lg font-normal
+                             placeholder:text-gray-300 placeholder:text-sm
+                             rounded-md  sm:text-sm
+                               ${fieldState.error && 'border-red-600'}`}
+                          />
+                          <CalendarCheck2 className=" text-gray-300" />
+                        </div>
+
+                        {fieldState.error && (
+                          <FormMessage>{fieldState.error.message}</FormMessage>
+                        )}
+                      </>
+                    )}
+                  />
+                </div>
+              </div>
+              {/* names */}
+              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3">
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherName"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          mother name
+                        </FormLabel>
+                        <FormControl {...field}>
+                          <Input
+                            placeholder={'mother name'}
+                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="">
+                  <FormField
+                    control={form.control}
+                    name="motherNameArabic"
+                    render={({ field }) => (
+                      <FormItem className="bg-transparent">
+                        <FormLabel className="block text-sm font-medium leading-6 ">
+                          mother Name Arabic
+                        </FormLabel>
+                        <FormControl {...field}>
+                          <Input
+                            placeholder={'mother name arabic'}
+                            className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                {/* motherphone */}
+                <div>
+                  <FormLabel className="block mb-3">Phone Number:</FormLabel>
+                  <Controller
+                    name="motherPhone"
+                    control={form.control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field: { onChange, value }, fieldState }) => (
+                      <>
+                        <div className="div-dir">
+                          <PhoneInput
+                            value={value}
+                            onChange={onChange}
+                            defaultCountry="JO"
+                            id="PhoneInput"
+                            //
+                            className={`mt-4 p-2 w-full border border-solid    dark:border-dark-color rounded`}
+                          />
+                        </div>
+                        {fieldState.error && (
+                          <FormMessage>{fieldState.error.message}</FormMessage>
+                        )}
+                      </>
+                    )}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+
+          {currentStep === steps.length - 1 && <div>Thanks alot</div>}
         </form>
       </Form>
-
       <div className="mt-3  pt-5 pb-5">
         <div className="flex justify-between">
           <Button
             type="button"
             onClick={prev}
             disabled={currentStep === 0}
-            className="rounded flex items-center justify-center  py-1 text-sm font-semibold bg-sky-600 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded flex items-center justify-center  py-1 text-sm font-semibold bg-green-500 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -1195,7 +1640,7 @@ function FormFull() {
             type="submit"
             onClick={next}
             disabled={currentStep === steps.length - 1}
-            className="rounded flex items-center justify-center   py-1 text-sm font-semibold bg-sky-600 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded flex items-center justify-center   py-1 text-sm font-semibold bg-green-500 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span>Next</span>
             <svg
@@ -1215,7 +1660,7 @@ function FormFull() {
           </Button>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

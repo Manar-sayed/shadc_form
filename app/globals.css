@@ -77,9 +77,23 @@
     height: 55px;
     padding-left: 3px;
     padding-right: 3px;
+    @apply !border border-opacity-80;
+    @apply !shadow-none;
+    /* @apply !ring-offset-background; */
+  }
+  #ReactDatePicker {
+    height: 55px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  #PhoneInput {
+    height: 35px;
+    padding-left: 3px;
+    padding-right: 3px;
   }
   Label {
-    color: rgb(2, 132, 199);
+    /* color: rgb(2, 132, 199); */
+    @apply text-green-500;
   }
   ::-webkit-input-placeholder {
     /* hoe to write tailwind in css note*** */
