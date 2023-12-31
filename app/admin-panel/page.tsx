@@ -11,6 +11,7 @@ async function getUsers(): Promise<User[]> {
   const data = await res.json();
   return data;
 }
+// https://jsonplaceholder.typicode.com/users?_page=1&_limit=5
 async function AdminPageScreen() {
   const data = await getUsers();
   // const [formData, setFormData] = useState<FormData>({
