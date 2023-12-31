@@ -4,6 +4,12 @@
   ],
   "hints": {
     "axe/name-role-value": "off",
-    "typescript-config/is-valid": "off"
+    "typescript-config/is-valid": "off",
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ]
   }
 }
