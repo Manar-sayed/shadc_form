@@ -77,7 +77,7 @@ export default function Upload({ maxNumber, title, desc }: any) {
                   <img
                     src={image['data_url']}
                     alt=""
-                    className="w-full rounded-md"
+                    className="w-full rounded-md h-44 "
                   />
                   <div className="flex justify-between items-center mt-2">
                     <Button
