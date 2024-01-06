@@ -17,9 +17,7 @@ export default function AdmissionPage() {
       image: '/images/img-00.png',
       title: 'Aramco Admission',
       description: 'Dhahran Ahliyya Schools admission form for ARAMCO.',
-      desc1: 'Fill new form',
-      desc2: 'Edit submitted form',
-      desc3: 'Required submitted',
+
       href: '/form?type=aramco',
       isAramco: true,
     },
@@ -52,7 +50,7 @@ export default function AdmissionPage() {
                   <CardTitle className="text-white">{item.title}</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent className="py-3">
+              <CardContent className="py-3 text-center">
                 <p className="text-[#B1B1B1] text-lg">{item.description}</p>
 
                 <ul className="my-3">
@@ -63,7 +61,9 @@ export default function AdmissionPage() {
                       height={28}
                       alt="icon-1"
                     />
-                    <span className="text-lg font-bold">Fill new form</span>
+                    <Link href="/" className="text-lg font-bold">
+                      Fill new form
+                    </Link>
                   </li>
                   <li className="flex items-center gap-2 mb-3">
                     <Image
@@ -72,9 +72,9 @@ export default function AdmissionPage() {
                       height={28}
                       alt="icon-2"
                     />
-                    <span className="text-lg font-bold">
+                    <Link href="/" className="text-lg font-bold">
                       Edit submitted form
-                    </span>
+                    </Link>
                   </li>
                   <li className="flex items-center gap-2 mb-3">
                     <Image
@@ -83,19 +83,18 @@ export default function AdmissionPage() {
                       height={28}
                       alt="icon-3"
                     />
-                    <span className="text-lg font-bold">
+                    <Link href="/" className="text-lg font-bold">
                       Required submitted
-                    </span>
+                    </Link>
                   </li>
                 </ul>
               </CardContent>
               <CardFooter className="flex justify-between">
-                <Link
-                  href={item.href}
-                  className="bg-primary-color text-white p-3 rounded-lg shadow-sm border-2 border-primary-color hover:bg-transparent hover:text-primary-color duration-300"
-                >
-                  Find more
-                </Link>
+                <Button variant="link">
+                  <Link href={item.href} className="">
+                    Find more
+                  </Link>
+                </Button>
               </CardFooter>
             </Card>
           ))}
