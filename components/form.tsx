@@ -1610,9 +1610,58 @@ function FormFull() {
           )}
 
           {currentStep === steps.length - 1 && <div>Thanks alot</div>}
+
+          <div className="mt-3  pt-5 pb-5">
+            <div className="flex justify-between">
+              <Button
+                type="button"
+                onClick={prev}
+                disabled={currentStep === 0}
+                className="rounded flex items-center justify-center  py-1 text-sm font-semibold bg-green-500 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
+                <span>Prev</span>
+              </Button>
+              <Button
+                type="submit"
+                onClick={next}
+                disabled={currentStep === steps.length - 1}
+                className="rounded flex items-center justify-center   py-1 text-sm font-semibold bg-green-500 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <span>Next</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </Button>
+            </div>
+          </div>
         </form>
       </Form>
-      <div className="mt-3  pt-5 pb-5">
+      {/* <div className="mt-3  pt-5 pb-5">
         <div className="flex justify-between">
           <Button
             type="button"
@@ -1659,7 +1708,7 @@ function FormFull() {
             </svg>
           </Button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }

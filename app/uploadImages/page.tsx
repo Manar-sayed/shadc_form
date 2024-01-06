@@ -1,84 +1,89 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import Upload from '@/components/upload/uploadComp';
 import React, { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import ImageUploading from 'react-images-uploading';
 
 export default function App() {
-  const [images, setImages] = useState([]);
-  const maxNumber = 69;
-
-  const onChange = (imageList: any, addUpdateIndex: any) => {
-    console.log(imageList, addUpdateIndex);
-    setImages(imageList);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  }: any = useForm();
+  const onSubmit = (data: any) => {
+    console.log(data);
   };
-
   return (
-    <div className="App bg-gray-200 min-h-screen flex items-center justify-center">
-      <ImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-        maxNumber={maxNumber}
-        dataURLKey="data_url"
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps,
-        }: any) => (
-          <div className="w-full max-w-md p-6 bg-white rounded-md shadow-md">
-            <div className="mb-6">
-              <Button
-                className={`w-full py-2 px-4 border border-dashed bg-transparent hover:bg-slate-100 border-gray-400 rounded-md transition-colors ${
-                  isDragging ? 'border-red-500 text-red-500' : 'text-gray-700'
-                }`}
-                onClick={onImageUpload}
-                {...dragProps}
-              >
-                Click or Drop here
-              </Button>
-            </div>
-            {imageList.length > 0 && (
-              <Button
-                className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
-                onClick={onImageRemoveAll}
-              >
-                Remove all images
-              </Button>
-            )}
+    <div className="mt-10 container">
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="images"
+          control={control}
+          defaultValue={[]}
+          rules={{
+            validate: (value) =>
+              value.length > 0 || 'PLZ Upload at Least One Image',
+          }}
+          render={({ field }) => (
+            <>
+              <Upload
+                maxNumber={1}
+                {...field}
+                title="Birth Certificate"
+                desc="(For Kids And Grade 1 only)"
+              />
+              {errors.images && (
+                <p className="text-red-400">{errors?.images?.message}</p>
+              )}
+            </>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form> */}
+      {/* upload without validation or form */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 justify-center ">
+        <div className="">
+          <Upload
+            maxNumber={1}
+            title="Birth Certificate"
+            desc="(For Kids And Grade 1 only)"
+          />
+        </div>
+        <div className="">
+          <Upload
+            maxNumber={1}
+            title="Family National Id"
+            desc="(Father ,Mother ,Student)"
+          />
+        </div>
 
-            <div className="mt-6">
-              {imageList.map((image: any, index: any) => (
-                <div key={index} className="mb-4">
-                  <img
-                    src={image['data_url']}
-                    alt=""
-                    className="w-full rounded-md"
-                  />
-                  <div className="flex justify-between items-center mt-2">
-                    <Button
-                      className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                      onClick={() => onImageUpdate(index)}
-                    >
-                      Update
-                    </Button>
-                    <Button
-                      className="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
-                      onClick={() => onImageRemove(index)}
-                    >
-                      Remove
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </ImageUploading>
+        <div className="">
+          <Upload
+            maxNumber={1}
+            title="4*6 Cm Photograph"
+            desc="(For Kids And Grade 1 only)"
+          />
+        </div>
+
+        <div className="">
+          <Upload
+            maxNumber={6}
+            title="Student Immuniazation"
+            desc="(Kindergration Only)"
+          />
+        </div>
+        <div className="  ">
+          <Upload
+            maxNumber={1}
+            title="Medical Report"
+            desc="(Visual & Hearing)"
+          />
+        </div>
+        <div className="  ">
+          <Upload maxNumber={1} title="Disease Free Certificate" desc="()" />
+        </div>
+      </div>
     </div>
   );
 }
