@@ -73,12 +73,14 @@ export default function Upload({ maxNumber, title, desc }: any) {
 
             <div className="mt-6">
               {imageList.map((image: any, index: any) => (
-                <div key={index} className="mb-4">
-                  <img
-                    src={image['data_url']}
-                    alt=""
-                    className="w-full rounded-md h-44 "
-                  />
+                <div key={index} className="">
+                  <div className="flex justify-center">
+                    <img
+                      src={image['data_url']}
+                      alt=""
+                      className="w-full rounded-md h-48 "
+                    />
+                  </div>
                   <div className="flex justify-between items-center mt-2">
                     <Button
                       className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
