@@ -12,6 +12,7 @@ const navAuthLinks = [
 const navLinks = [
   { name: 'My Applicaitons', href: '/myApplication' },
   { name: 'Submit New Application', href: '/admission' },
+  { name: 'Admin Panel', href: '/admin-panel' },
 ];
 
 function Navbar() {

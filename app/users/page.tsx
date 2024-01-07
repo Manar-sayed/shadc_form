@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { User, columns } from '../admin-panel/columns';
 import { DataTable } from '@/components/DataTable';
 async function getUsers(): Promise<User[]> {

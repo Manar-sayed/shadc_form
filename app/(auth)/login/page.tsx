@@ -46,7 +46,7 @@ function Login({}) {
   };
 
   return (
-    <section className="py-5  bg-gray-100 ">
+    <section className="py-5  bg-gray-100 h-[calc(100vh-249px)]">
       <div className="container mx-auto px-4 w-full md:w-[40%]">
         <div className="grid grid-cols-1 bg-gray-50 py-4 px-8 border-[1px] border-gray-100">
           {/* <h3 className="text-lg md:text-2xl text-center font-bold text-[#86908E]">
@@ -104,7 +104,7 @@ function Login({}) {
                   }}
                 />
               </div>
-              <div className="flex items-center space-x-2 mb-4">
+              {/* <div className="flex items-center space-x-2 mb-4">
                 <FormField
                   control={form.control}
                   name="rememberMe"
@@ -123,7 +123,7 @@ function Login({}) {
                     </FormItem>
                   )}
                 />
-              </div>
+              </div> */}
               <Button
                 type="submit"
                 className="w-full !text-white rounded-lg shadow-md border-2 border-primary-color border-solid text-secondary-color bg-primary-color text-base md:text-xl font-semibold duration-300 "

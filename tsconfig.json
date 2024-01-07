@@ -28,6 +28,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/page.tsx"
-, "app/users/hydtation-safe.jsx"  ],
+, "app/users/hydtation-safe.jsx", "app/test2/page.tsx"  ],
   "exclude": ["node_modules"]
 }
