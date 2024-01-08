@@ -279,6 +279,7 @@ function FormFull() {
   type Inputs = z.infer<typeof FormDataSchema>;
 
   type FieldName = keyof Inputs;
+
   const next = async () => {
     const fields = steps[currentStep].fields;
     const output = await form.trigger(fields as FieldName[], {
