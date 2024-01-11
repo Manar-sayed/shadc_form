@@ -2,6 +2,7 @@ import TestForm from '@/components/FORM/testForm';
 import UserEmail from '@/components/UserNameEmail';
 import FormFull from '@/components/formTwo';
 import FormWork from '@/components/formwork';
+import ImageForm from './test_imageForm/page';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
         {/* <FormFull /> */}
         {/* <FormWork /> */}
         <TestForm />
+        {/* <ImageForm/> */}
       </div>
     </section>
   );

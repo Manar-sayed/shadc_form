@@ -79,7 +79,7 @@
 'use client';
 import * as z from 'zod';
 import React, { useState } from 'react';
-import { FieldName, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import 'react-phone-number-input/style.css';
@@ -90,8 +90,8 @@ import { motion } from 'framer-motion';
 import StudentForm from './StudentForm';
 import FatherForm from './FatherForm';
 import MotherForm from './MotherForm';
-import PhoneInput from 'react-phone-number-input';
 import { BadgeCheck, CalendarCheck2 } from 'lucide-react';
+import ImageForm from './ImageForm';
 
 const FormDataSchema = z.object({
   firstName: z
@@ -183,6 +183,29 @@ const FormDataSchema = z.object({
     .string()
     .min(1, 'Email is required')
     .email('Invalid email address'),
+  // images
+  birthCertificateimage: z.custom((value: any) => {
+    return value;
+  }),
+  familyNationalId: z.custom((value: any) => {
+    return value;
+  }),
+  CmPhotograph: z.custom((value: any) => {
+    return value;
+  }),
+  studentImmuniazation: z.custom((value: any) => {
+    return value;
+  }),
+  medicalReport: z.custom((value: any) => {
+    return value;
+  }),
+  diseaseFree: z.custom((value: any) => {
+    return value;
+  }),
+  aramcoID: z.custom((value: any) => {
+    return value;
+  }),
+  //images
 
   fatherwork: z.string().min(3, 'father work is required'),
   expDate: z.date({
@@ -252,6 +275,7 @@ const FormDataSchema = z.object({
 function TestForm() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+
   const delta = currentStep - previousStep;
 
   const form = useForm<z.infer<typeof FormDataSchema>>({
@@ -347,7 +371,19 @@ function TestForm() {
         'mothernationality',
       ],
     },
-    { id: 'Payment' },
+    {
+      id: 'Image Upload',
+      fields: [
+        'birthCertificateimage',
+        'familyNationalId',
+        'CmPhotograph',
+        'studentImmuniazation',
+        'medicalReport',
+        'diseaseFree',
+        'aramcoID',
+      ],
+    },
+    { id: 'Payment', fields: [] },
   ];
   const processForm = async (values: z.infer<typeof FormDataSchema>) => {
     console.log({ values });
@@ -408,6 +444,15 @@ function TestForm() {
               transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
               <MotherForm form={form} />
+            </motion.div>
+          )}
+          {currentStep === 3 && (
+            <motion.div
+              initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <ImageForm form={form} />
             </motion.div>
           )}
           {currentStep === steps.length - 1 && (

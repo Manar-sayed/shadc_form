@@ -15,6 +15,8 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CalendarCheck2 } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
+import Upload from '../upload/uploadComp';
+import ImageUploader from '../upload/uploadComp';
 
 interface FatherFormProps {
   form: UseFormReturn<z.infer<any>>;
@@ -118,6 +120,7 @@ function FatherForm({ form }: any) {
         </div>
 
         {/* father phone */}
+
         <div>
           <FormLabel className="block mb-3">Father Mobile No</FormLabel>
           <Controller
@@ -145,6 +148,86 @@ function FatherForm({ form }: any) {
             )}
           />
         </div>
+
+        {/* image */}
+        {/* <div>
+          <FormField
+            control={form.control}
+            name="images"
+            render={({ field }) => (
+              <FormItem className="bg-transparent">
+                <FormLabel className="block text-sm font-medium leading-6 ">
+                  images
+                </FormLabel>
+                <FormControl>
+                  <ImageUploader
+                    images={form.getValues('images')}
+                    onChange={(imageList: any, addUpdateIndex: any) => {
+                      form.setValue('images', imageList);
+                    }}
+                    maxNumber={69}
+                    dataURLKey="data_url"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div> */}
+        {/* <div>
+          <FormLabel className="block mb-3">upload image</FormLabel>
+          <Controller
+            name="images"
+            control={form.control}
+            defaultValue={[]}
+            rules={{
+              validate: (value) =>
+                value.length > 0 || 'PLZ Upload at Least One Image',
+            }}
+            render={({ field, fieldState }) => (
+              <>
+                <Upload
+                  maxNumber={1}
+                  {...field}
+                  title="Birth Certificate"
+                  desc="(For Kids And Grade 1 only)"
+                />
+
+                {fieldState.error && (
+                  <FormMessage>{fieldState.error.message}</FormMessage>
+                )}
+              </>
+            )}
+          />
+        </div> */}
+        {/* 
+        <div>
+          <FormLabel className="block mb-3">upload image</FormLabel>
+          <Controller
+            name="images"
+            control={form.control}
+            defaultValue={[]}
+            rules={{
+              validate: (value) =>
+                value.length > 0 || 'PLZ Upload at Least One Image',
+            }}
+            render={({ field, fieldState }) => (
+              <>
+                <Upload
+                  setImages={setImages}
+                  maxNumber={1}
+                  {...field}
+                  title="Birth Certificate"
+                  desc="(For Kids And Grade 1 only)"
+                />
+
+                {fieldState.error && (
+                  <FormMessage>{fieldState.error.message}</FormMessage>
+                )}
+              </>
+            )}
+          />
+        </div> */}
       </div>
 
       <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3">
