@@ -1,4 +1,7 @@
-import { User, columns } from '../admin-panel/columns';
+import {
+  User,
+  columns,
+} from '../(protected)/(admin)/search-applications/columns';
 import { DataTable } from '@/components/DataTable';
 async function getUsers(): Promise<User[]> {
   const res = await fetch(

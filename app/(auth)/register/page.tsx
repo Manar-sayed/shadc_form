@@ -14,8 +14,8 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
-import PhoneComponent from '@/components/PhoneComponent';
-import HomeTitle from '@/components/HomeTitle';
+import PhoneComponent from '@/components/phone-component';
+import HomeTitle from '@/components/home-title';
 
 const formSchema = z
   .object({

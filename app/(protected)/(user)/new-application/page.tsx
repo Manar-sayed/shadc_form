@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import HomeTitle from '@/components/HomeTitle';
+import HomeTitle from '@/components/home-title';
 export default function AdmissionPage() {
   const admissionItems = [
     {
@@ -28,22 +28,34 @@ export default function AdmissionPage() {
       href: '/form?type=non-aramco',
       isAramco: false,
     },
+    {
+      image: '/images/img-02.png',
+      title: 'DAS ADMISSION',
+      description: 'Dhahran Ahliyya Schools admission form for DAS Employees.',
+      href: '/form?type=non-aramco',
+      isAramco: false,
+      isDAS: true,
+    },
   ];
   return (
-    <section className="py-5  bg-gray-100 ">
-      <div className="container mx-auto px-4 w-full lg:w-[60%] ">
-        <HomeTitle title="Admission" />
-        <div className="flex justify-center gap-5 mt-8 flex-wrap md:flex-nowrap">
+    <section className="py-5  bg-gray-100 h-full">
+      <div className="container mx-auto px-4 w-full  ">
+        <HomeTitle title="Choose Admission form" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-5 mt-5 px-3 sm:px-12">
           {admissionItems.map((item, index) => (
             <Card key={index} className="flex flex-col justify-between ">
               <CardHeader className="relative overflow-hidden">
-                <div className="h-[293px]">
+                <div
+                  className={`h-[293px] ${
+                    item.isDAS && 'flex justify-center items-center'
+                  }`}
+                >
                   <Image
                     src={item.image}
                     alt="image"
-                    width={438}
-                    height={293}
-                    className="w-full h-full"
+                    width={item.isDAS ? 187 : 438}
+                    height={item.isDAS ? 157 : 293}
+                    className={`${!item.isDAS && 'w-full h-full'}`}
                   />
                 </div>
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-black/60 w-full p-3 text-center">
@@ -53,7 +65,7 @@ export default function AdmissionPage() {
               <CardContent className="py-3 text-center">
                 <p className="text-[#B1B1B1] text-lg">{item.description}</p>
 
-                <ul className="my-3">
+                {/* <ul className="my-3">
                   <li className="flex items-center gap-2 mb-3">
                     <Image
                       src={'/images/icon-1.png'}
@@ -61,7 +73,7 @@ export default function AdmissionPage() {
                       height={28}
                       alt="icon-1"
                     />
-                    <Link href="/" className="text-lg font-bold">
+                    <Link href="/form" className="text-lg font-bold">
                       Fill new form
                     </Link>
                   </li>
@@ -87,12 +99,12 @@ export default function AdmissionPage() {
                       Required submitted
                     </Link>
                   </li>
-                </ul>
+                </ul> */}
               </CardContent>
               <CardFooter className="flex justify-between">
                 <Button variant="link">
                   <Link href={item.href} className="">
-                    Find more
+                    Fill Application
                   </Link>
                 </Button>
               </CardFooter>

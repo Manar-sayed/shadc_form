@@ -36,10 +36,6 @@ async function AdminPageScreen() {
   return (
     <section className="p-4 bg-gray-50 h-screen">
       <div className="container px-4 mx-auto">
-        <h3 className="font-bold text-xl border-b border-sky-500/40 pb-2 mb-3">
-          Admin User
-        </h3>
-
         <p className="text-primary-color font-semibold text-center my-5">
           Search All Applications
         </p>
