@@ -88,3 +88,14 @@
 .PhoneInputInput {
   @apply pl-2;
 }
+
+/* .CircularProgressbar .CircularProgressbar-path {
+  stroke: #fff !important;
+}
+
+.CircularProgressbar .CircularProgressbar-trail {
+  stroke: #ffffff57 !important;
+} */
+/* .CircularProgressbar .CircularProgressbar-text {
+  fill: white !important;
+} */

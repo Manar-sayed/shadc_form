@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
-import HomeTitle from '@/components/HomeTitle';
+import HomeTitle from '@/components/home-title';
 
 const formSchema = z.object({
   email: z
@@ -46,7 +46,7 @@ function Login({}) {
   };
 
   return (
-    <section className="py-5  bg-gray-100 h-[calc(100vh-249px)]">
+    <section className="py-5  bg-gray-100 h-[calc(100vh-200px)] flex items-center">
       <div className="container mx-auto px-4 w-full md:w-[40%]">
         <div className="grid grid-cols-1 bg-gray-50 py-4 px-8 border-[1px] border-gray-100">
           {/* <h3 className="text-lg md:text-2xl text-center font-bold text-[#86908E]">

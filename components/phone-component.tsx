@@ -3,7 +3,11 @@ import { Controller } from 'react-hook-form';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { FormMessage } from './ui/form';
-function PhoneComponent({ control }: any) {
+interface PhoneComponentProps {
+  control: any;
+  defaultValue?: string; // Add the defaultValue prop
+}
+function PhoneComponent({ control, defaultValue }: PhoneComponentProps) {
   return (
     <>
       <Controller
@@ -12,6 +16,7 @@ function PhoneComponent({ control }: any) {
         rules={{
           required: true,
         }}
+        defaultValue={defaultValue}
         render={({ field: { onChange, value }, fieldState }) => (
           <div className="div-dir">
             <PhoneInput

@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
-import HomeTitle from '@/components/HomeTitle';
+import HomeTitle from '@/components/home-title';
 const formSchema = z
   .object({
     password: z
@@ -50,7 +50,7 @@ function ForgotPassword({}) {
   };
 
   return (
-    <section className="py-5   ">
+    <section className="py-5 h-[calc(100vh-200px)] flex items-center ">
       <div className="container mx-auto px-4 w-full md:w-[40%]">
         <div className="grid grid-cols-1 bg-gray-50 py-4 px-8 border-[1px] border-gray-100">
           {/* <h3 className="text-lg md:text-2xl text-center font-bold text-[#86908E]">

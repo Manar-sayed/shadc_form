@@ -30,6 +30,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { downloadToExcel } from '@/lib/xlsx';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -72,7 +73,7 @@ export function DataTable<TData, TValue>({
   };
 
   return (
-    <>
+    <div className="pb-4">
       <div className="grid grid-cols-2 gap-3 mt-5 w-[80%] mx-auto">
         <div>
           <label htmlFor="fromDate" className="block mb-2 text-black">
@@ -255,6 +256,12 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
-    </>
+
+      <div className="flex justify-end w-full my-4">
+        <Button variant={'customOutline'} onClick={() => downloadToExcel(data)}>
+          Export to Excel
+        </Button>
+      </div>
+    </div>
   );
 }
