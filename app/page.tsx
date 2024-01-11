@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -24,6 +25,20 @@ export default function Home() {
             Login
           </Link>
         </div>
+=======
+import TestForm from '@/components/FORM/testForm';
+import UserEmail from '@/components/UserNameEmail';
+import FormFull from '@/components/formTwo';
+import FormWork from '@/components/formwork';
+
+export default function Home() {
+  return (
+    <section className="py-24">
+      <div className="container">
+        {/* <FormFull /> */}
+        {/* <FormWork /> */}
+        <TestForm />
+>>>>>>> 4b106bbcf11ea8560767212e56821e81b0d9a90b
       </div>
     </section>
   );
