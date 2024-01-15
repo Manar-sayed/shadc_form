@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <>
       <nav className="py-3 bg-gray-300/70 px-6 flex justify-between items-center border-b border-white relative">
-        <h3>Welcome,Name</h3>
+        <h3>Welcome,Walaa</h3>
         <UserButton />
       </nav>
     </>

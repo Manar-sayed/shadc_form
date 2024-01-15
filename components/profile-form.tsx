@@ -21,6 +21,7 @@ import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
 import { ProfileSchema } from '@/schemas';
 import PhoneComponent from '@/components/phone-component';
+import DialogForm from './dialog-form';
 
 const ProfileForm = () => {
   const [error, setError] = useState<string | undefined>();
@@ -89,7 +90,7 @@ const ProfileForm = () => {
                   </FormItem>
                 )}
               />
-              <FormField
+              {/* <FormField
                 control={form.control}
                 name="password"
                 render={({ field }) => (
@@ -114,7 +115,7 @@ const ProfileForm = () => {
                     <FormMessage />
                   </FormItem>
                 )}
-              />
+              /> */}
 
               <div className="mb-2.5">
                 <FormLabel className="text-primary-color">Phone</FormLabel>
@@ -126,9 +127,13 @@ const ProfileForm = () => {
             </div>
             <FormError message={error} />
             <FormSuccess message={success} />
-            <Button type="submit" disabled={isPending}>
-              Save
-            </Button>
+            <div className="flex items-center justify-between">
+              <Button type="submit" size={'sm'} disabled={isPending}>
+                Save
+              </Button>
+
+              <DialogForm />
+            </div>
           </form>
         </Form>
       </div>

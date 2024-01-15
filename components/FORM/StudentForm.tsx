@@ -341,7 +341,7 @@ function StudentForm({ form }: any) {
             render={({ field: { onChange, value }, fieldState }) => (
               <>
                 <div
-                  className={`border-2 rounded-sm  border-gray-200 flex justify-between items-center px-3 `}
+                  className={`border rounded-sm  border-gray-200 flex justify-between items-center px-3 mt-[17px]`}
                 >
                   <ReactDatePicker
                     placeholderText="Select Date Picker"
@@ -358,7 +358,9 @@ function StudentForm({ form }: any) {
                   <CalendarCheck2 className=" text-gray-300" />
                 </div>
                 {fieldState.error && (
-                  <FormMessage>{fieldState.error.message}</FormMessage>
+                  <FormMessage className="mt-2">
+                    {fieldState.error.message}
+                  </FormMessage>
                 )}
               </>
             )}

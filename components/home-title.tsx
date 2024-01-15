@@ -5,7 +5,7 @@ interface HomeTitleProps {
 }
 function HomeTitle({ title }: HomeTitleProps) {
   return (
-    <h3 className="text-lg md:text-4xl text-center font-bold text-primary-color mt-2">
+    <h3 className="text-lg md:text-3xl text-center font-bold text-primary-color mt-2">
       {title}
     </h3>
   );

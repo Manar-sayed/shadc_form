@@ -13,6 +13,8 @@ import {
 import { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { MoreHorizontal, ArrowUpDown } from 'lucide-react';
+import { useState } from 'react';
+import Cell from './cell';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -23,6 +25,7 @@ export type User = {
   email: string;
   image: string;
   lastSeen: string;
+  role: 'USER' | 'ADMIN';
 };
 
 export const columns: ColumnDef<User>[] = [
@@ -70,6 +73,13 @@ export const columns: ColumnDef<User>[] = [
       const formatted = format(date, 'MM/dd/yyyy');
 
       return <div className="text-left font-medium">{formatted}</div>;
+    },
+  },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+    cell: ({ row }) => {
+      return <Cell row={row} />;
     },
   },
   // {

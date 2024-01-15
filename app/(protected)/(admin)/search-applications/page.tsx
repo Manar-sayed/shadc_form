@@ -3,6 +3,7 @@ import React from 'react';
 import FormPanel from './FormPanel';
 import { User, columns } from './columns';
 import { DataTable } from '@/components/DataTable';
+import HomeTitle from '@/components/home-title';
 
 async function getUsers(): Promise<User[]> {
   const res = await fetch(
@@ -34,19 +35,16 @@ async function AdminPageScreen() {
   //   console.log(formData);
   // };
   return (
-    <section className="p-4 bg-gray-50 h-screen">
+    <section className="p-4 bg-gray-50 h-full">
       <div className="container px-4 mx-auto">
-        <p className="text-primary-color font-semibold text-center my-5">
-          Search All Applications
-        </p>
-
+        <HomeTitle title="Search All Applications" />
         {/* <FormPanel
           handleSubmit={handleSubmit}
           handleInputChange={handleInputChange}
           formData={formData}
         /> */}
 
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={data} isUser={false} />
       </div>
     </section>
   );
