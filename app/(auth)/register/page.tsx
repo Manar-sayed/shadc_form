@@ -16,6 +16,11 @@ import { Checkbox } from '@/components/ui/checkbox';
 import Link from 'next/link';
 import PhoneComponent from '@/components/phone-component';
 import HomeTitle from '@/components/home-title';
+import { RegisterSchema } from '@/schemas';
+import { useState, useTransition } from 'react';
+import { register } from '@/actions/register';
+import { FormError } from '@/components/form-error';
+import { FormSuccess } from '@/components/form-success';
 
 const formSchema = z
   .object({
@@ -42,7 +47,7 @@ const formSchema = z
     phone: z
       .string()
       .refine((data) => data !== '', { message: 'Please write your phone.' }),
-    terms: z.boolean().default(false).optional(),
+    // terms: z.boolean().default(false).optional(),
   })
   .refine(
     (data) => {
@@ -54,20 +59,29 @@ const formSchema = z
     }
   );
 export default function Register() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
+  const [isPending, startTransition] = useTransition();
+  const form = useForm<z.infer<typeof RegisterSchema>>({
+    resolver: zodResolver(RegisterSchema),
     defaultValues: {
       name: '',
       email: '',
       password: '',
       confirmPassword: '',
       phone: '',
-      terms: false,
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+    setError('');
+    setSuccess('');
+    startTransition(() => {
+      register(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
   };
   return (
     <section className="py-5  bg-gray-100 ">
@@ -76,7 +90,7 @@ export default function Register() {
           <HomeTitle title="Create Account" />
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(handleSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="mt-5  shadow-sm "
             >
               <div className="mb-2.5">
@@ -170,7 +184,7 @@ export default function Register() {
                 <FormLabel className="text-primary-color">Phone</FormLabel>
                 <PhoneComponent control={form.control} />
               </div>
-              <div className="flex items-center space-x-2 mb-2.5">
+              {/* <div className="flex items-center space-x-2 mb-2.5">
                 <FormField
                   control={form.control}
                   name="terms"
@@ -189,12 +203,16 @@ export default function Register() {
                     </FormItem>
                   )}
                 />
-              </div>
+              </div> */}
+
+              <FormError message={error} />
+              <FormSuccess message={success} />
               <Button
                 type="submit"
-                className="w-full mt-2.5 !text-white rounded-lg shadow-md border-2 border-primary-color border-solid text-secondary-color bg-primary-color text-base md:text-xl font-semibold duration-300 "
+                disabled={isPending}
+                className="w-full mt-4"
               >
-                Create Account
+                Create an account
               </Button>
             </form>
           </Form>

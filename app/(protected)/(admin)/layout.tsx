@@ -1,5 +1,5 @@
 import Header from '@/components/header';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/sidebar';
 import { Toaster } from '@/components/ui/sonner';
 import { AdminMenuItems } from '@/lib/staticData';

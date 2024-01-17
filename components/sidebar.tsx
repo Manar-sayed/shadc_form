@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { ArrowLeftCircle, ArrowRightCircle, LogOut } from 'lucide-react';
+import { logout } from '@/actions/logout';
 
 interface MenuItem {
   id: number;
@@ -22,7 +23,9 @@ function Sidebar({ MenuItems }: SidebarProps) {
   );
 
   const pathname = usePathname();
-
+  const onClick = () => {
+    logout();
+  };
   useEffect(() => {
     const resizeW = () => {
       if (typeof window !== 'undefined') {
@@ -46,39 +49,37 @@ function Sidebar({ MenuItems }: SidebarProps) {
     }
   }, [deviceSize, setOpen]);
 
-  const renderSideBarMenus = MenuItems.map(
-    ({ name, link, icon, id }, i) => {
-      const isActive = pathname.startsWith(link);
-      return (
-        <Link
-          href={link}
-          key={id}
-          className={`cursor-pointer group flex items-center text-xs text-gray-500 capitalize font-normal  gap-3.5  px-1 pb-1.5 hover:text-secondary-color rounded-md ${
-            isActive && 'text-primary-color font-semibold'
+  const renderSideBarMenus = MenuItems.map(({ name, link, icon, id }, i) => {
+    const isActive = pathname.startsWith(link);
+    return (
+      <Link
+        href={link}
+        key={id}
+        className={`cursor-pointer group flex items-center text-xs text-gray-500 capitalize font-normal  gap-3.5  px-1 pb-1.5 hover:text-secondary-color rounded-md ${
+          isActive && 'text-primary-color font-semibold'
+        }`}
+      >
+        <div className="w-[24px] h-[24px]">{icon}</div>
+        <h3
+          style={{
+            transitionDelay: `${id + 3}00ms`,
+          }}
+          className={`whitespace-pre duration-500 ${
+            !open && 'opacity-0 translate-x-28  overflow-hidden  '
           }`}
         >
-          <div className="w-[24px] h-[24px]">{icon}</div>
-          <h3
-            style={{
-              transitionDelay: `${id + 3}00ms`,
-            }}
-            className={`whitespace-pre duration-500 ${
-              !open && 'opacity-0 translate-x-28  overflow-hidden  '
-            }`}
-          >
-            {name}
-          </h3>
-          <h3
-            className={`${open && 'hidden'} ${
-              isActive && 'text-primary-color'
-            } absolute left-28  z-20 bg-white font-semibold whitespace-pre text-gray-900 rounded-sm drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14  group-hover:duration-300 group-hover:w-fit  `}
-          >
-            {name}
-          </h3>
-        </Link>
-      );
-    }
-  );
+          {name}
+        </h3>
+        <h3
+          className={`${open && 'hidden'} ${
+            isActive && 'text-primary-color'
+          } absolute left-28  z-20 bg-white font-semibold whitespace-pre text-gray-900 rounded-sm drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14  group-hover:duration-300 group-hover:w-fit  `}
+        >
+          {name}
+        </h3>
+      </Link>
+    );
+  });
 
   return (
     <div
@@ -107,6 +108,7 @@ function Sidebar({ MenuItems }: SidebarProps) {
         {renderSideBarMenus}
 
         <button
+          onClick={onClick}
           className={`border-0 outline-none bg-transparent group flex items-center text-xs text-gray-500 capitalize font-normal  gap-3.5  px-1 pb-1.5 hover:text-primary-color `}
         >
           <div className="h-[24px] w-[24px] ">

@@ -19,39 +19,41 @@ import {
 import { Input } from '@/components/ui/input';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
-import { ProfileSchema } from '@/schemas';
+import { ProfileSchema, SettingsSchema } from '@/schemas';
 import PhoneComponent from '@/components/phone-component';
 import DialogForm from './dialog-form';
+import { settings } from '@/actions/settings';
+import { useSession } from 'next-auth/react';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const ProfileForm = () => {
+  const user = useCurrentUser();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
-  // const { update } = useSession();
+  const { update } = useSession();
   const [isPending, startTransition] = useTransition();
-
-  const form = useForm<z.infer<typeof ProfileSchema>>({
-    resolver: zodResolver(ProfileSchema),
+  // console.log('user', user);
+  const form = useForm<z.infer<typeof SettingsSchema>>({
+    resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      name: 'walaa moustafa' || '',
-      email: 'walaaemam077@gmail.com' || '',
-      password: '',
-      newPassword: '',
-      phone: '+96688899909' || '',
+      name: user?.name || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
     },
   });
-  const onSubmit = (values: z.infer<typeof ProfileSchema>) => {
+  const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     startTransition(() => {
-      // settings(values)
-      //   .then((data) => {
-      //     if (data.error) {
-      //       setError(data.error);
-      //     }
-      //     if (data.success) {
-      //       update();
-      //       setSuccess(data.success);
-      //     }
-      //   })
-      //   .catch(() => setError('Something went wrong!'));
+      settings(values)
+        .then((data) => {
+          if (data.error) {
+            setError(data.error);
+          }
+          if (data.success) {
+            update();
+            setSuccess(data.success);
+          }
+        })
+        .catch(() => setError('Something went wrong!'));
     });
   };
   return (
@@ -90,32 +92,6 @@ const ProfileForm = () => {
                   </FormItem>
                 )}
               />
-              {/* <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input {...field} disabled={isPending} type="password" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="newPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Password</FormLabel>
-                    <FormControl>
-                      <Input {...field} disabled={isPending} type="password" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
 
               <div className="mb-2.5">
                 <FormLabel className="text-primary-color">Phone</FormLabel>

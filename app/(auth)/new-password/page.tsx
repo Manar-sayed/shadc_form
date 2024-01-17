@@ -14,39 +14,40 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import type { Metadata } from 'next';
 import HomeTitle from '@/components/home-title';
-const formSchema = z
-  .object({
-    password: z
-      .string()
-      .min(1, { message: 'Please enter password' })
-      .min(8, { message: 'Must be between 8 to 16 characters!' })
-      .max(16, { message: 'Must be between 8 to 16 characters!' })
-      .refine((data) => data.trim(), { message: 'Should be trimmed' }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: 'Please enter confirm password' }),
-  })
-  .refine(
-    (data) => {
-      return data.password === data.confirmPassword;
-    },
-    {
-      message: 'Paswords do not match!',
-      path: ['confirmPassword'],
-    }
-  );
+import { NewPasswordSchema } from '@/schemas';
+import { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { newPassword } from '@/actions/new-password';
+import Link from 'next/link';
+import { FormError } from '@/components/form-error';
+import { FormSuccess } from '@/components/form-success';
 
 function NewPassword({}) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+
+  const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
+  const [isPending, startTransition] = useTransition();
+  const form = useForm<z.infer<typeof NewPasswordSchema>>({
+    resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
       password: '',
       confirmPassword: '',
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
+    setError('');
+    setSuccess('');
+
+    startTransition(() => {
+      newPassword(values, token).then((data) => {
+        console.log('data from new password', data);
+        setError(data?.error);
+        setSuccess(data?.success);
+      });
+    });
   };
 
   return (
@@ -60,7 +61,7 @@ function NewPassword({}) {
 
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(handleSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="mt-5  shadow-sm "
             >
               <div className="mb-4">
@@ -109,15 +110,27 @@ function NewPassword({}) {
                   }}
                 />
               </div>
-
+              <FormError message={error} />
+              <FormSuccess message={success} />
               <Button
                 type="submit"
-                className="w-full !text-white rounded-lg shadow-md border-2 border-primary-color border-solid text-secondary-color bg-primary-color text-base md:text-xl font-semibold duration-300 "
+                disabled={isPending}
+                className="w-full mt-4 !text-white rounded-lg shadow-md border-2 border-primary-color border-solid text-secondary-color bg-primary-color text-base md:text-xl font-semibold duration-300 "
               >
                 Reset password
               </Button>
             </form>
           </Form>
+          <div className="mt-5 flex justify-center items-center ">
+            <Button
+              variant="link"
+              className="font-normal w-full"
+              size="sm"
+              asChild
+            >
+              <Link href={'/login'}>Back to Login</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

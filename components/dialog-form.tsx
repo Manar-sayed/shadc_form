@@ -26,30 +26,37 @@ import {
   FormLabel,
   FormMessage,
 } from './ui/form';
-import { ChangePasswordSchema } from '@/schemas';
+import { ProfileSchema } from '@/schemas';
+import { changePassword } from '@/actions/change-password';
+import { useSession } from 'next-auth/react';
+import { FormError } from './form-error';
+import { FormSuccess } from './form-success';
 const DialogForm = () => {
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
+  const { update } = useSession();
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<z.infer<typeof ChangePasswordSchema>>({
-    resolver: zodResolver(ChangePasswordSchema),
+  const form = useForm<z.infer<typeof ProfileSchema>>({
+    resolver: zodResolver(ProfileSchema),
     defaultValues: {
       password: '',
       newPassword: '',
     },
   });
-  const onSubmit = (values: z.infer<typeof ChangePasswordSchema>) => {
+  const onSubmit = (values: z.infer<typeof ProfileSchema>) => {
     startTransition(() => {
-      // settings(values)
-      //   .then((data) => {
-      //     if (data.error) {
-      //       setError(data.error);
-      //     }
-      //     if (data.success) {
-      //       update();
-      //       setSuccess(data.success);
-      //     }
-      //   })
-      //   .catch(() => setError('Something went wrong!'));
+      changePassword(values)
+        .then((data) => {
+          if (data.error) {
+            setError(data.error);
+          }
+          if (data.success) {
+            update();
+            setSuccess(data.success);
+          }
+        })
+        .catch(() => setError('Something went wrong!'));
     });
   };
   return (
@@ -99,6 +106,8 @@ const DialogForm = () => {
                 )}
               />
             </div>
+            <FormError message={error} />
+            <FormSuccess message={success} />
             <DialogFooter>
               <Button type="submit" size={'sm'}>
                 Save changes
