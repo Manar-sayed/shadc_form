@@ -532,7 +532,7 @@ function TestForm() {
             type="button"
             onClick={prev}
             disabled={currentStep === 0}
-            className="rounded flex items-center justify-center py-1 text-sm font-semibold bg-green-500 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded flex items-center justify-center py-1 text-sm font-semibold bg-primary-color shadow-sm border border-primary-color  hover:bg-transparent hover:text-primary-color disabled:cursor-not-allowed disabled:opacity-50"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -554,7 +554,7 @@ function TestForm() {
             type="submit"
             onClick={next}
             disabled={currentStep === steps.length - 1}
-            className="rounded flex items-center justify-center py-1 text-sm font-semibold bg-green-500 shadow-sm ring-1 ring-inset  hover:bg-sky-50 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded flex items-center justify-center py-1 text-sm font-semibold bg-primary-color shadow-sm border border-primary-color   hover:bg-transparent hover:text-primary-color disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span>Next</span>
             <svg

@@ -115,9 +115,6 @@ const ApplicationTable = () => {
                       >
                         Show
                       </Button>
-                      <Button variant={'userEdite'} size={'sm'}>
-                        Edit
-                      </Button>
                     </td>
                   </tr>
                   <tr className="border-2-b dark:border-2-neutral-500">
@@ -139,9 +136,6 @@ const ApplicationTable = () => {
                     <td className="py-4 px-4 flex gap-2">
                       <Button variant={'userShow'} size={'sm'}>
                         Show
-                      </Button>
-                      <Button variant={'userEdite'} size={'sm'}>
-                        Edit
                       </Button>
                     </td>
                   </tr>

@@ -1,4 +1,5 @@
 'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -12,37 +13,52 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+
 import Link from 'next/link';
 import HomeTitle from '@/components/home-title';
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: 'Please enter your email address' })
-    .email({ message: 'Invalid email address!' })
-    .refine((data) => data.trim(), { message: 'Should be trimmed' }),
-  password: z
-    .string()
-    .min(1, { message: 'Please enter password' })
-    .min(8, { message: 'Must be between 8 to 16 characters!' })
-    .max(16, { message: 'Must be between 8 to 16 characters!' })
-    .refine((data) => data.trim(), { message: 'Should be trimmed' }),
-  rememberMe: z.boolean().default(false).optional(),
-});
+import { LoginSchema } from '@/schemas';
+import { useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { login } from '@/actions/login';
+import { FormError } from '@/components/form-error';
+import { FormSuccess } from '@/components/form-success';
 
 function Login({}) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email already in use with diffrent provider'
+      : '';
+
+  const [error, setError] = useState<string | undefined>('');
+  const [success, setSuccess] = useState<string | undefined>('');
+  const [isPending, startTransition] = useTransition();
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
       password: '',
-      rememberMe: false,
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    setError('');
+    setSuccess('');
+    startTransition(() => {
+      login(values)
+        .then((data) => {
+          console.log('data from login', data);
+          if (data?.error) {
+            form.reset();
+            setError(data?.error);
+          }
+          if (data?.success) {
+            form.reset();
+            setSuccess(data?.success);
+          }
+        })
+        .catch(() => setError('Something went wrong!'));
+    });
   };
 
   return (
@@ -55,7 +71,7 @@ function Login({}) {
           <HomeTitle title="Login" />
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(handleSubmit)}
+              onSubmit={form.handleSubmit(onSubmit)}
               className="mt-5  shadow-sm "
             >
               <div className="mb-4">
@@ -104,29 +120,12 @@ function Login({}) {
                   }}
                 />
               </div>
-              {/* <div className="flex items-center space-x-2 mb-4">
-                <FormField
-                  control={form.control}
-                  name="rememberMe"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 ">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-
-                      <FormLabel className="text-primary-color">
-                        Remember me
-                      </FormLabel>
-                    </FormItem>
-                  )}
-                />
-              </div> */}
+              <FormError message={error || urlError} />
+              <FormSuccess message={success} />
               <Button
                 type="submit"
-                className="w-full !text-white rounded-lg shadow-md border-2 border-primary-color border-solid text-secondary-color bg-primary-color text-base md:text-xl font-semibold duration-300 "
+                disabled={isPending}
+                className="w-full mt-4 !text-white rounded-lg shadow-md border-2 border-primary-color border-solid text-secondary-color bg-primary-color text-base md:text-xl font-semibold duration-300 "
               >
                 Login
               </Button>
@@ -135,7 +134,7 @@ function Login({}) {
 
           <div className="mt-5 flex justify-between items-center ">
             <Link
-              href="/forgot-password"
+              href="/reset-password"
               className="text-sky-500 decoration-sky-500 underline "
             >
               Forgot your password

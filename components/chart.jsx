@@ -67,7 +67,7 @@ const data = [
 export default function Chart() {
   return (
     <>
-      <ResponsiveContainer width="100%" height={'500px'} aspect={2 / 1}>
+      <ResponsiveContainer className={'w-full h-[500px]'} aspect={2 / 1}>
         <BarChart
           width={500}
           height={300}
@@ -80,7 +80,7 @@ export default function Chart() {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" fontSize={12} />
+          <XAxis dataKey="name" fontSize={12} className=" rotate-180" />
           <YAxis />
           <Tooltip />
           {/* <Legend /> */}
