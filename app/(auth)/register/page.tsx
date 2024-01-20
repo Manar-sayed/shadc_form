@@ -22,42 +22,6 @@ import { register } from '@/actions/register';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
 
-const formSchema = z
-  .object({
-    name: z
-      .string()
-      .min(1, { message: 'Please enter your name.' })
-      .min(3, { message: 'Must be between 3 to 16 characters.' })
-      .max(16, { message: 'Must be between 3 to 16 characters.' }),
-    email: z
-      .string()
-      .min(1, { message: 'Please enter your email address.' })
-      .email({ message: 'Invalid email address!' })
-      .refine((data) => data.trim(), { message: 'Should be trimmed.' }),
-    password: z
-      .string()
-      .min(1, { message: 'Please enter password' })
-      .min(8, { message: 'Must be between 8 to 16 characters!' })
-      .max(16, { message: 'Must be between 8 to 16 characters!' })
-      .refine((data) => data.trim(), { message: 'Should be trimmed.' }),
-
-    confirmPassword: z
-      .string()
-      .min(1, { message: 'Please enter confirm password' }),
-    phone: z
-      .string()
-      .refine((data) => data !== '', { message: 'Please write your phone.' }),
-    // terms: z.boolean().default(false).optional(),
-  })
-  .refine(
-    (data) => {
-      return data.password === data.confirmPassword;
-    },
-    {
-      message: 'Paswords do not match!',
-      path: ['confirmPassword'],
-    }
-  );
 export default function Register() {
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
@@ -79,7 +43,11 @@ export default function Register() {
     startTransition(() => {
       register(values).then((data) => {
         setError(data.error);
-        setSuccess(data.success);
+        if (data.success) {
+          setSuccess(data.success);
+          // redirect('/login');
+          window.location.href = '/login';
+        }
       });
     });
   };
@@ -217,10 +185,10 @@ export default function Register() {
             </form>
           </Form>
 
-          <div className="mt-3 text-lg flex justify-center items-center gap-1 text-gray-900 ">
+          <div className="mt-3 text-base md:text-lg flex justify-center items-center gap-1 text-gray-900 ">
             <span>Already have an account?</span>
             <Link
-              href="/login"
+              href="/"
               className="text-sky-500 underline decoration-sky-500"
             >
               Login

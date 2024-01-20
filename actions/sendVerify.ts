@@ -22,6 +22,7 @@ export const verifyCode = async (values: z.infer<typeof ResetSchema>) => {
       data: {
         email,
         verificationCode: verificationCode.toString(),
+        expires,
       },
     });
     const message = `رمز التحقق الخاص بك هو ${verificationCode}`;

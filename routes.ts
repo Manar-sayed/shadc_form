@@ -33,4 +33,13 @@ export const apiAuthPrefix = '/api/auth';
  */
 export const DEFAULT_LOGIN_REDIRECT_USER = '/home';
 export const DEFAULT_LOGIN_REDIRECT_ADMIN = '/all-applications';
+export const DEFAULT_NO_PERMISSION = '/no-permission';
 export const testRoute = '/test';
+
+export const adminRoutes = [
+  '/admin-profile',
+  '/all-applications',
+  '/search-applications',
+  '/upload-applications',
+  '/users-app',
+];

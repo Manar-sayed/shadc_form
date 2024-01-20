@@ -1,15 +1,22 @@
 import { DataTable } from '@/components/DataTable';
-import { User, columns } from '../search-applications/columns';
+import { User, columns } from './columns';
 import HomeTitle from '@/components/home-title';
-async function getUsers(): Promise<User[]> {
-  const res = await fetch(
-    'https://64a6f5fc096b3f0fcc80e3fa.mockapi.io/api/users'
-  );
-  const data = await res.json();
-  return data;
+
+async function getUsers() {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users`, {
+    cache: 'no-store',
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return res.json();
 }
 const Users = async () => {
   const data = await getUsers();
+
+  console.log('data', data);
   return (
     <section className="p-4 bg-gray-50 h-full">
       <div className="container px-4 mx-auto">

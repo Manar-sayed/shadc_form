@@ -32,11 +32,6 @@ const UserButton = () => {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40 " align="end">
-        <DropdownMenuItem className="">
-          <Link href={'/all-applications'} className="flex w-full h-full ">
-            <UserCog className="h-5 w-5 mr-2" /> Admin
-          </Link>
-        </DropdownMenuItem>
         <LogoutButton>
           <DropdownMenuItem onClick={onClick} className=" cursor-pointer">
             <LogOut className="h-5 w-5 mr-2" /> Logout

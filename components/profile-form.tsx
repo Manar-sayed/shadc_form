@@ -57,11 +57,11 @@ const ProfileForm = () => {
     });
   };
   return (
-    <div className="container">
-      <div className="mx-auto w-full md:w-2/3 lg:w-1/2 mt-5">
+    <div className="container px-3">
+      <div className="mx-auto w-full md:w-2/3 lg:w-1/2 mt-5 border-l border-b border-gray-300 p-4 bg-white shadow-sm relative">
         <Form {...form}>
           <form
-            className="space-y-6 w-full border-l border-b border-gray-300 p-4 bg-white shadow-sm"
+            className="space-y-6 w-full "
             onSubmit={form.handleSubmit(onSubmit)}
           >
             <div className="space-y-4">
@@ -107,11 +107,12 @@ const ProfileForm = () => {
               <Button type="submit" size={'sm'} disabled={isPending}>
                 Save
               </Button>
-
-              <DialogForm />
             </div>
           </form>
         </Form>
+        <div className="absolute bottom-4  right-3">
+          <DialogForm />
+        </div>
       </div>
     </div>
   );

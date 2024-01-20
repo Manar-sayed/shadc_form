@@ -1,7 +1,7 @@
 import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation';
 import { getUserById } from '@/data/user';
 import NextAuth from 'next-auth';
-import { UserRole } from '@prisma/client';
+// import { UserRole } from '@prisma/client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import authConfig from '@/auth.config';
 
@@ -64,7 +64,7 @@ export const {
       }
 
       if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
+        session.user.role = token.role;
       }
       if (session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
@@ -101,6 +101,8 @@ export const {
     },
   },
   adapter: PrismaAdapter(db),
+  secret: process.env.AUTH_SECRET,
+
   session: {
     strategy: 'jwt',
   },
