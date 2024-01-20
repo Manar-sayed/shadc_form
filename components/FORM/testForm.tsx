@@ -1,81 +1,3 @@
-// 'use client';
-// import React, { useState } from 'react';
-// import Form1 from './form1';
-// import Form2 from './form2';
-// import Form3 from './form3';
-// import { useForm } from 'react-hook-form';
-// import { zodResolver } from '@hookform/resolvers/zod';
-// import { Form } from '@/components/ui/form';
-// import { z } from 'zod';
-// import Steps from '../steps';
-
-// function TestForm() {
-//   const [previousStep, setPreviousStep] = useState(0);
-//   const [currentStep, setCurrentStep] = useState(0);
-//   const delta = currentStep - previousStep;
-//   const FormDataSchema = z.object({
-//     firstName: z
-//       .string()
-//       .min(3, { message: 'First name must be at least 3 char' }),
-//     // father Info----------------
-//     fatherwork: z.string().min(3, 'father work is required'),
-//     // mother Info----------------
-//     motherwork: z.string().min(3, 'mother work is required'),
-//   });
-
-//   const form = useForm<z.infer<typeof FormDataSchema>>({
-//     resolver: zodResolver(FormDataSchema),
-//     defaultValues: {
-//       firstName: '',
-//       fatherwork: '',
-//       motherwork: '',
-//     },
-//   });
-
-//   const steps = [
-//     {
-//       id: 'Student Information',
-//       component: <Form1 form={form} />,
-//     },
-//     {
-//       id: 'Father Information',
-//       component: <Form2 form={form} />,
-//     },
-//     {
-//       id: 'Mother Information',
-//       component: <Form3 form={form} />,
-//     },
-//     { id: 'Payment' },
-//   ];
-
-//   const processForm = async (values: z.infer<typeof FormDataSchema>) => {
-//     console.log({ values });
-//   };
-
-//   const next = async () => {
-//     // ... (remaining code remains the same)
-//   };
-
-//   const prev = () => {
-//     // ... (remaining code remains the same)
-//   };
-
-//   return (
-//     <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-24">
-//       <Steps currentStep={currentStep} steps={steps} />
-//       <Form {...form}>
-//         <form onSubmit={form.handleSubmit(processForm)} className="py-12 ">
-//           {steps[currentStep].component}
-
-//           {/* Remaining code remains the same */}
-//         </form>
-//       </Form>
-//     </section>
-//   );
-// }
-
-// export default TestForm;
-
 'use client';
 import * as z from 'zod';
 import React, { useState } from 'react';
@@ -96,36 +18,45 @@ import ImageForm from './ImageForm';
 const FormDataSchema = z.object({
   firstName: z
     .string()
-    .min(3, { message: 'First name must be at least 3 char' }),
+    .min(3, { message: 'First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'First name must contain only letters' }),
   thirdName: z
     .string()
-    .min(3, { message: 'Third name must be at least 3 char' }),
+    .min(3, { message: 'Third name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Third name must contain only letters' }),
   middleName: z
     .string()
-    .min(3, { message: 'middl name must be at least 3 char' }),
-  lastName: z.string().min(3, 'Last name must be at least 3 char'),
+    .min(3, { message: 'Middle name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
+  lastName: z
+    .string()
+    .min(3, { message: 'Last name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Last name must contain only letters' }),
   arabicfirstName: z
     .string()
-    .min(3, { message: 'arabic First name must be at least 3 char' }),
+    .min(3, { message: 'First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'First name must contain only letters' }),
   arabiclastName: z
     .string()
-    .min(3, { message: 'arabic last name must be at least 3 char' }),
+    .min(3, { message: 'Last name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Last name must contain only letters' }),
   arabicthirdName: z
     .string()
-    .min(3, { message: 'arabic third name must be at least 3 char' }),
+    .min(3, { message: 'Third name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Third name must contain only letters' }),
   arabicmiddleName: z
     .string()
-    .min(3, { message: 'arabic middle name must be at least 3 char' }),
+    .min(3, { message: 'Middle name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
+
   nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
   currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
   religion: z.enum(['muslim', 'christian']),
   enrolmentYear: z.enum(['2016-2017', '2017-2018']),
   applyingforGrade: z.enum(['grade 11', 'grade 12']),
-
   aramcoRelation: z.enum(['father', 'mother', 'both']),
 
   DAS: z.enum(['yes', 'no']),
-  // email: z.string().min(1, 'Email is required').email('Invalid email address'),
   passportNumber: z.coerce
     .string()
     .min(8, { message: 'Passport Number must have ayt least 8 numbers' })
@@ -133,10 +64,11 @@ const FormDataSchema = z.object({
     .refine((data) => /^\d+$/.test(data), {
       message: 'Passport Number must be only numbers',
     }),
+
   StudentID: z.coerce
     .string()
     .min(12, {
-      message: 'Student National ID  must have ayt least 12 numbers',
+      message: 'Student National ID  must have at least 12 numbers',
     })
     .max(14, {
       message: 'Student National ID  cannot have more than 14 numbers',
@@ -152,7 +84,7 @@ const FormDataSchema = z.object({
   }),
   currentSchoolName: z
     .string()
-    .min(1, { message: 'please enter  School Name' }),
+    .min(0, { message: 'please enter  School Name' }),
 
   gender: z.enum(['male', 'female'], {
     required_error: 'Please Select  Gender',
@@ -199,12 +131,50 @@ const FormDataSchema = z.object({
   medicalReport: z.custom((value: any) => {
     return value;
   }),
-  diseaseFree: z.custom((value: any) => {
-    return value;
-  }),
   aramcoID: z.custom((value: any) => {
     return value;
   }),
+  diseaseFree: z.custom((value: any) => {
+    return value;
+  }),
+  // birthCertificateimage: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Birth certificate image is required',
+  //   }),
+  // familyNationalId: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Family national ID image is required',
+  //   }),
+  // CmPhotograph: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Photograph is required',
+  //   }),
+  // studentImmunization: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Student immunization image is required',
+  //   }),
+  // medicalReport: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Medical report image is required',
+  //   }),
+  // diseaseFree: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Disease-free image is required',
+  //   }),
+  // aramcoID: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Aramco ID image is required',
+  //   }),
+  // aramcoID: z.custom((value: any) => {
+  //   return value;
+  // }),
   //images
 
   fatherwork: z.string().min(3, 'father work is required'),
@@ -212,16 +182,12 @@ const FormDataSchema = z.object({
     required_error: 'Date is required',
     invalid_type_error: 'Format invalid',
   }),
-  faterAramcoId: z.coerce
+  faterAramcoId: z
     .string()
-    .min(12, {
-      message: 'fater Aramco Id  must have at least 12 numbers',
-    })
-    .max(14, {
-      message: 'fater Aramco Id  cannot have more than 14 numbers',
-    })
+    .min(12, { message: 'Father Aramco ID must have at least 12 numbers' })
+    .max(14, { message: 'Father Aramco ID cannot have more than 14 numbers' })
     .refine((data) => /^\d+$/.test(data), {
-      message: 'fater Aramco Id  must be only numbers',
+      message: 'Father Aramco ID must be only numbers',
     }),
 
   // mother Info----------------
@@ -246,30 +212,33 @@ const FormDataSchema = z.object({
     }),
   motherAramcoId: z.coerce
     .string()
-    .min(12, {
-      message: 'mother Aramco Id  must have at least 12 numbers',
-    })
-    .max(14, {
-      message: 'mother Aramco Id  cannot have more than 14 numbers',
-    })
+    .min(12, { message: 'Mother Aramco ID must have at least 12 numbers' })
+    .max(14, { message: 'Mother Aramco ID cannot have more than 14 numbers' })
     .refine((data) => /^\d+$/.test(data), {
-      message: 'mother Aramco Id  must be only numbers',
+      message: 'Mother Aramco ID must be only numbers',
     }),
   motherwork: z.string().min(3, 'mother work is required'),
   motherexpDate: z.date({
     required_error: 'Date is required',
     invalid_type_error: 'Format invalid',
   }),
+
   motherPhone: z
     .string()
     .refine((data) => data.trim(), { message: 'Should be trimmed.' })
     .refine((data) => data !== '', { message: 'Please write  phone.' }),
   motherName: z
     .string()
-    .min(3, { message: 'mother name must be at least 3 char' }),
+    .min(3, { message: 'Mother First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, {
+      message: 'Mother First name must contain only letters',
+    }),
   motherNameArabic: z
     .string()
-    .min(3, { message: 'mother name must be at least 3 char' }),
+    .min(3, { message: 'Mother First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, {
+      message: 'Mother First name must contain only letters',
+    }),
 });
 
 function TestForm() {
@@ -347,6 +316,7 @@ function TestForm() {
         'fatherEmail',
         'fatherNationality',
         'faterAramcoId',
+        'fatherPhone',
         'expDate',
         'DASalumnus',
         'DASDhahrani',
@@ -360,14 +330,13 @@ function TestForm() {
         'motherDASalumnus',
         'motherDASDhahrani',
         'motherDASEmployee',
-        'mptherphone',
+        'motherPhone',
         'motherwork',
         'motherNationalID',
         'motherAramcoId',
         'motherexpDate',
         'motherName',
         'motherNameArabic',
-        'motherPhone',
         'mothernationality',
       ],
     },
@@ -379,11 +348,23 @@ function TestForm() {
         'CmPhotograph',
         'studentImmuniazation',
         'medicalReport',
-        'diseaseFree',
         'aramcoID',
+        'diseaseFree',
       ],
     },
-    { id: 'Payment', fields: [] },
+    // {
+    //   id: 'Image Upload',
+    //   fields: [
+    //     'birthCertificateimage',
+    //     'familyNationalId',
+    //     'CmPhotograph',
+    //     'studentImmuniazation',
+    //     'medicalReport',
+    //     'diseaseFree',
+    //     'aramcoID',
+    //   ],
+    // },
+    { id: 'Payment' },
   ];
   const processForm = async (values: z.infer<typeof FormDataSchema>) => {
     console.log({ values });
@@ -414,7 +395,7 @@ function TestForm() {
   };
 
   return (
-    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-24">
+    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-10">
       <Steps currentStep={currentStep} steps={steps} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(processForm)} className="py-12 ">

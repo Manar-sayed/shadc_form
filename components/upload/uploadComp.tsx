@@ -2,6 +2,8 @@ import React from 'react';
 import ImageUploading from 'react-images-uploading';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
+import { UpdateIcon } from '@radix-ui/react-icons';
+import { Edit, LucideDelete, Trash } from 'lucide-react';
 
 const ImageUploader = ({
   images,
@@ -47,19 +49,19 @@ const ImageUploader = ({
             </Button>
           </div>
           &nbsp;
-          <Button
+          {/* <Button
             className="w-full py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
             onClick={onImageRemoveAll}
           >
             Remove all images
-          </Button>
+          </Button> */}
           {imageList.map((image, index) => (
             <div key={index} className="image-item">
               <div className="flex justify-center">
                 <img
                   src={image['data_url']}
                   alt=""
-                  className="w-full rounded-md h-48 "
+                  className="w-full rounded-md -mt-10 h-36"
                 />
               </div>
 
@@ -68,13 +70,13 @@ const ImageUploader = ({
                   className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
                   onClick={() => onImageUpdate(index)}
                 >
-                  Update
+                  <UpdateIcon />
                 </Button>
                 <Button
-                  className="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                  className="py-2 px-4  bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
                   onClick={() => onImageRemove(index)}
                 >
-                  Remove
+                  <Trash className="w-5 h-5" />
                 </Button>
               </div>
             </div>

@@ -141,6 +141,8 @@ function FormFull() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Nationality
                           </FormLabel>
                           <FormControl className="bg-slate-500 ">
@@ -182,6 +184,8 @@ function FormFull() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Student National ID
                           </FormLabel>
                           <FormControl>
@@ -224,6 +228,8 @@ function FormFull() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father Nationality
                         </FormLabel>
                         <FormControl className="bg-slate-500 ">
@@ -283,6 +289,8 @@ function FormFull() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           mother Email Address
                         </FormLabel>
                         <FormControl>

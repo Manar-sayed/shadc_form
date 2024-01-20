@@ -21,8 +21,6 @@ import ImageUploader from '../upload/uploadComp';
 function ImageForm({ form, setImages }: any) {
   return (
     <div>
-      <h2 className="text-base font-semibold leading-7 ">Address</h2>
-      <p className="mt-1 text-sm leading-6 text-gray-600">Image Upload</p>
       <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3">
         {/* birthCertificateimage */}
         <div>
@@ -32,6 +30,7 @@ function ImageForm({ form, setImages }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
+                  <span className="text-red-500">*</span>
                   birthCertificateimage
                 </FormLabel>
                 <FormControl>
@@ -60,6 +59,7 @@ function ImageForm({ form, setImages }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
+                  <span className="text-red-500">*</span>
                   familyNationalId
                 </FormLabel>
                 <FormControl>
@@ -88,7 +88,7 @@ function ImageForm({ form, setImages }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
-                  4*6CmPhotograph
+                  CmPhotograph
                 </FormLabel>
                 <FormControl>
                   <ImageUploader
@@ -116,13 +116,15 @@ function ImageForm({ form, setImages }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
+                  <span className="text-red-500">*</span>
                   Student Immuniazation
                 </FormLabel>
                 <FormControl>
                   <ImageUploader
                     images={form.getValues('studentImmuniazation')}
                     onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('studentImmuniazation', imageList);
+                      form.setValue('studentImmuniazation', imageList),
+                        { ...field };
                     }}
                     maxNumber={1}
                     title="Student Immuniazation"
@@ -150,7 +152,7 @@ function ImageForm({ form, setImages }: any) {
                   <ImageUploader
                     images={form.getValues('medicalReport')}
                     onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('medicalReport', imageList);
+                      form.setValue('medicalReport', imageList), { ...field };
                     }}
                     maxNumber={1}
                     title="Medical Report"
@@ -178,7 +180,7 @@ function ImageForm({ form, setImages }: any) {
                   <ImageUploader
                     images={form.getValues('aramcoID')}
                     onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('aramcoID', imageList);
+                      form.setValue('aramcoID', imageList), { ...field };
                     }}
                     maxNumber={1}
                     title="Aramco ID"
@@ -206,7 +208,7 @@ function ImageForm({ form, setImages }: any) {
                   <ImageUploader
                     images={form.getValues('diseaseFree')}
                     onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('diseaseFree', imageList);
+                      form.setValue('diseaseFree', imageList), { ...field };
                     }}
                     maxNumber={1}
                     title="Disease Free"

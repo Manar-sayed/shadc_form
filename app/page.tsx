@@ -1,4 +1,6 @@
 import TestForm from '@/components/FORM/testForm';
+import TestFormValidation from '@/components/TestValidtion/testValid';
+import CheckValidtion from '@/components/checkValidtion';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -6,7 +8,11 @@ export default function Home() {
   return (
     <section className="flex items-center justify-center h-screen bg-gray-50">
       <div className="">
-        <Image
+        {/* <TestFormValidation/> */}
+
+        <TestForm />
+        {/* <CheckValidtion /> */}
+        {/* <Image
           src={'/images/img-a.jpeg'}
           alt="banner"
           width={1200}
@@ -24,7 +30,7 @@ export default function Home() {
           >
             Login
           </Link>
-        </div>
+        </div> */}
         {/* <section className="py-24">
       <div className="container">
         <TestForm />

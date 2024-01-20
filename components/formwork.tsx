@@ -108,6 +108,8 @@ function FormWork() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             First name
                           </FormLabel>
                           <FormControl {...field}>
@@ -142,6 +144,8 @@ function FormWork() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father work
                         </FormLabel>
                         <FormControl>
@@ -179,6 +183,8 @@ function FormWork() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Mother work
                         </FormLabel>
                         <FormControl>

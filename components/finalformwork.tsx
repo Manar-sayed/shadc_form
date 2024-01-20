@@ -259,6 +259,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Nationality
                           </FormLabel>
                           <FormControl className="bg-slate-500 ">
@@ -300,6 +302,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Student National ID
                           </FormLabel>
                           <FormControl>
@@ -323,6 +327,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Passport Number
                           </FormLabel>
                           <FormControl>
@@ -349,6 +355,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             First name
                           </FormLabel>
                           <FormControl {...field}>
@@ -369,6 +377,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Middle name
                           </FormLabel>
                           <FormControl {...field}>
@@ -389,6 +399,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Third name
                           </FormLabel>
                           <FormControl>
@@ -411,6 +423,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Last name
                           </FormLabel>
                           <FormControl>
@@ -436,6 +450,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             First name (Arabic)
                           </FormLabel>
                           <FormControl>
@@ -459,6 +475,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Middle name (Arabic)
                           </FormLabel>
                           <FormControl>
@@ -481,6 +499,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Third name (Arabic)
                           </FormLabel>
                           <FormControl>
@@ -504,6 +524,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Last name (Arabic)
                           </FormLabel>
                           <FormControl>
@@ -529,6 +551,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Place of Birth
                           </FormLabel>
                           <FormControl>
@@ -552,6 +576,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Email Address
                           </FormLabel>
                           <FormControl>
@@ -636,6 +662,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Religion
                           </FormLabel>
                           <FormControl>
@@ -672,6 +700,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Current Grade
                           </FormLabel>
                           <FormControl>
@@ -711,6 +741,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Enrolment Year
                           </FormLabel>
                           <FormControl>
@@ -747,6 +779,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             Applying for Grade
                           </FormLabel>
                           <FormControl>
@@ -785,6 +819,8 @@ function FormScreen() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
+                          <span className='text-red-500'>*</span>
+
                             DAS
                           </FormLabel>
                           <FormControl>
@@ -817,6 +853,8 @@ function FormScreen() {
                   {/* Date of Birth */}
                   <div>
                     <FormLabel className="block mb-3">
+                    <span className='text-red-500'>*</span>
+
                       Select Brith Date:
                     </FormLabel>
                     <Controller
@@ -867,6 +905,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father National ID
                         </FormLabel>
                         <FormControl>
@@ -891,6 +931,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father Nationality
                         </FormLabel>
                         <FormControl className="bg-slate-500 ">
@@ -932,6 +974,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father Email Address
                         </FormLabel>
                         <FormControl>
@@ -957,6 +1001,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father work
                         </FormLabel>
                         <FormControl>
@@ -981,6 +1027,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Father Aramco ID
                         </FormLabel>
                         <FormControl>
@@ -999,6 +1047,8 @@ function FormScreen() {
                 {/* Exp Date */}
                 <div>
                   <FormLabel className="block mb-3">
+                  <span className='text-red-500'>*</span>
+
                     Father Aramco Exp Date
                   </FormLabel>
                   <Controller
@@ -1030,6 +1080,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Is the father a DAS employee
                         </FormLabel>
                         <FormControl>
@@ -1066,6 +1118,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Did the father study in DAS (Dhahrani)
                         </FormLabel>
                         <FormControl>
@@ -1102,6 +1156,8 @@ function FormScreen() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
+                        <span className='text-red-500'>*</span>
+
                           Is the father a DAS alumnus
                         </FormLabel>
                         <FormControl>

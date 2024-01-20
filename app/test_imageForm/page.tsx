@@ -157,6 +157,8 @@ function ImageForm({ form, setImages }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
+                <span className='text-red-500'>*</span>
+
                   birthCertificateimage
                 </FormLabel>
                 <FormControl>
@@ -185,6 +187,8 @@ function ImageForm({ form, setImages }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
+                <span className='text-red-500'>*</span>
+
                   birthCertificateimage
                 </FormLabel>
                 <FormControl>
