@@ -1,10 +1,9 @@
 'use server';
-import { getUserByEmail, getUserById } from '@/data/user';
-import bcrypt from 'bcryptjs';
+import { getUserById } from '@/data/user';
+
 import { currentUser } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { sendVerificationEmail } from '@/lib/mail';
-import { generateVerifcationToken } from '@/lib/tokens';
+
 import { UserFormSchema } from '@/schemas';
 import * as z from 'zod';
 import { revalidatePath } from 'next/cache';
