@@ -1,5 +1,5 @@
 import { DataTable } from '@/components/DataTable';
-import { User, columns } from './columns';
+import { columns } from './columns';
 import HomeTitle from '@/components/home-title';
 
 async function getUsers() {
@@ -16,13 +16,10 @@ async function getUsers() {
 const Users = async () => {
   const data = await getUsers();
 
-  console.log('data', data);
+  // console.log('data', data);
   return (
     <section className="p-4 bg-gray-50 h-full">
       <div className="container px-4 mx-auto">
-        {/* <p className="text-primary-color font-semibold text-center my-5">
-          Users
-        </p> */}
         <HomeTitle title="Users" />
 
         {/* <FormPanel

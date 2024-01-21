@@ -1,6 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+import { deleteUser } from '@/actions/delete-user';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 interface CellProps {
   row: {
     getValue: (key: string) => string;
@@ -11,25 +22,54 @@ interface CellProps {
 }
 
 export default function Cell({ row }: CellProps) {
-  const [selectedRole, setSelectedRole] = useState(row.getValue('role'));
+  const router = useRouter();
+  const id = row.original.id.toString();
+  // const deleteUser = async ({ userId }: { userId: string }) => {
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXTAUTH_URL}/api/users/${userId}`,
+  //       {
+  //         method: 'DELETE',
+  //       }
+  //     );
 
-  const handleRoleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedRole(event.target.value);
-    // handleRoleUpdate(row.original.id, event.target.value); // Update data accordingly
-  };
+  //     console.log('response', response);
 
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       router.refresh();
+  //     } else {
+  //       // Handle the error
+  //       const responseData = await response.json();
+  //       console.log('deleteSupabaseItem - Response not OK', responseData);
+  //     }
+  //   } catch (error) {}
+  // };
   return (
-    <div className="text-left font-medium">
-      <select
-        name="role"
-        id="role-select"
-        value={selectedRole}
-        onChange={handleRoleChange}
-        className="h-[35px]"
-      >
-        <option value="ADMIN">Admin</option>
-        <option value="USER">User</option>
-      </select>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Open menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>
+          <Button size={'sm'} className="w-full">
+            <Link href={`/users-app/${decodeURIComponent(id)}`}>Edit</Link>
+          </Button>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button
+            size={'sm'}
+            variant={'destructive'}
+            className="w-full"
+            onClick={() => deleteUser(decodeURIComponent(id))}
+          >
+            Delete
+          </Button>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

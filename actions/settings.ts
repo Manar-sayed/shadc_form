@@ -24,6 +24,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   //   values.newPassword = undefined;
   //   values.isTwoFactorEnabled = undefined;
   // }
+  console.log('user', user.id);
 
   if (values.email && values.email !== user.email) {
     const existingUser = await getUserByEmail(values.email);
@@ -64,8 +65,7 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
     },
   });
 
-  console.log('updatedUser', updatedUser);
-  return { success: 'Settings Updated' };
+  return { success: 'Profile Updated' };
 };
 
 // update({

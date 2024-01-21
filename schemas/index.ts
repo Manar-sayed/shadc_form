@@ -98,6 +98,21 @@ export const SettingsSchema = z.object({
   name: z.optional(z.string()),
   phone: z.optional(z.string()),
   email: z.optional(z.string().email()),
+  role: z.optional(z.enum(['ADMIN', 'USER'])),
+  // password: z.optional(z.string().min(6)),
+  // newPassword: z.optional(z.string().min(6)),
+});
+export const UserFormSchema = z.object({
+  name: z.string().min(1, {
+    message: 'Name is required',
+  }),
+  phone: z
+    .string()
+    .refine((data) => data !== '', { message: 'Please write your phone.' }),
+  email: z.string().email({
+    message: 'Email is required',
+  }),
+  role: z.enum(['ADMIN', 'USER']),
   // password: z.optional(z.string().min(6)),
   // newPassword: z.optional(z.string().min(6)),
 });

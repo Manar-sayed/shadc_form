@@ -67,36 +67,38 @@ export const columns: ColumnDef<User>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
-      const payment = row.original.id;
-      console.log('fg', payment);
+      // const id = row.original.id.toString();
+
+      // console.log('fg', id);
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {/* <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(user.id)}
-            >
-              Copy user ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator /> */}
-            <DropdownMenuItem>
-              <Button size={'sm'} className="w-full">
-                <Link href={`/users-app/${row.original.id}}`}>Edit</Link>
-              </Button>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Button size={'sm'} variant={'destructive'} className="w-full">
-                Delete
-              </Button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Cell row={row} />
+        // <DropdownMenu>
+        //   <DropdownMenuTrigger asChild>
+        //     <Button variant="ghost" className="h-8 w-8 p-0">
+        //       <span className="sr-only">Open menu</span>
+        //       <MoreHorizontal className="h-4 w-4" />
+        //     </Button>
+        //   </DropdownMenuTrigger>
+        //   <DropdownMenuContent align="end">
+        //     {/* <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        //     <DropdownMenuItem
+        //       onClick={() => navigator.clipboard.writeText(user.id)}
+        //     >
+        //       Copy user ID
+        //     </DropdownMenuItem>
+        //     <DropdownMenuSeparator /> */}
+        //     <DropdownMenuItem>
+        //       <Button size={'sm'} className="w-full">
+        //         <Link href={`/users-app/${decodeURIComponent(id)}`}>Edit</Link>
+        //       </Button>
+        //     </DropdownMenuItem>
+        //     <DropdownMenuItem>
+        //       <Button size={'sm'} variant={'destructive'} className="w-full">
+        //         Delete
+        //       </Button>
+        //     </DropdownMenuItem>
+        //   </DropdownMenuContent>
+        // </DropdownMenu>
       );
     },
   },

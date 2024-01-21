@@ -17,7 +17,7 @@ import { getTwoFactorConfirmationByUserId } from '@/data/two-factor-confirmation
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
-  console.log('wal', validatedFields);
+  // console.log('wal', validatedFields);
   if (!validatedFields.success) {
     return { error: 'Invalid fields!' };
   }
@@ -26,7 +26,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
   const existingUser = await getUserByEmail(email);
 
-  console.log('existingUser', existingUser);
+  // console.log('existingUser', existingUser);
   if (!existingUser || !existingUser.email || !existingUser.password) {
     return { error: 'Email does not exist!' };
   }

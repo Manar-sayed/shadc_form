@@ -4,6 +4,7 @@ import FormPanel from './FormPanel';
 import { User, columns } from './columns';
 import { DataTable } from '@/components/DataTable';
 import HomeTitle from '@/components/home-title';
+import { ApplicationData } from '@/components/application-data';
 
 async function getUsers(): Promise<User[]> {
   const res = await fetch(
@@ -44,7 +45,7 @@ async function AdminPageScreen() {
           formData={formData}
         /> */}
 
-        <DataTable columns={columns} data={data} isUser={false} />
+        <ApplicationData columns={columns} data={data} />
       </div>
     </section>
   );

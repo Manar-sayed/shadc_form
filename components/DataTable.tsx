@@ -56,17 +56,9 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [emailFilter, setEmailFilter] = useState<string>('');
-  const [nameFilter, setNameFilter] = useState<string>('');
 
-  const [toDateFilter, setToDateFilter] = useState<string>('');
-  const [fromDateFilter, setFromDateFilter] = useState<string>('');
-  const [appNumFilter, setAppNumFilter] = useState<string>('');
-  const [stuNaIDFilter, setStuNaIDFilter] = useState<string>('');
-  const [academicYearFilter, setAcademicYearFilter] = useState<string>('');
-  const [gradeLevelFilter, setGradeLevelFilter] = useState<string>('');
-  const [genderFilter, setGenderFilter] = useState<string>('');
-  const [aramcoFilter, setAramcoFilter] = useState<string>('');
+  const [nameFilter, setNameFilter] = useState<string>('');
+  const [roleFilter, setRoleFilter] = useState<string>('');
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const table = useReactTable({
     data,
@@ -86,219 +78,82 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
   });
   const handleFilterButtonClick = () => {
-    table.getColumn('email')?.setFilterValue(emailFilter);
     table.getColumn('name')?.setFilterValue(nameFilter);
+    table.getColumn('role')?.setFilterValue(roleFilter);
   };
 
   return (
     <div className="pb-4">
-      {!isUser && (
-        <>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5 w-full md:w-[80%] mx-auto">
-            <div>
-              <label htmlFor="fromDate" className="block mb-2 text-black">
-                From Date:
-              </label>
-              <input
-                type="date"
-                name="fromDate"
-                id="fromDate"
-                placeholder="YYYY-MM-DD"
-                value={fromDateFilter}
-                onChange={(event) => setFromDateFilter(event.target.value)}
-                className="border border-primary-color px-3  rounded py-1 w-full"
-              />
-            </div>
-            <div>
-              <label htmlFor="toDate" className="block mb-2 text-black">
-                To Date:
-              </label>
-              <input
-                type="date"
-                name="toDate"
-                id="toDate"
-                placeholder="YYYY-MM-DD"
-                value={toDateFilter}
-                onChange={(event) => setToDateFilter(event.target.value)}
-                className="border border-primary-color px-3  rounded py-1 w-full"
-              />
-            </div>
-            <div>
-              <label htmlFor="appNum" className="block mb-2 text-black">
-                Application Number:
-              </label>
-              <input
-                type="number"
-                name="appNum"
-                id="appNum"
-                min={0}
-                value={appNumFilter}
-                onChange={(event) => setAppNumFilter(event.target.value)}
-                className="border border-primary-color px-3  rounded py-1 w-full"
-              />
-            </div>
-            <div>
-              <label htmlFor="stuNaID" className="block mb-2 text-black">
-                Student National ID:
-              </label>
-              <input
-                type="number"
-                name="stuNaID"
-                id="stuNaID"
-                min={0}
-                value={stuNaIDFilter}
-                onChange={(event) => setStuNaIDFilter(event.target.value)}
-                className="border border-primary-color px-3  rounded py-1 w-full"
-              />
-            </div>
-
-            {/* <div>
-          <label htmlFor="academicYear" className="block mb-2 text-black">
-            Academic Year:
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3  w-full md:w-[80%] mx-auto items-center mt-5">
+        <div>
+          <label htmlFor="name" className="block mb-2 text-black">
+            Search By Name:
           </label>
-          <select
-            onChange={(event) => setAcademicYearFilter(event.target.value)}
-            value={academicYearFilter}
-            id="academicYear"
-            className="w-full border border-primary-color px-3  rounded h-[36px]"
-          >
-            <option value=""></option>
-            <option value={'all'}>All</option>
-            <option value={'5'}>5</option>
-            <option value={'3'}>2</option>
-            <option value={'1'}>1</option>
-          </select>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={nameFilter}
+            onChange={(event) => setNameFilter(event.target.value)}
+            className="border  border-primary-color px-3  rounded py-1 w-full"
+          />
         </div>
         <div>
-          <label htmlFor="gradeLevel" className="block mb-2 text-black">
-            Grade Level:
+          <label htmlFor="role" className="block mb-2 text-black">
+            Role:
           </label>
+
           <select
-            onChange={(event) => setGradeLevelFilter(event.target.value)}
-            value={gradeLevelFilter}
-            id="gradeLevel"
-            className="w-full border border-primary-color px-3  rounded h-[36px]"
+            name="role"
+            id="role"
+            value={roleFilter}
+            onChange={(event) => setRoleFilter(event.target.value)}
+            className="border border-primary-color px-3  rounded w-full  h-[33px] mt-0"
           >
             <option value=""></option>
-            <option value={'all'}>All</option>
-            <option value={'5'}>5</option>
-            <option value={'3'}>2</option>
-            <option value={'1'}>1</option>
+            <option value="ADMIN">Admin</option>
+            <option value="USER">User</option>
           </select>
         </div>
+      </div>
+      <div className="mt-5 mb-4 text-end w-[80%] mx-auto">
+        <button
+          onClick={handleFilterButtonClick}
+          className="bg-primary-color text-white px-5 py-1 rounded shadow-sm"
+        >
+          GO
+        </button>
+      </div>
 
-        <div>
-          <label htmlFor="gender" className="block mb-2 text-black">
-            Gender:
-          </label>
-          <select
-            onChange={(event) => setGenderFilter(event.target.value)}
-            value={genderFilter}
-            id="gender"
-            className="w-full border border-primary-color px-3  rounded h-[36px]"
-          >
-            <option value=""></option>
-            <option value={'all'}>All</option>
-            <option value={'male'}>Male</option>
-            <option value={'female'}>Female</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="aramco" className="block mb-2 text-black">
-            Aramco:
-          </label>
-          <select
-            onChange={(event) => setAramcoFilter(event.target.value)}
-            value={aramcoFilter}
-            id="aramco"
-            className="w-full border border-primary-color px-3  rounded h-[36px]"
-          >
-            <option value=""></option>
-            <option value={'mother'}>Mother</option>
-            <option value={'father'}>Father</option>
-            <option value={'both'}>Both</option>
-          </select>
-        </div> */}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 w-full md:w-[80%] mx-auto mt-5">
-            <div>
-              <label htmlFor="academicYear" className="block mb-2 text-black">
-                Academic Year:
-              </label>
-              <select
-                onChange={(event) => setAcademicYearFilter(event.target.value)}
-                value={academicYearFilter}
-                id="academicYear"
-                className="w-full border border-primary-color px-3  rounded h-[36px]"
-              >
-                <option value=""></option>
-                <option value={'all'}>All</option>
-                <option value={'5'}>5</option>
-                <option value={'3'}>2</option>
-                <option value={'1'}>1</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="gradeLevel" className="block mb-2 text-black">
-                Grade Level:
-              </label>
-              <select
-                onChange={(event) => setGradeLevelFilter(event.target.value)}
-                value={gradeLevelFilter}
-                id="gradeLevel"
-                className="w-full border border-primary-color px-3  rounded h-[36px]"
-              >
-                <option value=""></option>
-                <option value={'all'}>All</option>
-                <option value={'5'}>5</option>
-                <option value={'3'}>2</option>
-                <option value={'1'}>1</option>
-              </select>
-            </div>
+      <div className="flex justify-end mb-3 ">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" size={'sm'} className="ml-auto p-2">
+              Show Columns
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
-            <div>
-              <label htmlFor="gender" className="block mb-2 text-black">
-                Gender:
-              </label>
-              <select
-                onChange={(event) => setGenderFilter(event.target.value)}
-                value={genderFilter}
-                id="gender"
-                className="w-full border border-primary-color px-3  rounded h-[36px]"
-              >
-                <option value=""></option>
-                <option value={'all'}>All</option>
-                <option value={'male'}>Male</option>
-                <option value={'female'}>Female</option>
-              </select>
-            </div>
-            <div>
-              <label htmlFor="aramco" className="block mb-2 text-black">
-                Aramco:
-              </label>
-              <select
-                onChange={(event) => setAramcoFilter(event.target.value)}
-                value={aramcoFilter}
-                id="aramco"
-                className="w-full border border-primary-color px-3  rounded h-[36px]"
-              >
-                <option value=""></option>
-                <option value={'mother'}>Mother</option>
-                <option value={'father'}>Father</option>
-                <option value={'both'}>Both</option>
-              </select>
-            </div>
-          </div>
-          <div className="mt-5 mb-4 text-end w-[80%] mx-auto">
-            <button
-              onClick={handleFilterButtonClick}
-              className="bg-primary-color text-white px-5 py-1 rounded shadow-sm"
-            >
-              GO
-            </button>
-          </div>
-        </>
-      )}
       <div className="bg-white">
         <div className="flex items-center py-4 gap-3">
           {/* <Input
@@ -314,33 +169,6 @@ export function DataTable<TData, TValue>({
             className="max-w-sm"
           />
           <Button onClick={handleFilterButtonClick}>Filter</Button> */}
-
-          {/* <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="ml-auto">
-                Columns
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu> */}
         </div>
 
         <Table>

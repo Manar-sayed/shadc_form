@@ -19,36 +19,40 @@ import {
 import { Input } from '@/components/ui/input';
 import { FormError } from '@/components/form-error';
 import { FormSuccess } from '@/components/form-success';
-import { SettingsSchema } from '@/schemas';
+import { UserFormSchema } from '@/schemas';
 import PhoneComponent from '@/components/phone-component';
-import DialogForm from './dialog-form';
-import { settings } from '@/actions/settings';
-import { useSession } from 'next-auth/react';
 
-const ProfileForm = ({ user }: any) => {
+import { updateUser } from '@/actions/update-user';
+import { useSession } from 'next-auth/react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
+
+const UserForm = ({ user }: any) => {
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
   const { update } = useSession();
   const [isPending, startTransition] = useTransition();
   // console.log('user', user);
-  const form = useForm<z.infer<typeof SettingsSchema>>({
-    resolver: zodResolver(SettingsSchema),
+  const form = useForm<z.infer<typeof UserFormSchema>>({
+    resolver: zodResolver(UserFormSchema),
     defaultValues: {
-      name: user?.name || '',
-      email: user?.email || '',
-      phone: user?.phone || '',
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      role: user.role,
     },
   });
-  const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+  const onSubmit = (values: z.infer<typeof UserFormSchema>) => {
     startTransition(() => {
-      settings(values)
+      updateUser(values, user.id)
         .then((data) => {
-          if (data.error) {
+          if (data?.error) {
             setError(data.error);
-          }
-          if (data.success) {
-            update();
-            setSuccess(data.success);
           }
         })
         .catch(() => setError('Something went wrong!'));
@@ -98,6 +102,32 @@ const ProfileForm = ({ user }: any) => {
                   defaultValue={form.getValues('phone')}
                 />
               </div>
+
+              <FormField
+                control={form.control}
+                name="role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Role</FormLabel>
+                    <Select
+                      disabled={isPending}
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a role" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value={'ADMIN'}>Admin</SelectItem>
+                        <SelectItem value={'USER'}>User</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
             <FormError message={error} />
             <FormSuccess message={success} />
@@ -108,13 +138,9 @@ const ProfileForm = ({ user }: any) => {
             </div>
           </form>
         </Form>
-
-        <div className="absolute bottom-4  right-3">
-          <DialogForm />
-        </div>
       </div>
     </div>
   );
 };
 
-export default ProfileForm;
+export default UserForm;

@@ -18,6 +18,9 @@ function Navbar() {
         .join('')
         ?.replace(/^\w/, (c) => c.toUpperCase());
     }
+    if (inputText.startsWith('/users-app/')) {
+      return 'User Detail';
+    }
     if (inputText.includes('-') && inputText != '/users-app') {
       return inputText
         .replace('/', '')

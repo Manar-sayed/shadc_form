@@ -25,7 +25,11 @@ const NewVerificationForm = () => {
     newVerification(token)
       .then((data) => {
         console.log('data from verification', data);
-        setSuccess(data.success);
+
+        if (data.success) {
+          setSuccess(data.success);
+          window.location.href = '/';
+        }
         setError(data.error);
       })
       .catch(() => {

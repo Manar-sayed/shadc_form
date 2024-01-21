@@ -46,7 +46,8 @@ export default function Register() {
         if (data.success) {
           setSuccess(data.success);
           // redirect('/login');
-          window.location.href = '/login';
+          form.reset();
+          window.location.href = '/';
         }
       });
     });
