@@ -60,7 +60,7 @@
     height: 55px;
     padding-left: 3px;
     padding-right: 3px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     @apply !border border-opacity-80;
     @apply !shadow-none;
     /* @apply !ring-offset-background; */

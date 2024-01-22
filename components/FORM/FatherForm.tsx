@@ -27,8 +27,8 @@ interface FatherFormProps {
 }
 function FatherForm({ form }: any) {
   return (
-    <div>
-      <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2">
+    <div className="">
+      <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
         {/* nationality */}
         <div className="">
           <FormField
@@ -36,110 +36,142 @@ function FatherForm({ form }: any) {
             name="fatherNationality"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Father Nationality
                   </FormLabel>
-                  <FormControl className="bg-slate-500 ">
-                    <>
-                      <select
-                        defaultValue=""
-                        id="fatherNationality"
-                        {...field}
-                        className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <>
+                        <select
+                          defaultValue=""
+                          id="fatherNationality"
+                          {...field}
+                          className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
                                  ring-gray-300 focus:ring-2 focus:ring-inset
                                   focus:ring-primary-color   sm:leading-6"
-                      >
-                        <option
-                          className="text-gray-200 text-sm"
-                          value=""
-                          disabled
                         >
-                          Select nationality
-                        </option>
-                        <option value={'saudi arabia'}>Saudi Arabia</option>
-                        <option value={'egypt'}>Egypt</option>
-                        <option value={'korean'}>Korean</option>
-                      </select>
-                    </>
-                  </FormControl>
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          >
+                            Select nationality
+                          </option>
+                          <option value={'saudi arabia'}>Saudi Arabia</option>
+                          <option value={'egypt'}>Egypt</option>
+                          <option value={'korean'}>Korean</option>
+                        </select>
+                      </>
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage></FormMessage>
               </FormItem>
             )}
           />
         </div>
         {/* Father National ID*/}
-        <div className="-mt-5">
+        <div className="">
           <FormField
             control={form.control}
             name="fatherNationalID"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Father National ID
                   </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={'father national id'}
-                      type="text"
-                      {...field}
-                      // {...register('fatherNationalID')}
-                      className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
-                    />
-                  </FormControl>
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <Input
+                        placeholder={'father national id'}
+                        type="text"
+                        {...field}
+                        // {...register('fatherNationalID')}
+                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                      />
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
         </div>
       </div>
 
-      <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2">
+      <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
         {/* Father Aramco ID*/}
         <div className="">
           <FormField
             control={form.control}
             name="faterAramcoId"
             render={({ field }) => (
-              <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+              <FormItem className="bg-transparent ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Father Aramco ID
                   </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={'father aramco id'}
-                      type="text"
-                      {...field}
-                      className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
-                    />
-                  </FormControl>
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <Input
+                        placeholder={'father aramco id'}
+                        type="text"
+                        {...field}
+                        className="p-4 h-14  text-sm md:text-lg font-normal "
+                      />
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
         </div>
         {/* Exp Date */}
-        <div className="flex w-full justify- items-center  bg-transparent">
-          <FormLabel className="w-[23%] block mb-3 me-3">
+        <div className="md:flex justify-center items-center bg-transparent">
+          <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
             <span className="text-red-500">*</span>
             Father Aramco Exp Date
           </FormLabel>
-          <div className="w-[85%]">
+          <div className="w-[100%]">
             <Controller
               control={form.control}
               name="expDate"
               render={({ field: { onChange, value }, fieldState }) => (
+                // <>
+                //   <div
+                //     className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                //   >
+                //     <ReactDatePicker
+                //       placeholderText="Select Date Picker"
+                //       id="ReactDatePicker"
+                //       onChange={onChange}
+                //       selected={value}
+                //       maxDate={new Date()}
+                //       className={`
+                //       text-sm md:text-lg font-normal
+                //       bg-transparent w-full
+                //        placeholder:text-gray-300 placeholder:text-sm
+                //        rounded-md  sm:text-sm
+                //          ${fieldState.error && 'border-red-600'}`}
+                //     />
+                //     <CalendarCheck2 className=" text-gray-300" />
+                //   </div>
+
+                //   {fieldState.error && (
+                //     <FormMessage className=" my-2">
+                //       {fieldState.error.message}
+                //     </FormMessage>
+                //   )}
+                // </>
                 <>
                   <div
-                    className={`border-2 rounded-sm  border-gray-200 flex justify-between items-center px-3 `}
+                    className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
                   >
                     <ReactDatePicker
                       placeholderText="Select Date Picker"
@@ -148,16 +180,18 @@ function FatherForm({ form }: any) {
                       selected={value}
                       maxDate={new Date()}
                       className={`
-                    text-sm md:text-lg font-normal
-                     placeholder:text-gray-300 placeholder:text-sm
-                     rounded-md  sm:text-sm
-                       ${fieldState.error && 'border-red-600'}`}
+                   text-sm md:text-lg font-normal 
+                   bg-transparent
+                    placeholder:text-gray-300 placeholder:text-sm
+                    rounded-md  sm:text-sm
+                      ${fieldState.error && 'border-red-600'}`}
                     />
                     <CalendarCheck2 className=" text-gray-300" />
                   </div>
-
                   {fieldState.error && (
-                    <FormMessage>{fieldState.error.message}</FormMessage>
+                    <FormMessage className="my-2">
+                      {fieldState.error.message}
+                    </FormMessage>
                   )}
                 </>
               )}
@@ -166,7 +200,7 @@ function FatherForm({ form }: any) {
         </div>
       </div>
 
-      <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2 ">
+      <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-y-2 gap-x-7">
         {/* DAS Employee */}
         <div className="">
           <FormField
@@ -174,33 +208,35 @@ function FatherForm({ form }: any) {
             name="DASEmployee"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Is the father a DAS employee
                   </FormLabel>
-                  <FormControl>
-                    <>
-                      <select
-                        defaultValue=""
-                        id="DASEmployee"
-                        {...field}
-                        className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color   sm:leading-6"
-                      >
-                        <option
-                          className="text-gray-200 text-sm"
-                          value=""
-                          disabled
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <>
+                        <select
+                          defaultValue=""
+                          id="DASEmployee"
+                          {...field}
+                          className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color   sm:leading-6"
                         >
-                          Select DAS Employee
-                        </option>
-                        <option value={'yes'}>Yes</option>
-                        <option value={'no'}>No</option>
-                      </select>
-                    </>
-                  </FormControl>
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          >
+                            Select DAS Employee
+                          </option>
+                          <option value={'yes'}>Yes</option>
+                          <option value={'no'}>No</option>
+                        </select>
+                      </>
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -213,33 +249,35 @@ function FatherForm({ form }: any) {
             name="DASDhahrani"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Did the father study in DAS (Dhahrani)
                   </FormLabel>
-                  <FormControl>
-                    <>
-                      <select
-                        defaultValue=""
-                        id="DASDhahrani"
-                        {...field}
-                        className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color  sm:text-sm sm:leading-6"
-                      >
-                        <option
-                          className="text-gray-200 text-sm"
-                          value=""
-                          disabled
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <>
+                        <select
+                          defaultValue=""
+                          id="DASDhahrani"
+                          {...field}
+                          className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color  sm:text-sm sm:leading-6"
                         >
-                          Select DAS Dhahrani
-                        </option>
-                        <option value={'yes'}>Yes</option>
-                        <option value={'no'}>No</option>
-                      </select>
-                    </>
-                  </FormControl>
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          >
+                            Select DAS Dhahrani
+                          </option>
+                          <option value={'yes'}>Yes</option>
+                          <option value={'no'}>No</option>
+                        </select>
+                      </>
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -252,32 +290,34 @@ function FatherForm({ form }: any) {
             name="DASalumnus"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Is the father a DAS alumnus
                   </FormLabel>
-                  <FormControl>
-                    <>
-                      <select
-                        defaultValue=""
-                        {...field}
-                        className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color  sm:text-sm sm:leading-6"
-                      >
-                        <option
-                          className="text-gray-200 text-sm"
-                          value=""
-                          disabled
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <>
+                        <select
+                          defaultValue=""
+                          {...field}
+                          className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color  sm:text-sm sm:leading-6"
                         >
-                          Select DAS Alumnus
-                        </option>
-                        <option value={'yes'}>Yes</option>
-                        <option value={'no'}>No</option>
-                      </select>
-                    </>
-                  </FormControl>
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          >
+                            Select DAS Alumnus
+                          </option>
+                          <option value={'yes'}>Yes</option>
+                          <option value={'no'}>No</option>
+                        </select>
+                      </>
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -289,29 +329,31 @@ function FatherForm({ form }: any) {
             name="fatherwork"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Father work
                   </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={'father work'}
-                      type="text"
-                      {...field}
-                      // {...register('fatherwork')}
-                      className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
-                    />
-                  </FormControl>
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <Input
+                        placeholder={'father work'}
+                        type="text"
+                        {...field}
+                        // {...register('fatherwork')}
+                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                      />
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
         </div>
       </div>
 
-      <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2">
+      <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
         {/* father email */}
         <div className="">
           <FormField
@@ -319,22 +361,23 @@ function FatherForm({ form }: any) {
             name="fatherEmail"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="flex justify-center items-center bg-transparent">
-                  <FormLabel className=" w-[30%] block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center bg-transparent">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Father Email Address
                   </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder={'fatherEmail'}
-                      type="fatherEmail"
-                      {...field}
-                      className=" p-4 h-14  text-sm md:text-lg font-normal "
-                    />
-                  </FormControl>
+                  <div className="w-[100%] items-start ">
+                    <FormControl>
+                      <Input
+                        placeholder={'fatherEmail'}
+                        type="fatherEmail"
+                        {...field}
+                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                      />
+                    </FormControl>
+                    <FormMessage className="my-2" />
+                  </div>
                 </div>
-
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -342,11 +385,13 @@ function FatherForm({ form }: any) {
 
         {/* father phone */}
 
-        <div className="flex justify-start items-center bg-transparent">
-          <FormLabel className=" w-[30%] block mb-3">
+        <div className="md:flex w-full justify- items-center  bg-transparent">
+          <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
             <span className="text-red-500">*</span>
             Father Mobile No
           </FormLabel>
+          <div className="w-[100%] items-start ">
+
           <Controller
             name="fatherPhone"
             control={form.control}
@@ -382,6 +427,7 @@ function FatherForm({ form }: any) {
               </>
             )}
           />
+          </div>
         </div>
       </div>
     </div>
