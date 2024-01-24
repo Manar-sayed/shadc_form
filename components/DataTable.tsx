@@ -84,39 +84,49 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="pb-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3  w-full md:w-[80%] mx-auto items-center mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3  w-full md:w-[85%]  mx-auto items-center mt-5">
         <div>
-          <label htmlFor="name" className="block mb-2 text-black">
-            Search By Name:
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={nameFilter}
-            onChange={(event) => setNameFilter(event.target.value)}
-            className="border  border-primary-color px-3  rounded py-1 w-full"
-          />
+          <div className="md:flex md:items-center gap-1">
+            <label
+              htmlFor="name"
+              className="block mb-2 text-black md:w-3/12 md:basis-3/12 md:mb-0"
+            >
+              Search By Name:
+            </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={nameFilter}
+              onChange={(event) => setNameFilter(event.target.value)}
+              className="border  border-primary-color px-3  rounded py-1 w-full md:w-9/12 md:basis-9/12"
+            />
+          </div>
         </div>
         <div>
-          <label htmlFor="role" className="block mb-2 text-black">
-            Role:
-          </label>
+          <div className="md:flex md:items-center gap-1 w-full">
+            <label
+              htmlFor="role"
+              className="block mb-2 text-black md:w-3/12 md:basis-3/12 md:mb-0"
+            >
+              Filter By Role:
+            </label>
 
-          <select
-            name="role"
-            id="role"
-            value={roleFilter}
-            onChange={(event) => setRoleFilter(event.target.value)}
-            className="border border-primary-color px-3  rounded w-full  h-[33px] mt-0"
-          >
-            <option value=""></option>
-            <option value="ADMIN">Admin</option>
-            <option value="USER">User</option>
-          </select>
+            <select
+              name="role"
+              id="role"
+              value={roleFilter}
+              onChange={(event) => setRoleFilter(event.target.value)}
+              className="border border-primary-color px-3  rounded w-full   h-[33px] mt-0 md:w-9/12 md:basis-9/12"
+            >
+              <option value=""></option>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
+            </select>
+          </div>
         </div>
       </div>
-      <div className="mt-5 mb-4 text-end w-[80%] mx-auto">
+      <div className="mt-5 mb-4 text-end w-full md:w-[85%] mx-auto">
         <button
           onClick={handleFilterButtonClick}
           className="bg-primary-color text-white px-5 py-1 rounded shadow-sm"
@@ -129,7 +139,7 @@ export function DataTable<TData, TValue>({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size={'sm'} className="ml-auto p-2">
-              Show Columns
+              View
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -155,22 +165,6 @@ export function DataTable<TData, TValue>({
       </div>
 
       <div className="bg-white">
-        <div className="flex items-center py-4 gap-3">
-          {/* <Input
-            placeholder="Filter names..."
-            value={nameFilter}
-            onChange={(event) => setNameFilter(event.target.value)}
-            className="max-w-sm ml-2"
-          />
-          <Input
-            placeholder="Filter emails..."
-            value={emailFilter}
-            onChange={(event) => setEmailFilter(event.target.value)}
-            className="max-w-sm"
-          />
-          <Button onClick={handleFilterButtonClick}>Filter</Button> */}
-        </div>
-
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -198,7 +192,7 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className=" pl-8">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -244,14 +238,14 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div> */}
-      <div className="flex items-center justify-between px-2 mt-5">
-        <div className="flex-1 text-sm text-muted-foreground">
+      <div className="flex items-center justify-center  px-2 mt-5">
+        {/* <div className="flex-1 text-sm text-muted-foreground">
           {table.getFilteredSelectedRowModel().rows.length} of{' '}
           {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <div className="flex items-center space-x-6 lg:space-x-8">
-          <div className="flex items-center space-x-2">
-            <p className="text-sm font-medium">Rows per page</p>
+        </div> */}
+        <div className="flex items-center  justify-center space-x-6 lg:space-x-8 flex-wrap md:flex-nowrap">
+          <div className="flex items-center space-x-2 flex-wrap">
+            <p className="text-xs md:text-sm font-medium">Rows per page</p>
             <Select
               value={`${table.getState().pagination.pageSize}`}
               onValueChange={(value) => {
@@ -272,11 +266,11 @@ export function DataTable<TData, TValue>({
               </SelectContent>
             </Select>
           </div>
-          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+          <div className="flex w-[100px] items-center justify-center text-xs md:text-sm font-medium my-2 md:my-0">
             Page {table.getState().pagination.pageIndex + 1} of{' '}
             {table.getPageCount()}
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 my-2 justify-center">
             <Button
               variant="outline"
               className="hidden h-8 w-8 p-0 lg:flex"

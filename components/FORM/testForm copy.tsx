@@ -76,7 +76,6 @@ const FormDataSchema = z.object({
     .refine((data) => /^\d+$/.test(data), {
       message: 'Student National ID  must be only numbers',
     }),
-
   placeofBirth: z.string().min(3, 'please enter a valid city name'),
 
   birthDate: z.date({
@@ -396,7 +395,7 @@ function TestForm() {
   };
 
   return (
-    <section className=" p-6 md:p-10">
+    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-10">
       <Steps currentStep={currentStep} steps={steps} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(processForm)} className="py-12 ">

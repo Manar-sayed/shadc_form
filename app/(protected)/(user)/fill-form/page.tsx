@@ -2,7 +2,7 @@ import TestForm from '@/components/FORM/testForm';
 
 const FillForm = () => {
   return (
-    <div>
+    <div className="">
       <TestForm />
     </div>
   );

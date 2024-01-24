@@ -39,19 +39,41 @@ export const columns: ColumnDef<User>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
           Name
-          <ArrowUpDown className=" h-4 w-4" />
+          <ArrowUpDown className="ml-1 h-4 w-4" />
         </Button>
       );
     },
   },
   {
     accessorKey: 'email',
-    header: 'Email',
+    // header: 'Email',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Email
+          <ArrowUpDown className="ml-1 h-4 w-4" />
+        </Button>
+      );
+    },
   },
 
   {
     accessorKey: 'emailVerified',
-    header: 'Verification Date',
+    // header: 'Verification Date',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Verification Date
+          <ArrowUpDown className="ml-1 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const date = new Date(row.getValue('emailVerified'));
 
@@ -62,7 +84,18 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'role',
-    header: 'Role',
+    // header: 'Role',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Role
+          <ArrowUpDown className="ml-1 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     id: 'actions',

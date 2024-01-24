@@ -44,6 +44,13 @@ export const ResetSchema = z.object({
   }),
 });
 
+export const DasSchema = z.object({
+  email: z.string().email({
+    message: 'Email is required',
+  }),
+  code: z.optional(z.string()),
+});
+
 export const NewPasswordSchema = z
   .object({
     password: z.string().min(6, {
@@ -102,6 +109,10 @@ export const SettingsSchema = z.object({
   // password: z.optional(z.string().min(6)),
   // newPassword: z.optional(z.string().min(6)),
 });
+export const ConfirmSchema = z.object({
+  code: z.optional(z.string()),
+});
+
 export const UserFormSchema = z.object({
   name: z.string().min(1, {
     message: 'Name is required',

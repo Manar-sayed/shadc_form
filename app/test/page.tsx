@@ -1,6 +1,6 @@
 'use client';
 import * as z from 'zod';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Form,
@@ -13,78 +13,119 @@ import {
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import ReactDatePicker from 'react-datepicker';
-import { useState } from 'react';
+
+import { useEffect, useState } from 'react';
 import Steps from '@/components/steps';
 import { Label } from '@/components/ui/label';
 import { motion } from 'framer-motion';
 import React from 'react';
 import 'react-phone-number-input/style.css';
-import PhoneInput from 'react-phone-number-input';
-import { CalendarCheck2 } from 'lucide-react';
 
+type FormDataSchemaType = z.ZodObject<{
+  nationality: z.ZodEnum<['saudi arabia', 'egypt', 'korean']>;
+  studentNationalID: z.ZodString;
+  fatherNationality: z.ZodEnum<['saudi arabia', 'egypt', 'korean']>;
+  name: z.ZodString;
+  motherEmail: z.ZodString;
+  aramcoRelation: z.ZodEnum<['father', 'mother', 'both']>;
+}>;
 const FormDataSchema = z.object({
   nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
-
-  studentNationalID: z.coerce
-    .string()
-    .min(12, {
-      message: 'Student National ID  must have ayt least 12 numbers',
-    })
-    .max(14, {
-      message: 'Student National ID  cannot have more than 14 numbers',
-    })
-    .refine((data) => /^\d+$/.test(data), {
-      message: 'Student National ID  must be only numbers',
-    }),
-
+  studentNationalID: z.string().min(1, { message: 'Please enter national id' }),
+  aramcoRelation: z.enum(['father', 'mother', 'both']),
   // father Info----------------
 
-  fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
-
+  fatherNationality: z.optional(z.enum(['saudi arabia', 'egypt', 'korean'])),
+  name: z.string().optional(),
   // mother Info----------------
 
-  motherEmail: z
-    .string()
-    .min(1, 'Email is required')
-    .email('Invalid email address'),
+  motherEmail: z.string().optional(),
 });
+const initialSteps = [
+  {
+    id: 'Student Information',
+    fields: ['studentNationalID', 'nationality', 'aramcoRelation'],
+  },
+  {
+    id: 'Father Information',
+    fields: ['fatherNationality', 'name'],
+  },
+  {
+    id: 'Mother Information',
+    fields: ['motherEmail'],
+  },
+  { id: 'Complete' },
+];
 function FormFull() {
   const [previousStep, setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
-  const delta = currentStep - previousStep;
-  const steps = [
-    {
-      id: 'Student Information',
-      fields: ['studentNationalID', 'nationality'],
-    },
-    {
-      id: 'Father Information',
-      fields: ['fatherNationality'],
-    },
-    {
-      id: 'Mother Information',
-      fields: ['motherEmail'],
-    },
-    { id: 'Complete' },
-  ];
+  const [steps, setSteps] = useState(initialSteps);
 
-  const form = useForm<z.infer<typeof FormDataSchema>>({
-    resolver: zodResolver(FormDataSchema),
+  const [schema, setSchema] = useState<FormDataSchemaType>(
+    FormDataSchema as unknown as FormDataSchemaType
+  );
+
+  const delta = currentStep - previousStep;
+
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     mode: 'onChange',
     defaultValues: {
       studentNationalID: '',
-
       motherEmail: '',
+      name: '',
     },
   });
 
-  const processForm = async (values: z.infer<typeof FormDataSchema>) => {
+  useEffect(() => {
+    if (form.getValues('aramcoRelation') === 'father') {
+      // console.log('er', true);
+
+      const updatedSchema = z.object({
+        ...FormDataSchema.shape,
+        name: z.string().min(1, { message: 'name is required' }),
+        fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+      });
+
+      setSchema(updatedSchema as unknown as FormDataSchemaType);
+      const newArray = initialSteps.filter((_, index) => index !== 2);
+      setSteps(newArray);
+    } else if (form.getValues('aramcoRelation') === 'mother') {
+      const updatedSchema = z.object({
+        ...FormDataSchema.shape,
+
+        motherEmail: z
+          .string()
+          .min(1, 'Email is required')
+          .email('Invalid email address'),
+      });
+
+      setSchema(updatedSchema as unknown as FormDataSchemaType);
+      const newArray = initialSteps.filter((_, index) => index !== 1);
+      setSteps(newArray);
+    } else if (form.getValues('aramcoRelation') === 'both') {
+      const updatedSchema = z.object({
+        ...FormDataSchema.shape,
+        name: z.string().min(1, { message: 'name is required' }),
+        fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+        motherEmail: z
+          .string()
+          .min(1, 'Email is required')
+          .email('Invalid email address'),
+      });
+
+      setSchema(updatedSchema as unknown as FormDataSchemaType);
+      setSteps(initialSteps);
+    } else {
+      setSchema(FormDataSchema as unknown as FormDataSchemaType);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.getValues('aramcoRelation')]);
+
+  const processForm = async (values: z.infer<typeof schema>) => {
     console.log({ values });
   };
-  type Inputs = z.infer<typeof FormDataSchema>;
+  type Inputs = z.infer<typeof schema>;
 
   type FieldName = keyof Inputs;
   const next = async () => {
@@ -94,6 +135,29 @@ function FormFull() {
     });
 
     if (!output) return;
+
+    const x = form.watch('studentNationalID');
+
+    const y = form.watch('nationality');
+
+    if (y == 'saudi arabia' && x.length < 12) {
+      form.setError('studentNationalID', {
+        type: 'manual',
+        message: 'Student National ID must be at least 12 characters',
+      });
+      return;
+    }
+    if (y == 'saudi arabia' && x.length == 12) {
+      const xAsString = x.toString();
+
+      if (xAsString.charAt(0) !== '1') {
+        form.setError('studentNationalID', {
+          type: 'manual',
+          message: 'Student National ID must be Started with 1',
+        });
+        return;
+      }
+    }
 
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
@@ -141,14 +205,43 @@ function FormFull() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
-                          <span className='text-red-500'>*</span>
-
+                            <span className="text-red-500">*</span>
                             Nationality
                           </FormLabel>
                           <FormControl className="bg-slate-500 ">
+                            {/* <FormField
+                              control={form.control}
+                              name="nationality"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel>Role</FormLabel>
+                                  <Select
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                  >
+                                    <FormControl>
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select a role" />
+                                      </SelectTrigger>
+                                    </FormControl>
+                                    <SelectContent>
+                                      <SelectItem value={'saudi arabia'}>
+                                        Saudi Arabia
+                                      </SelectItem>
+                                      <SelectItem value={'egypt'}>
+                                        Egypt
+                                      </SelectItem>
+                                      <SelectItem value={'korean'}>
+                                        Korean
+                                      </SelectItem>
+                                    </SelectContent>
+                                  </Select>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            /> */}
                             <>
                               <select
-                                defaultValue=""
                                 id="nationality"
                                 {...field}
                                 // autoComplete="nationality-name"
@@ -159,10 +252,7 @@ function FormFull() {
                                 <option
                                   className="text-gray-200 text-sm"
                                   value=""
-                                  disabled
-                                >
-                                  Select nationality
-                                </option>
+                                ></option>
                                 <option value={'saudi arabia'}>
                                   Saudi Arabia
                                 </option>
@@ -184,8 +274,7 @@ function FormFull() {
                       render={({ field }) => (
                         <FormItem className="bg-transparent">
                           <FormLabel className="block text-sm font-medium leading-6 ">
-                          <span className='text-red-500'>*</span>
-
+                            <span className="text-red-500">*</span>
                             Student National ID
                           </FormLabel>
                           <FormControl>
@@ -197,80 +286,181 @@ function FormFull() {
                               className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
                             />
                           </FormControl>
+
+                          {form.formState.errors.studentNationalID && (
+                            <div className="text-red-500 text-sm mt-2">
+                              {form.formState.errors.studentNationalID.message}
+                            </div>
+                          )}
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <div className="">
+                    <FormField
+                      control={form.control}
+                      name="aramcoRelation"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div className="flex justify-center items-center bg-transparent">
+                            <FormLabel className="w-[30%] block text-sm font-medium leading-6 ">
+                              {' '}
+                              <span className="text-red-600">*</span>
+                              Aramco Relation
+                            </FormLabel>
+                            <FormControl>
+                              <>
+                                <select
+                                  id="aramcoRelation"
+                                  {...field}
+                                  className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 
+                        py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 
+                        focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
+                                >
+                                  <option
+                                    className="text-gray-200 text-sm"
+                                    value=""
+                                  ></option>
+                                  <option value={'father'}>Father</option>
+                                  <option value={'mother'}>Mother</option>
+                                  <option value={'both'}>Both</option>
+                                </select>
+                              </>
+                            </FormControl>
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
                   </div>
-                  {/* Passport Number */}
                 </div>
               </div>
             </motion.div>
           )}
           {/* father info */}
-
-          {currentStep === 1 && (
-            <motion.div
-              initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-            >
-              <h2 className="text-base font-semibold leading-7 ">Address</h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">
-                Father details Info
-              </p>
-              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3">
-                {/* nationality */}
-                <div className="">
-                  <FormField
-                    control={form.control}
-                    name="fatherNationality"
-                    render={({ field }) => (
-                      <FormItem className="bg-transparent">
-                        <FormLabel className="block text-sm font-medium leading-6 ">
-                        <span className='text-red-500'>*</span>
-
-                          Father Nationality
-                        </FormLabel>
-                        <FormControl className="bg-slate-500 ">
-                          <>
-                            <select
-                              defaultValue=""
-                              id="fatherNationality"
-                              {...field}
-                              className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
+          {currentStep === 1 &&
+            (form.getValues('aramcoRelation') === 'father' ||
+              form.getValues('aramcoRelation') === 'both') && (
+              <motion.div
+                initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <h2 className="text-base font-semibold leading-7 ">Address</h2>
+                <p className="mt-1 text-sm leading-6 text-gray-600">
+                  Father details Info
+                </p>
+                <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3">
+                  {/* nationality */}
+                  <div className="">
+                    <FormField
+                      control={form.control}
+                      name="fatherNationality"
+                      render={({ field }) => (
+                        <FormItem className="bg-transparent">
+                          <FormLabel className="block text-sm font-medium leading-6 ">
+                            <span className="text-red-500">*</span>
+                            Father Nationality
+                          </FormLabel>
+                          <FormControl className="bg-slate-500 ">
+                            <>
+                              <select
+                                id="fatherNationality"
+                                {...field}
+                                className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
                                  ring-gray-300 focus:ring-2 focus:ring-inset
                                   focus:ring-green-500   sm:leading-6"
-                            >
-                              <option
-                                className="text-gray-200 text-sm"
-                                value=""
-                                disabled
                               >
-                                Select nationality
-                              </option>
-                              <option value={'saudi arabia'}>
-                                Saudi Arabia
-                              </option>
-                              <option value={'egypt'}>Egypt</option>
-                              <option value={'korean'}>Korean</option>
-                            </select>
-                            <FormMessage></FormMessage>
-                          </>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
+                                <option
+                                  className="text-gray-200 text-sm"
+                                  value=""
+                                ></option>
+                                <option value={'saudi arabia'}>
+                                  Saudi Arabia
+                                </option>
+                                <option value={'egypt'}>Egypt</option>
+                                <option value={'korean'}>Korean</option>
+                              </select>
+                              <FormMessage></FormMessage>
+                            </>
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="">
+                    <FormField
+                      control={form.control}
+                      name="name"
+                      render={({ field }) => (
+                        <FormItem className="bg-transparent">
+                          <FormLabel className="block text-sm font-medium leading-6 ">
+                            <span className="text-red-500">*</span>
+                            name
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder={'name'}
+                              type="text"
+                              {...field}
+                              // {...register('fatherwork')}
+                              className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+                            />
+                          </FormControl>
+                          <FormMessage></FormMessage>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  {/* Father work*/}
                 </div>
-
-                {/* Father work*/}
-              </div>
-            </motion.div>
-          )}
-
+              </motion.div>
+            )}
           {/* mother info */}
+          {currentStep === 1 &&
+            form.getValues('aramcoRelation') === 'mother' && (
+              <motion.div
+                initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                <p className="mt-1 text-sm leading-6 text-gray-600">
+                  Mother details Info
+                </p>
 
-          {currentStep === 2 && (
+                <div className="mt-5 gap-6 grid grid-cols-1 md:grid-cols-3">
+                  {/* mother email */}
+                  <div className="">
+                    <FormField
+                      control={form.control}
+                      name="motherEmail"
+                      render={({ field }) => (
+                        <FormItem className="bg-transparent">
+                          <FormLabel className="block text-sm font-medium leading-6 ">
+                            <span className="text-red-500">*</span>
+                            Mother Email Address
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder={'motherEmail'}
+                              type="motherEmail"
+                              {...field}
+                              className="p-4 h-14 text-sm md:text-lg font-normal"
+                            />
+                          </FormControl>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  {/* Mother National ID*/}
+                </div>
+              </motion.div>
+            )}
+          {currentStep == 2 && form.getValues('aramcoRelation') === 'both' && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -280,8 +470,8 @@ function FormFull() {
                 Mother details Info
               </p>
 
-              <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-3 ">
-                {/* father email */}
+              <div className="mt-5 gap-6 grid grid-cols-1 md:grid-cols-3">
+                {/* mother email */}
                 <div className="">
                   <FormField
                     control={form.control}
@@ -289,16 +479,15 @@ function FormFull() {
                     render={({ field }) => (
                       <FormItem className="bg-transparent">
                         <FormLabel className="block text-sm font-medium leading-6 ">
-                        <span className='text-red-500'>*</span>
-
-                          mother Email Address
+                          <span className="text-red-500">*</span>
+                          Mother Email Address
                         </FormLabel>
                         <FormControl>
                           <Input
                             placeholder={'motherEmail'}
                             type="motherEmail"
                             {...field}
-                            className=" p-4 h-14  text-sm md:text-lg font-normal "
+                            className="p-4 h-14 text-sm md:text-lg font-normal"
                           />
                         </FormControl>
 
@@ -314,7 +503,6 @@ function FormFull() {
           )}
 
           {currentStep === steps.length - 1 && <div>Thanks alot</div>}
-
           <div className="mt-3  pt-5 pb-5"></div>
         </form>
       </Form>

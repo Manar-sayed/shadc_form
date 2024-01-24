@@ -33,8 +33,12 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   });
 };
 
-export const sendVerificationDasCode = async (email: string, code: string) => {
-  const confirmLink = `${process.env.NEXTAUTH_URL}/confirmEmail?email=${email}`;
+export const sendVerificationDasCode = async (
+  email: string,
+  code: string,
+  verificationCode: string
+) => {
+  const confirmLink = `http://localhost:3000/confirm-das-email?email=${email}&otp=${verificationCode}`;
   await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: email,

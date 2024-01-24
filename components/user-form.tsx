@@ -71,10 +71,16 @@ const UserForm = ({ user }: any) => {
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
+                  <FormItem className="md:flex md:items-center">
+                    <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                      Name
+                    </FormLabel>
                     <FormControl>
-                      <Input {...field} disabled={isPending} />
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        className="md:w-[86.5%] md:basis-[86.5%]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -85,45 +91,61 @@ const UserForm = ({ user }: any) => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
+                  <FormItem className="md:flex md:items-center">
+                    <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                      Email
+                    </FormLabel>
                     <FormControl>
-                      <Input {...field} disabled={isPending} type="email" />
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        type="email"
+                        className="md:w-[86.5%] md:basis-[86.5%]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <div className="mb-2.5">
-                <FormLabel className="text-primary-color">Phone</FormLabel>
-                <PhoneComponent
-                  control={form.control}
-                  defaultValue={form.getValues('phone')}
-                />
+              <div className="mb-2.5 md:flex md:items-center space-y-2">
+                <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                  Phone
+                </FormLabel>
+                <div className="w-full md:w-[86.5%] md:basis-[86.5%]">
+                  <PhoneComponent
+                    control={form.control}
+                    defaultValue={form.getValues('phone')}
+                  />
+                </div>
               </div>
 
               <FormField
                 control={form.control}
                 name="role"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Role</FormLabel>
-                    <Select
-                      disabled={isPending}
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select a role" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value={'ADMIN'}>Admin</SelectItem>
-                        <SelectItem value={'USER'}>User</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <FormItem className="md:flex md:items-center">
+                    <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                      Role
+                    </FormLabel>
+
+                    <div className="md:w-[86.5%] md:basis-[86.5%]">
+                      <Select
+                        disabled={isPending}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select a role" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value={'ADMIN'}>Admin</SelectItem>
+                          <SelectItem value={'USER'}>User</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -131,7 +153,7 @@ const UserForm = ({ user }: any) => {
             </div>
             <FormError message={error} />
             <FormSuccess message={success} />
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-center">
               <Button type="submit" size={'sm'} disabled={isPending}>
                 Save
               </Button>

@@ -18,7 +18,7 @@ function PhoneComponent({ control, defaultValue }: PhoneComponentProps) {
         }}
         defaultValue={defaultValue}
         render={({ field: { onChange, value }, fieldState }) => (
-          <div className="div-dir">
+          <div className="div-dir w-full">
             <PhoneInput
               value={value}
               onChange={onChange}
@@ -26,7 +26,7 @@ function PhoneComponent({ control, defaultValue }: PhoneComponentProps) {
               id="phoneInput"
               //
               className={`p-2 w-full border border-solid border-gray-200   rounded 
-                 bg-white mb-2
+                 bg-white 
               `}
             />
             {fieldState.error && (
