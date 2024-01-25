@@ -55,8 +55,13 @@ export default function Cell({ row }: CellProps) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Button size={'sm'} className="w-full">
-            <Link href={`/users-app/${decodeURIComponent(id)}`}>Edit</Link>
+          <Button size={'sm'} className="w-full px-0 " variant={'userEdite'}>
+            <Link
+              href={`/users-app/${decodeURIComponent(id)}`}
+              className="flex items-center rounded-md justify-center w-full h-full"
+            >
+              Edit
+            </Link>
           </Button>
         </DropdownMenuItem>
         <DropdownMenuItem>

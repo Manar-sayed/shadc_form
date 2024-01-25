@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -11,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import HomeTitle from '@/components/home-title';
+import DasDialog from '@/components/das-dialog';
 export default function AdmissionPage() {
   const admissionItems = [
     {
@@ -37,6 +39,14 @@ export default function AdmissionPage() {
       isDAS: true,
     },
   ];
+  const [isVerified, setIsVerified] = useState(false);
+  useEffect(() => {
+    const verificationCode =
+      typeof window !== 'undefined' &&
+      sessionStorage?.getItem('verificationCode');
+    if (verificationCode) setIsVerified(true);
+    console.log('verificationCode', verificationCode);
+  }, []);
   return (
     <section className="py-5  bg-gray-100 h-full">
       <div className="container mx-auto px-4 w-full  ">
@@ -62,51 +72,25 @@ export default function AdmissionPage() {
                   <CardTitle className="text-white">{item.title}</CardTitle>
                 </div>
               </CardHeader>
-              <CardContent className="py-3 text-center">
+              <CardContent className="py-1.5 text-center">
                 <p className="text-[#B1B1B1] text-lg">{item.description}</p>
-
-                {/* <ul className="my-3">
-                  <li className="flex items-center gap-2 mb-3">
-                    <Image
-                      src={'/images/icon-1.png'}
-                      width={28}
-                      height={28}
-                      alt="icon-1"
-                    />
-                    <Link href="/form" className="text-lg font-bold">
-                      Fill new form
-                    </Link>
-                  </li>
-                  <li className="flex items-center gap-2 mb-3">
-                    <Image
-                      src={'/images/icon-2.png'}
-                      width={28}
-                      height={28}
-                      alt="icon-2"
-                    />
-                    <Link href="/" className="text-lg font-bold">
-                      Edit submitted form
-                    </Link>
-                  </li>
-                  <li className="flex items-center gap-2 mb-3">
-                    <Image
-                      src={'/images/icon-3.png'}
-                      width={28}
-                      height={28}
-                      alt="icon-3"
-                    />
-                    <Link href="/" className="text-lg font-bold">
-                      Required submitted
-                    </Link>
-                  </li>
-                </ul> */}
               </CardContent>
               <CardFooter className="flex justify-between">
-                <Button variant="link">
-                  <Link href={item.href} className="">
-                    Fill Application
-                  </Link>
-                </Button>
+                {item.isDAS && !isVerified ? (
+                  <DasDialog />
+                ) : item.isDAS && isVerified ? (
+                  <Button variant="link">
+                    <Link href={'/das-form'} className="">
+                      Fill Application
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button variant="link">
+                    <Link href={item.href} className="">
+                      Fill Application
+                    </Link>
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}

@@ -34,10 +34,10 @@ function Navbar() {
 
   return (
     <>
-      <nav className="py-3 bg-gray-300/70 px-6 flex justify-between items-center border-b border-white relative">
-        <div>{convertText(pathname)}</div>
+      <nav className="py-3 bg-gray-300/70 px-3 md:px-6 flex justify-between items-center  flex-wrap border-b border-white relative">
+        <div className="text-xs md:text-base">{convertText(pathname)}</div>
         <div className="flex gap-2 items-center">
-          <h3>Welcome,{user?.name}</h3>
+          <h3 className="text-xs md:text-base">Welcome, {user?.name}</h3>
           <UserButton />
         </div>
       </nav>

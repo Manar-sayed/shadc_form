@@ -67,10 +67,16 @@ const ProfileForm = ({ user }: any) => {
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Name</FormLabel>
+                  <FormItem className="md:flex  md:items-center">
+                    <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                      Name
+                    </FormLabel>
                     <FormControl>
-                      <Input {...field} disabled={isPending} />
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        className="md:w-[86.5%] md:basis-[86.5%]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -81,22 +87,33 @@ const ProfileForm = ({ user }: any) => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
+                  <FormItem className="md:flex  md:items-center">
+                    <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                      Email
+                    </FormLabel>
                     <FormControl>
-                      <Input {...field} disabled={isPending} type="email" />
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        type="email"
+                        className="md:w-[86.5%] md:basis-[86.5%]"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              <div className="mb-2.5">
-                <FormLabel className="text-primary-color">Phone</FormLabel>
-                <PhoneComponent
-                  control={form.control}
-                  defaultValue={form.getValues('phone')}
-                />
+              <div className="space-y-2 md:flex md:items-center w-full">
+                <FormLabel className="text-primary-color md:w-[12.5%] md:basis-[12.5%]">
+                  Phone
+                </FormLabel>
+                <div className=" md:mt-0 w-full md:w-[86.5%] md:basis-[86.5%]">
+                  <PhoneComponent
+                    control={form.control}
+                    defaultValue={form.getValues('phone')}
+                  />
+                </div>
               </div>
             </div>
             <FormError message={error} />

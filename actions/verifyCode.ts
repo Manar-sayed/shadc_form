@@ -1,34 +1,44 @@
 'use server';
 import { getUserVerifyByEmail } from '@/data/verify-code';
 import { db } from '@/lib/db';
-import { sendVerificationDasCode } from '@/lib/mail';
-import { ConfirmSchema } from '@/schemas';
-import { cookies } from 'next/headers';
-import * as z from 'zod';
 
 export const verifyCode = async (
-  values: z.infer<typeof ConfirmSchema>,
-  email?: string | null
+  email?: string | null,
+  code?: string | null
 ) => {
-  const validateFields = ConfirmSchema.safeParse(values);
-
-  if (!validateFields.success) {
-    return { error: 'Invalid Code!' };
-  }
-  const { code } = validateFields.data;
-
-  console.log('code', code);
-
   if (!email) {
     return { error: 'Email missing!' };
   }
+  if (!code) {
+    return { error: 'Code missing!' };
+  }
   const isDasUser = await getUserVerifyByEmail(email);
 
-  if (isDasUser && isDasUser.verificationCode == code) {
-    console.log('code correct');
-    cookies().set('verificationCode', code);
+  console.log('isDasUser', isDasUser);
+  console.log(
+    'new Date(isDasUser?.expires)',
+    new Date(isDasUser?.expires ?? new Date())
+  );
+  const hasExpired = new Date(isDasUser?.expires ?? new Date()) < new Date();
 
-    return { success: 'Code Is Correct' };
+  console.log('hasExpired', hasExpired);
+  if (hasExpired) {
+    return { error: 'Code has expired!' };
+  }
+  if (isDasUser && isDasUser.verificationCode == code) {
+    if (isDasUser.isUsed == false) {
+      await db.das.update({
+        where: { id: isDasUser.id },
+        data: {
+          isUsed: true,
+        },
+      });
+      return { success: 'Code Is Correct', isCode: true };
+    } else {
+      return { error: 'Code Is Used' };
+    }
+  } else {
+    return { error: 'SomeThing wrong!' };
   }
 
   // await db.das.delete({

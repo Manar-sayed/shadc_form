@@ -26,6 +26,7 @@ const protectedPage = [
   '/my-applications',
   '/my-profile',
   '/new-application',
+  '/das-form',
 ];
 
 export default async function middlware(req: any) {

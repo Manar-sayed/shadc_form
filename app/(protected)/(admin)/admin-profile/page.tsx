@@ -8,7 +8,7 @@ const AdminProfile = () => {
 
   console.log('user', user);
   return (
-    <div className="py-4 bg-gray-100 h-full">
+    <div className="py-4 bg-gray-100 h-full  relative">
       <HomeTitle title="My Profile" />
 
       <ProfileForm user={user} />

@@ -1,0 +1,226 @@
+const FormDataSchema = z.object({
+  firstName: z
+    .string()
+    .min(3, { message: 'First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'First name must contain only letters' }),
+  thirdName: z
+    .string()
+    .min(3, { message: 'Third name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Third name must contain only letters' }),
+  middleName: z
+    .string()
+    .min(3, { message: 'Middle name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
+  lastName: z
+    .string()
+    .min(3, { message: 'Last name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Last name must contain only letters' }),
+  arabicfirstName: z
+    .string()
+    .min(3, { message: 'First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'First name must contain only letters' }),
+  arabiclastName: z
+    .string()
+    .min(3, { message: 'Last name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Last name must contain only letters' }),
+  arabicthirdName: z
+    .string()
+    .min(3, { message: 'Third name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Third name must contain only letters' }),
+  arabicmiddleName: z
+    .string()
+    .min(3, { message: 'Middle name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
+
+  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
+  religion: z.enum(['muslim', 'christian']),
+  enrolmentYear: z.enum(['2016-2017', '2017-2018']),
+  applyingforGrade: z.enum(['grade 11', 'grade 12']),
+  aramcoRelation: z.enum(['father', 'mother', 'both']),
+
+  DAS: z.enum(['yes', 'no']),
+  passportNumber: z.coerce
+    .string()
+    .min(8, { message: 'Passport Number must have ayt least 8 numbers' })
+    .max(12, { message: 'Passport Number cannot have more than 12 numbers' })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Passport Number must be only numbers',
+    }),
+
+  StudentID: z.coerce
+    .string()
+    .min(12, {
+      message: 'Student National ID  must have at least 12 numbers',
+    })
+    .max(14, {
+      message: 'Student National ID  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Student National ID  must be only numbers',
+    }),
+
+  placeofBirth: z.string().min(3, 'please enter a valid city name'),
+
+  birthDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: 'Format invalid',
+  }),
+  currentSchoolName: z
+    .string()
+    .min(0, { message: 'please enter  School Name' }),
+
+  gender: z.enum(['male', 'female'], {
+    required_error: 'Please Select  Gender',
+  }),
+  // father Info----------------
+  fatherNationalID: z.coerce
+    .string()
+    .min(12, {
+      message: 'Father National ID  must have ayt least 12 numbers',
+    })
+    .max(14, {
+      message: 'Father National ID  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Father National ID  must be only numbers',
+    }),
+  fatherPhone: z
+    .string()
+    .refine((data) => data.trim(), { message: 'Should be trimmed.' })
+    .refine((data) => data !== '', { message: 'Please write  phone.' }),
+
+  fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  DASalumnus: z.enum(['yes', 'no']),
+  DASDhahrani: z.enum(['yes', 'no']),
+  DASEmployee: z.enum(['yes', 'no']),
+
+  fatherEmail: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  // images
+  birthCertificateimage: z.custom((value: any) => {
+    return value;
+  }),
+  familyNationalId: z.custom((value: any) => {
+    return value;
+  }),
+  CmPhotograph: z.custom((value: any) => {
+    return value;
+  }),
+  studentImmuniazation: z.custom((value: any) => {
+    return value;
+  }),
+  medicalReport: z.custom((value: any) => {
+    return value;
+  }),
+  aramcoID: z.custom((value: any) => {
+    return value;
+  }),
+  diseaseFree: z.custom((value: any) => {
+    return value;
+  }),
+  // birthCertificateimage: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Birth certificate image is required',
+  //   }),
+  // familyNationalId: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Family national ID image is required',
+  //   }),
+  // CmPhotograph: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Photograph is required',
+  //   }),
+  // studentImmunization: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Student immunization image is required',
+  //   }),
+  // medicalReport: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Medical report image is required',
+  //   }),
+  // diseaseFree: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Disease-free image is required',
+  //   }),
+  // aramcoID: z
+  //   .custom((value) => value)
+  //   .refine((value) => value !== null, {
+  //     message: 'Aramco ID image is required',
+  //   }),
+  // aramcoID: z.custom((value: any) => {
+  //   return value;
+  // }),
+  //images
+
+  fatherwork: z.string().min(3, 'father work is required'),
+  expDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: 'Format invalid',
+  }),
+  faterAramcoId: z
+    .string()
+    .min(12, { message: 'Father Aramco ID must have at least 12 numbers' })
+    .max(14, { message: 'Father Aramco ID cannot have more than 14 numbers' })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Father Aramco ID must be only numbers',
+    }),
+
+  // mother Info----------------
+  motherDASalumnus: z.enum(['yes', 'no']),
+  motherDASDhahrani: z.enum(['yes', 'no']),
+  motherDASEmployee: z.enum(['yes', 'no']),
+  mothernationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  motherEmail: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  motherNationalID: z.coerce
+    .string()
+    .min(12, {
+      message: 'Mother National ID  must have ayt least 12 numbers',
+    })
+    .max(14, {
+      message: 'Mother National ID  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Mother National ID  must be only numbers',
+    }),
+  motherAramcoId: z.coerce
+    .string()
+    .min(12, { message: 'Mother Aramco ID must have at least 12 numbers' })
+    .max(14, { message: 'Mother Aramco ID cannot have more than 14 numbers' })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Mother Aramco ID must be only numbers',
+    }),
+  motherwork: z.string().min(3, 'mother work is required'),
+  motherexpDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: 'Format invalid',
+  }),
+
+  motherPhone: z
+    .string()
+    .refine((data) => data.trim(), { message: 'Should be trimmed.' })
+    .refine((data) => data !== '', { message: 'Please write  phone.' }),
+  motherName: z
+    .string()
+    .min(3, { message: 'Mother First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, {
+      message: 'Mother First name must contain only letters',
+    }),
+  motherNameArabic: z
+    .string()
+    .min(3, { message: 'Mother First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, {
+      message: 'Mother First name must contain only letters',
+    }),
+});

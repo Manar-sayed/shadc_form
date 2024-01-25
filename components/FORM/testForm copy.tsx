@@ -19,59 +19,35 @@ const FormDataSchema = z.object({
   firstName: z
     .string()
     .min(3, { message: 'First name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'First name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .regex(/^[a-zA-Z]+$/, { message: 'First name must contain only letters' }),
   thirdName: z
     .string()
     .min(3, { message: 'Third name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Third name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .regex(/^[a-zA-Z]+$/, { message: 'Third name must contain only letters' }),
   middleName: z
     .string()
     .min(3, { message: 'Middle name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Middle name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
   lastName: z
     .string()
     .min(3, { message: 'Last name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Last name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .regex(/^[a-zA-Z]+$/, { message: 'Last name must contain only letters' }),
   arabicfirstName: z
     .string()
-    .min(3, { message: 'Arabic First name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Arabic First name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .min(3, { message: 'First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'First name must contain only letters' }),
   arabiclastName: z
     .string()
-    .min(3, { message: 'Arabic Last name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Arabic Last name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .min(3, { message: 'Last name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Last name must contain only letters' }),
   arabicthirdName: z
     .string()
-    .min(3, { message: 'Arabic Third name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Arabic Third name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .min(3, { message: 'Third name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Third name must contain only letters' }),
   arabicmiddleName: z
     .string()
-    .min(3, { message: 'Arabic Middle name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Arabic Middle name must contain only letters and spaces (Arabic and English characters)',
-    }),
+    .min(3, { message: 'Middle name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
 
   nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
   currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
@@ -81,11 +57,25 @@ const FormDataSchema = z.object({
   aramcoRelation: z.enum(['father', 'mother', 'both']),
 
   DAS: z.enum(['yes', 'no']),
-  passportNumber: z.string().refine((data) => /^[a-zA-Z0-9]{12}$/.test(data), {
-    message: 'Passport Number must be 12 characters (numbers and/or letters)',
-  }),
+  passportNumber: z.coerce
+    .string()
+    .min(8, { message: 'Passport Number must have ayt least 8 numbers' })
+    .max(12, { message: 'Passport Number cannot have more than 12 numbers' })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Passport Number must be only numbers',
+    }),
 
-  StudentID: z.coerce.string().min(1, { message: 'Please enter national id' }),
+  StudentID: z.coerce
+    .string()
+    .min(12, {
+      message: 'Student National ID  must have at least 12 numbers',
+    })
+    .max(14, {
+      message: 'Student National ID  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Student National ID  must be only numbers',
+    }),
   placeofBirth: z.string().min(3, 'please enter a valid city name'),
 
   birthDate: z.date({
@@ -239,17 +229,15 @@ const FormDataSchema = z.object({
     .refine((data) => data !== '', { message: 'Please write  phone.' }),
   motherName: z
     .string()
-    .min(3, { message: 'Mother name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Mother name must contain only letters and spaces (Arabic and English characters)',
+    .min(3, { message: 'Mother First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, {
+      message: 'Mother First name must contain only letters',
     }),
   motherNameArabic: z
     .string()
-    .min(3, { message: 'Mother name must be at least 3 characters' })
-    .regex(/^[a-zA-Z\u0600-\u06FF\s]+$/, {
-      message:
-        'Mother name must contain only letters and spaces (Arabic and English characters)',
+    .min(3, { message: 'Mother First name must be at least 3 characters' })
+    .regex(/^[a-zA-Z]+$/, {
+      message: 'Mother First name must contain only letters',
     }),
 });
 
@@ -390,28 +378,6 @@ function TestForm() {
       shouldFocus: true,
     });
     if (!output) return;
-    const x = form.watch('StudentID');
-
-    const y = form.watch('nationality');
-    if (y == 'saudi arabia' && x.length < 12) {
-      form.setError('StudentID', {
-        type: 'manual',
-        message: 'Student National ID must be at least 12 characters',
-      });
-      return;
-    }
-    if (y == 'saudi arabia' && x.length == 12) {
-      const xAsString = x.toString();
-
-      if (xAsString.charAt(0) !== '1') {
-        form.setError('StudentID', {
-          type: 'manual',
-          message: 'Student National ID must be Started with 1',
-        });
-        return;
-      }
-    }
-
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
         await form.handleSubmit(processForm)();
@@ -429,7 +395,7 @@ function TestForm() {
   };
 
   return (
-    <section className=" p-6 md:p-10">
+    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-10">
       <Steps currentStep={currentStep} steps={steps} />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(processForm)} className="py-12 ">
@@ -560,7 +526,7 @@ function TestForm() {
         </form>
       </Form>
 
-      <div className="-mt-3 pb-5">
+      <div className="mt-3 pt-5 pb-5">
         <div className="flex justify-between">
           <Button
             type="button"
@@ -588,9 +554,7 @@ function TestForm() {
             type="submit"
             onClick={next}
             disabled={currentStep === steps.length - 1}
-            className="rounded flex items-center justify-center 
-            py-1 text-sm font-semibold bg-primary-color shadow-sm border border-primary-color 
-              hover:bg-transparent hover:text-primary-color disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded flex items-center justify-center py-1 text-sm font-semibold bg-primary-color shadow-sm border border-primary-color   hover:bg-transparent hover:text-primary-color disabled:cursor-not-allowed disabled:opacity-50"
           >
             <span>Next</span>
             <svg
