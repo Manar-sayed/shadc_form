@@ -418,43 +418,42 @@ function MotherForm({ form }: any) {
         </div>
         {/* motherphone */}
         <div className="md:flex w-full justify- items-center  bg-transparent">
-        <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
+          <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
             {' '}
             <span className="text-red-500">*</span>
             Phone Number:
           </FormLabel>
           <div className="w-[100%] items-start ">
-
-          <Controller
-            name="motherPhone"
-            control={form.control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, value }, fieldState }) => (
-              <>
-                <div className="flex w-full">
-                  <PhoneInput
-                    value={value}
-                    onChange={onChange}
-                    inputStyle={{
-                      borderColor: 'lightgray',
-                      width: '100%',
-                      borderRadius: '5px',
-                      height: '50px',
-                    }}
-                    country="sa"
-                    //
-                  />
-                </div>
-                {fieldState.error && (
-                  <FormMessage className="flex">
-                    {fieldState.error.message}
-                  </FormMessage>
-                )}
-              </>
-            )}
-          />
+            <Controller
+              name="motherPhone"
+              control={form.control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, value }, fieldState }) => (
+                <>
+                  <div className="flex w-full">
+                    <PhoneInput
+                      value={value}
+                      onChange={onChange}
+                      inputStyle={{
+                        borderColor: 'lightgray',
+                        width: '100%',
+                        borderRadius: '5px',
+                        height: '50px',
+                      }}
+                      country="sa"
+                      //
+                    />
+                  </div>
+                  {fieldState.error && (
+                    <FormMessage className="flex">
+                      {fieldState.error.message}
+                    </FormMessage>
+                  )}
+                </>
+              )}
+            />
           </div>
         </div>
       </div>
