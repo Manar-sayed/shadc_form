@@ -1,4 +1,5 @@
 'use client';
+import TestForm from '@/components/FORM/testForm';
 import { Button } from '@/components/ui/button';
 import Upload from '@/components/upload/uploadComp';
 import React, { useState } from 'react';
@@ -16,6 +17,7 @@ export default function App() {
   };
   return (
     <div className="mt-10 container">
+      <TestForm/>
       {/* <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="images"
@@ -42,7 +44,7 @@ export default function App() {
         <Button type="submit">Submit</Button>
       </form> */}
       {/* upload without validation or form */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 justify-center ">
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 justify-center ">
         <div className="">
           <Upload
             maxNumber={1}
@@ -83,7 +85,7 @@ export default function App() {
         <div className="  ">
           <Upload maxNumber={1} title="Disease Free Certificate" desc="()" />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
