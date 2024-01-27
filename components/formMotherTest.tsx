@@ -15,7 +15,8 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-input-2';
 import { CalendarCheck2 } from 'lucide-react';
-function MotherFormTest({ form }: any) {
+function MotherFormTest({ form, motherShow, setMotherShow }: any) {
+  setMotherShow(motherShow);
   return (
     <div>
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
@@ -249,80 +250,82 @@ function MotherFormTest({ form }: any) {
           />
         </div>
       </div>
-
-      <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
-        {/* Exp Date */}
-        <div className="md:flex w-full justify- items-center  bg-transparent">
-          <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
-            {' '}
-            <span className="text-red-500">*</span>
-            Mother Aramco Exp Date
-          </FormLabel>
-          <div className="w-full">
-            <Controller
-              control={form.control}
-              name="motherexpDate"
-              render={({ field: { onChange, value }, fieldState }) => (
-                <>
-                  <div
-                    className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
-                  >
-                    <ReactDatePicker
-                      placeholderText="Select Date Picker"
-                      id="ReactDatePicker"
-                      onChange={onChange}
-                      selected={value}
-                      maxDate={new Date()}
-                      className={`
+      {motherShow && (
+        <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
+          {/* Exp Date */}
+          <div className="md:flex w-full justify- items-center  bg-transparent">
+            <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
+              {' '}
+              <span className="text-red-500">*</span>
+              Mother Aramco Exp Date
+            </FormLabel>
+            <div className="w-full">
+              <Controller
+                control={form.control}
+                name="motherexpDate"
+                render={({ field: { onChange, value }, fieldState }) => (
+                  <>
+                    <div
+                      className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                    >
+                      <ReactDatePicker
+                        placeholderText="Select Date Picker"
+                        id="ReactDatePicker"
+                        onChange={onChange}
+                        selected={value}
+                        maxDate={new Date()}
+                        className={`
                      text-sm md:text-lg font-normal 
                      bg-transparent
                       placeholder:text-gray-300 placeholder:text-sm
                       rounded-md  sm:text-sm
                         ${fieldState.error && 'border-red-600'}`}
-                    />
-                    <CalendarCheck2 className=" text-gray-300" />
+                      />
+                      <CalendarCheck2 className=" text-gray-300" />
+                    </div>
+                    {fieldState.error && (
+                      <FormMessage className=" my-2">
+                        {fieldState.error.message}
+                      </FormMessage>
+                    )}
+                  </>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* mother Aramco ID*/}
+          <div className="">
+            <FormField
+              control={form.control}
+              name="motherAramcoId"
+              render={({ field }) => (
+                <FormItem className="bg-transparent">
+                  <div className="md:flex justify-center items-center bg-transparent">
+                    <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      mother Aramco ID
+                    </FormLabel>
+                    <div className="w-[100%] items-start ">
+                      <FormControl>
+                        <Input
+                          placeholder={'mother aramco id'}
+                          type="text"
+                          {...field}
+                          className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        />
+                      </FormControl>
+                      <FormMessage className="my-2" />
+                    </div>
                   </div>
-                  {fieldState.error && (
-                    <FormMessage className=" my-2">
-                      {fieldState.error.message}
-                    </FormMessage>
-                  )}
-                </>
+                </FormItem>
               )}
             />
           </div>
         </div>
+      )}
 
-        {/* mother Aramco ID*/}
-        <div className="">
-          <FormField
-            control={form.control}
-            name="motherAramcoId"
-            render={({ field }) => (
-              <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    mother Aramco ID
-                  </FormLabel>
-                  <div className="w-[100%] items-start ">
-                    <FormControl>
-                      <Input
-                        placeholder={'mother aramco id'}
-                        type="text"
-                        {...field}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
-                      />
-                    </FormControl>
-                    <FormMessage className="my-2" />
-                  </div>
-                </div>
-              </FormItem>
-            )}
-          />
-        </div>
-      </div>
       {/* names */}
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
         <div className="">

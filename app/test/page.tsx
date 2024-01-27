@@ -375,7 +375,8 @@ function FormFull() {
       setSchema(updatedSchema as unknown as FormDataSchemaType);
       const newArray = initialSteps.filter((_, index) => index !== 2);
       setSteps(newArray);
-    } else if (form.getValues('aramcoRelation') === 'mother') {
+    } 
+    else if (form.getValues('aramcoRelation') === 'mother') {
       const updatedSchema = z.object({
         ...FormDataSchema.shape,
 
