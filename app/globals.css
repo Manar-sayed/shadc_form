@@ -60,10 +60,9 @@
     height: 55px;
     padding-left: 3px;
     padding-right: 3px;
-    /* margin-top: 20px; */
+    background: white;
     @apply !border border-opacity-80;
     @apply !shadow-none;
-    /* @apply !ring-offset-background; */
   }
   #ReactDatePicker {
     height: 55px;
@@ -79,7 +78,8 @@
     /* color: rgb(2, 132, 199); */
     @apply text-black;
   }
-  ::-webkit-input-placeholder {
+  ::-webkit-input-placeholder,
+  :-ms-input-placeholder {
     /* how to write tailwind in css note*** */
     @apply !text-gray-300;
     @apply !text-sm;

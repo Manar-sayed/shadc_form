@@ -49,7 +49,7 @@ const FormDataSchema = z.object({
     .min(3, { message: 'Middle name must be at least 3 characters' })
     .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
 
-  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
   religion: z.enum(['muslim', 'christian']),
   enrolmentYear: z.enum(['2016-2017', '2017-2018']),
@@ -106,7 +106,7 @@ const FormDataSchema = z.object({
     .refine((data) => data.trim(), { message: 'Should be trimmed.' })
     .refine((data) => data !== '', { message: 'Please write  phone.' }),
 
-  fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  fatherNationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   DASalumnus: z.enum(['yes', 'no']),
   DASDhahrani: z.enum(['yes', 'no']),
   DASEmployee: z.enum(['yes', 'no']),
@@ -194,7 +194,7 @@ const FormDataSchema = z.object({
   motherDASalumnus: z.enum(['yes', 'no']),
   motherDASDhahrani: z.enum(['yes', 'no']),
   motherDASEmployee: z.enum(['yes', 'no']),
-  mothernationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  mothernationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   motherEmail: z
     .string()
     .min(1, 'Email is required')

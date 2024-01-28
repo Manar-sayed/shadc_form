@@ -15,9 +15,9 @@ const AllApplications = () => {
             <Widget type="das" />
           </div>
 
-          <div className="my-5 bg-white py-3 shadow">
+          {/* <div className="my-5 bg-white py-3 shadow">
             <Chart />
-          </div>
+          </div> */}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
             <StatsCard

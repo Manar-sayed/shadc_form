@@ -27,7 +27,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/page.tsx"
-, "app/users/hydtation-safe.jsx", "app/form/page.tsx", "lib/staticData.js", "components/progress-circle.jsx"  ],
+    "app/page.tsx",
+    "app/users/hydtation-safe.jsx",
+    "app/form/page.tsx",
+    "lib/staticData.js",
+    "components/progress-circle.jsx"
+  ],
   "exclude": ["node_modules"]
 }

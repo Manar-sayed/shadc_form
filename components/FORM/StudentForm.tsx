@@ -57,7 +57,7 @@ function StudentForm({ form }: any) {
                             Select nationality
                           </option> */}
                           <option value={'saudi arabia'}>Saudi Arabia</option>
-                          <option value={'egypt'}>Egypt</option>
+                          <option value={'Jordan'}>Jordan</option>
                           <option value={'korean'}>Korean</option>
                         </select>
                       </>
@@ -78,7 +78,7 @@ function StudentForm({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center bg-transparent ">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium  ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Student ID

@@ -41,7 +41,7 @@
 //                         Select nationality
 //                       </option>
 //                       <option value={'saudi arabia'}>Saudi Arabia</option>
-//                       <option value={'egypt'}>Egypt</option>
+//                       <option value={'Jordan'}>Jordan</option>
 //                       <option value={'korean'}>Korean</option>
 //                     </select>
 //                     <FormMessage></FormMessage>
@@ -103,11 +103,11 @@ function StudentFormTest({ form }: any) {
   //     const unregister = form.register('StudentID', {
   //       validate: (value: any) => {
   //         const selectedNationality = form.getValues('nationality');
-  //         if (selectedNationality === 'egypt') {
+  //         if (selectedNationality === 'Jordan') {
   //           return (
   //             value.length === 12 &&
   //             /^\d+$/.test(value) &&
-  //             'Student ID must have 12 numbers for Egyptian nationality'
+  //             'Student ID must have 12 numbers for Jordanian nationality'
   //           );
   //         }
   //         // Reset validation for other nationalities
@@ -122,11 +122,11 @@ function StudentFormTest({ form }: any) {
   //     const unregister = form.register('StudentID', {
   //       validate: (value:any) => {
   //         const selectedNationality = form.getValues('nationality');
-  //         if (selectedNationality === 'egypt') {
+  //         if (selectedNationality === 'Jordan') {
   //           return (
   //             value.length === 12 &&
   //             /^\d+$/.test(value) &&
-  //             'Student ID must have 12 numbers for Egyptian nationality'
+  //             'Student ID must have 12 numbers for Jordanian nationality'
   //           );
   //         }
   //         // Reset validation for other nationalities
@@ -173,8 +173,8 @@ function StudentFormTest({ form }: any) {
                           <SelectItem value={'saudi arabia'}>
                             Saudi Arabia
                           </SelectItem>
-                          <SelectItem value={'egypt'}>
-                            Egypt
+                          <SelectItem value={'Jordan'}>
+                            Jordan
                           </SelectItem>
                           <SelectItem value={'korean'}>
                             Korean
@@ -199,7 +199,7 @@ function StudentFormTest({ form }: any) {
                             value=""
                           ></option>
                           <option value={'saudi arabia'}>Saudi Arabia</option>
-                          <option value={'egypt'}>Egypt</option>
+                          <option value={'Jordan'}>Jordan</option>
                           <option value={'korean'}>Korean</option>
                         </select>
                       </>
@@ -987,7 +987,7 @@ function StudentFormTest({ form }: any) {
     //                     Select nationality
     //                   </option>
     //                   <option value={'saudi arabia'}>Saudi Arabia</option>
-    //                   <option value={'egypt'}>Egypt</option>
+    //                   <option value={'Jordan'}>Jordan</option>
     //                   <option value={'korean'}>Korean</option>
     //                 </select>
     //                 <FormMessage></FormMessage>

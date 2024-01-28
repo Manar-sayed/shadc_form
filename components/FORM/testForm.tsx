@@ -27,7 +27,7 @@ import ImageForm from '@/components/FORM/ImageForm';
 import { BadgeCheck } from 'lucide-react';
 
 type FormDataSchemaType = z.ZodObject<{
-  nationality: z.ZodEnum<['saudi arabia', 'egypt', 'korean']>;
+  nationality: z.ZodEnum<['saudi arabia', 'Jordan', 'korean']>;
   studentNationalID: z.ZodString;
   firstName: z.ZodString;
   middleName: z.ZodString;
@@ -48,7 +48,7 @@ type FormDataSchemaType = z.ZodObject<{
   DAS: z.ZodEnum<['yes', 'no']>;
   gender: z.ZodEnum<['male', 'female']>;
 
-  fatherNationality: z.ZodEnum<['saudi arabia', 'egypt', 'korean']>;
+  fatherNationality: z.ZodEnum<['saudi arabia', 'Jordan', 'korean']>;
   DASalumnus: z.ZodEnum<['yes', 'no']>;
   DASDhahrani: z.ZodEnum<['yes', 'no']>;
   DASEmployee: z.ZodEnum<['yes', 'no']>;
@@ -65,7 +65,7 @@ type FormDataSchemaType = z.ZodObject<{
   motherDASalumnus: z.ZodEnum<['yes', 'no']>;
   motherDASDhahrani: z.ZodEnum<['yes', 'no']>;
   motherDASEmployee: z.ZodEnum<['yes', 'no']>;
-  mothernationality: z.ZodEnum<['saudi arabia', 'egypt', 'korean']>;
+  mothernationality: z.ZodEnum<['saudi arabia', 'Jordan', 'korean']>;
   motherEmail: z.ZodString;
   motherNationalID: z.ZodString;
   motherAramcoId: z.ZodString;
@@ -84,7 +84,7 @@ type FormDataSchemaType = z.ZodObject<{
   diseaseFree: z.ZodAny;
 }>;
 const FormDataSchema = z.object({
-  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   studentNationalID: z.string().min(1, { message: 'Please enter national id' }),
   aramcoRelation: z.enum(['father', 'mother', 'both']),
   firstName: z
@@ -165,7 +165,7 @@ const FormDataSchema = z.object({
 
   // father Info----------------
 
-  fatherNationality: z.optional(z.enum(['saudi arabia', 'egypt', 'korean'])),
+  fatherNationality: z.optional(z.enum(['saudi arabia', 'Jordan', 'korean'])),
   fatherNationalID: z.string().optional(),
   fatherPhone: z.string().optional(),
   DASalumnus: z.optional(z.enum(['yes', 'no'])),
@@ -177,7 +177,7 @@ const FormDataSchema = z.object({
   fatherwork: z.string().optional(),
 
   // mother Info----------------
-  mothernationality: z.optional(z.enum(['saudi arabia', 'egypt', 'korean'])),
+  mothernationality: z.optional(z.enum(['saudi arabia', 'Jordan', 'korean'])),
   motherNationalID: z.string().optional(),
   motherEmail: z.string().optional(),
   motherAramcoId: z.coerce.string().optional(),
@@ -334,7 +334,7 @@ function FormFull() {
       const updatedSchema = z.object({
         ...FormDataSchema.shape,
 
-        fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+        fatherNationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
         fatherNationalID: z
           .string()
           .min(1, { message: 'Please enter national id' }),
@@ -379,7 +379,7 @@ function FormFull() {
       const updatedSchema = z.object({
         ...FormDataSchema.shape,
 
-        mothernationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+        mothernationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
         motherNationalID: z
           .string()
           .min(1, { message: 'Please enter national id' }),
@@ -434,7 +434,7 @@ function FormFull() {
       const updatedSchema = z.object({
         ...FormDataSchema.shape,
         //father info
-        fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+        fatherNationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
         fatherNationalID: z
           .string()
           .min(1, { message: 'Please enter national id' }),
@@ -472,7 +472,7 @@ function FormFull() {
           }),
         //mother info
 
-        mothernationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+        mothernationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
         motherNationalID: z
           .string()
           .min(1, { message: 'Please enter national id' }),
@@ -628,11 +628,11 @@ function FormFull() {
   };
 
   return (
-    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-24">
+    <section className=" p-6 md:p-14">
       {' '}
       <Steps currentStep={currentStep} steps={steps}></Steps>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(processForm)} className=" py-12 ">
+        <form onSubmit={form.handleSubmit(processForm)} className=" pt-12 pb-4">
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
@@ -651,7 +651,6 @@ function FormFull() {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
               >
-
                 <FatherFormTest form={form} />
               </motion.div>
             )}
@@ -712,7 +711,7 @@ function FormFull() {
               </motion.div>
             </div>
           )}{' '}
-          <div className="mt-3  pt-5 pb-5"></div>
+          {/* <div className="mt-3  pt-5 pb-5"></div> */}
         </form>
       </Form>
       <div className="flex justify-between">
