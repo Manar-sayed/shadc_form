@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ImageUploading from 'react-images-uploading';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
@@ -13,6 +13,16 @@ const ImageUploader = ({
   title,
   desc,
 }: any) => {
+  // const [imageRequired, setImageRequired] = useState<boolean[]>(
+  //   images?.map(() => false)
+  // );
+
+  // const handleImageRemove = (index: number) => {
+  //   const newRequiredStatus = [...imageRequired];
+  //   newRequiredStatus[index] = true;
+  //   setImageRequired(newRequiredStatus);
+  //   onChange(images.filter((_, i) => i !== index));
+  // };
   return (
     <ImageUploading
       multiple
@@ -38,15 +48,17 @@ const ImageUploader = ({
             {desc}
           </Label>
           <div className="my-6">
-            <Button
-              className={`w-full py-2 px-4 border border-dashed bg-transparent hover:bg-slate-100 border-gray-400 rounded-md transition-colors ${
-                isDragging ? 'border-red-500 text-red-500' : 'text-gray-700'
-              }`}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here
-            </Button>
+            {imageList.length < 1 && (
+              <Button
+                className={`w-full py-2 px-4 border border-dashed bg-transparent hover:bg-slate-100 border-gray-400 rounded-md transition-colors ${
+                  isDragging ? 'border-red-500 text-red-500' : 'text-gray-700'
+                }`}
+                onClick={onImageUpload}
+                {...dragProps}
+              >
+                Click or Drop here
+              </Button>
+            )}
           </div>
           &nbsp;
           {/* <Button

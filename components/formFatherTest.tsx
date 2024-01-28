@@ -15,7 +15,9 @@ import { Input } from './ui/input';
 import { Controller, useForm } from 'react-hook-form';
 import { CalendarCheck2 } from 'lucide-react';
 
-function FatherFormTest({ form }: any) {
+function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
+  setFatherShow(fatherShow);
+  console.log(fatherShow);
   return (
     <div className="">
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
@@ -92,104 +94,106 @@ function FatherFormTest({ form }: any) {
           />
         </div>
       </div>
+      {fatherShow && (
+        <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
+          {/* Father Aramco ID*/}
 
-      <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
-        {/* Father Aramco ID*/}
-        <div className="">
-          <FormField
-            control={form.control}
-            name="faterAramcoId"
-            render={({ field }) => (
-              <FormItem className="bg-transparent ">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Father Aramco ID
-                  </FormLabel>
-                  <div className="w-[100%] items-start ">
-                    <FormControl>
-                      <Input
-                        placeholder={'father aramco id'}
-                        type="text"
-                        {...field}
-                        className="p-4 h-14  text-sm md:text-lg font-normal "
-                      />
-                    </FormControl>
-                    <FormMessage className="my-2" />
-                  </div>
-                </div>
-              </FormItem>
-            )}
-          />
-        </div>
-        {/* Exp Date */}
-        <div className="md:flex justify-center items-center bg-transparent">
-          <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-            <span className="text-red-500">*</span>
-            Father Aramco Exp Date
-          </FormLabel>
-          <div className="w-[100%]">
-            <Controller
+          <div className="">
+            <FormField
               control={form.control}
-              name="expDate"
-              render={({ field: { onChange, value }, fieldState }) => (
-                // <>
-                //   <div
-                //     className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
-                //   >
-                //     <ReactDatePicker
-                //       placeholderText="Select Date Picker"
-                //       id="ReactDatePicker"
-                //       onChange={onChange}
-                //       selected={value}
-                //       maxDate={new Date()}
-                //       className={`
-                //       text-sm md:text-lg font-normal
-                //       bg-transparent w-full
-                //        placeholder:text-gray-300 placeholder:text-sm
-                //        rounded-md  sm:text-sm
-                //          ${fieldState.error && 'border-red-600'}`}
-                //     />
-                //     <CalendarCheck2 className=" text-gray-300" />
-                //   </div>
+              name="faterAramcoId"
+              render={({ field }) => (
+                <FormItem className="bg-transparent ">
+                  <div className="md:flex justify-center items-center bg-transparent">
+                    <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Father Aramco ID
+                    </FormLabel>
+                    <div className="w-[100%] items-start ">
+                      <FormControl>
+                        <Input
+                          placeholder={'father aramco id'}
+                          type="text"
+                          {...field}
+                          className="p-4 h-14  text-sm md:text-lg font-normal "
+                        />
+                      </FormControl>
+                      <FormMessage className="my-2" />
+                    </div>
+                  </div>
+                </FormItem>
+              )}
+            />
+          </div>
 
-                //   {fieldState.error && (
-                //     <FormMessage className=" my-2">
-                //       {fieldState.error.message}
-                //     </FormMessage>
-                //   )}
-                // </>
-                <>
-                  <div
-                    className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
-                  >
-                    <ReactDatePicker
-                      placeholderText="Select Date Picker"
-                      id="ReactDatePicker"
-                      onChange={onChange}
-                      selected={value}
-                      maxDate={new Date()}
-                      className={`
+          {/* Exp Date */}
+          <div className="md:flex justify-center items-center bg-transparent">
+            <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+              <span className="text-red-500">*</span>
+              Father Aramco Exp Date
+            </FormLabel>
+            <div className="w-[100%]">
+              <Controller
+                control={form.control}
+                name="expDate"
+                render={({ field: { onChange, value }, fieldState }) => (
+                  // <>
+                  //   <div
+                  //     className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                  //   >
+                  //     <ReactDatePicker
+                  //       placeholderText="Select Date Picker"
+                  //       id="ReactDatePicker"
+                  //       onChange={onChange}
+                  //       selected={value}
+                  //       maxDate={new Date()}
+                  //       className={`
+                  //       text-sm md:text-lg font-normal
+                  //       bg-transparent w-full
+                  //        placeholder:text-gray-300 placeholder:text-sm
+                  //        rounded-md  sm:text-sm
+                  //          ${fieldState.error && 'border-red-600'}`}
+                  //     />
+                  //     <CalendarCheck2 className=" text-gray-300" />
+                  //   </div>
+
+                  //   {fieldState.error && (
+                  //     <FormMessage className=" my-2">
+                  //       {fieldState.error.message}
+                  //     </FormMessage>
+                  //   )}
+                  // </>
+                  <>
+                    <div
+                      className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                    >
+                      <ReactDatePicker
+                        placeholderText="Select Date Picker"
+                        id="ReactDatePicker"
+                        onChange={onChange}
+                        selected={value}
+                        maxDate={new Date()}
+                        className={`
                    text-sm md:text-lg font-normal 
                    bg-transparent
                     placeholder:text-gray-300 placeholder:text-sm
                     rounded-md  sm:text-sm
                       ${fieldState.error && 'border-red-600'}`}
-                    />
-                    <CalendarCheck2 className=" text-gray-300" />
-                  </div>
-                  {fieldState.error && (
-                    <FormMessage className="my-2">
-                      {fieldState.error.message}
-                    </FormMessage>
-                  )}
-                </>
-              )}
-            />
+                      />
+                      <CalendarCheck2 className=" text-gray-300" />
+                    </div>
+                    {fieldState.error && (
+                      <FormMessage className="my-2">
+                        {fieldState.error.message}
+                      </FormMessage>
+                    )}
+                  </>
+                )}
+              />
+            </div>
           </div>
         </div>
-      </div>
-
+      )}
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-y-2 gap-x-7 ">
         {/* DAS Employee */}
         <div className="">

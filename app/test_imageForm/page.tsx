@@ -126,7 +126,7 @@
 
 // export default ImageForm;
 
-import React from 'react';
+import React, { useState } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { z } from 'zod';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -134,6 +134,8 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import { CalendarCheck2 } from 'lucide-react';
 import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import {
   FormMessage,
   FormControl,
@@ -142,14 +144,15 @@ import {
   FormLabel,
 } from '@/components/ui/form';
 import ImageUploader from '@/components/upload/uploadComp';
+import FormVaildTest from '@/components/formwork';
 
-function ImageForm({ form, setImages }: any) {
+function ImageForm() {
   return (
     <div>
-      <h2 className="text-base font-semibold leading-7 ">Address</h2>
+      <FormVaildTest />
+      {/* <h2 className="text-base font-semibold leading-7 ">Address</h2>
       <p className="mt-1 text-sm leading-6 text-gray-600">Image Upload</p>
       <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2">
-        {/* nationality */}
         <div>
           <FormField
             control={form.control}
@@ -177,9 +180,7 @@ function ImageForm({ form, setImages }: any) {
               </FormItem>
             )}
           />
-          {/* Add other form fields as needed */}
         </div>
-        {/* nationality */}
         <div>
           <FormField
             control={form.control}
@@ -207,9 +208,8 @@ function ImageForm({ form, setImages }: any) {
               </FormItem>
             )}
           />
-          {/* Add other form fields as needed */}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

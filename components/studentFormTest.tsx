@@ -154,6 +154,7 @@ function StudentFormTest({ form }: any) {
                   </FormLabel>
                   <div className="w-[100%] items-start ">
                     <FormControl className="bg-slate-500 ">
+<<<<<<< HEAD
                       {/* <FormField
                   control={form.control}
                   name="nationality"
@@ -185,6 +186,8 @@ function StudentFormTest({ form }: any) {
                     </FormItem>
                   )}
                 /> */}
+=======
+>>>>>>> f988cf382b3b78e08802b91f7f52dc52ba763fa1
                       <>
                         <select
                           id="nationality"
@@ -194,10 +197,14 @@ function StudentFormTest({ form }: any) {
                      ring-gray-300 focus:ring-2 focus:ring-inset
                       focus:ring-green-500  sm:text-sm sm:leading-6"
                         >
-                          <option
+                            <option
                             className="text-gray-200 text-sm"
                             value=""
-                          ></option>
+                            disabled
+                            selected
+                          >
+                            Select nationality
+                          </option>
                           <option value={'saudi arabia'}>Saudi Arabia</option>
                           <option value={'Jordan'}>Jordan</option>
                           <option value={'korean'}>Korean</option>
@@ -581,6 +588,11 @@ function StudentFormTest({ form }: any) {
                           >
                             Select Religion
                           </option> */}
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          ></option>
                           <option value={'muslim'}>Muslim</option>
                           <option value={'christian'}>Christian</option>
                         </select>
@@ -622,7 +634,11 @@ function StudentFormTest({ form }: any) {
                           >
                             Select current grade
                           </option> */}
-
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          ></option>
                           <option value={'excellent'}>Excellent</option>
                           <option value={'very good'}>Very Good</option>
                           <option value={'good'}>Good </option>
@@ -667,6 +683,11 @@ function StudentFormTest({ form }: any) {
                           >
                             Select Enrolment year
                           </option> */}
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          ></option>
                           <option value={'2016-2017'}>2016-2017</option>
                           <option value={'2017-2018'}>2017-2018</option>
                         </select>
@@ -711,6 +732,11 @@ function StudentFormTest({ form }: any) {
                           >
                             Select grade
                           </option> */}
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          ></option>
                           <option value={'grade 11'}>Grade 11</option>
                           <option value={'grade 12'}>Grade 12</option>
                         </select>
@@ -757,6 +783,11 @@ function StudentFormTest({ form }: any) {
                           >
                             Select DAS
                           </option> */}
+                          <option
+                            className="text-gray-200 text-sm"
+                            value=""
+                            disabled
+                          ></option>
                           <option value={'yes'}>Yes</option>
                           <option value={'no'}>No</option>
                         </select>
@@ -789,13 +820,16 @@ function StudentFormTest({ form }: any) {
                         <select
                           id="aramcoRelation"
                           {...field}
-                          className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 
-            py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 
-            focus:ring-inset focus:ring-green-500  sm:text-sm sm:leading-6"
+                          className="px-3 placeholder:text-gray-300 placeholder:text-sm block
+                          w-full rounded-md border-0 py-1.5  s
+                          hadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 
+                          focus:ring-inset focus:ring-green-500  sm:leading-6"
                         >
                           <option
                             className="text-gray-200 text-sm"
                             value=""
+                            selected
+                            disabled
                           ></option>
                           <option value={'father'}>Father</option>
                           <option value={'mother'}>Mother</option>

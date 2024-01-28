@@ -6,16 +6,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form } from '@/components/ui/form';
 import 'react-phone-number-input/style.css';
 import 'react-datepicker/dist/react-datepicker.css';
-import Steps from '../steps';
-import { Button } from '../ui/button';
 import { motion } from 'framer-motion';
-import StudentForm from './StudentForm';
-import FatherForm from './FatherForm';
-import MotherForm from './MotherForm';
+
 import { BadgeCheck, CalendarCheck2 } from 'lucide-react';
-import ImageForm from './ImageForm';
+import Steps from './steps';
+import StudentForm from './FORM/StudentForm';
+import FatherForm from './FORM/FatherForm';
+import MotherForm from './FORM/MotherForm';
+import ImageForm from './FORM/ImageForm';
+import { Button } from './ui/button';
 
 const FormDataSchema = z.object({
+  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  StudentID: z.string().min(1, { message: 'Please enter national id' }),
+  aramcoRelation: z.enum(['father', 'mother', 'both']),
   firstName: z
     .string()
     .min(3, { message: 'First name must be at least 3 characters' })
@@ -73,19 +77,18 @@ const FormDataSchema = z.object({
         'Arabic Middle name must contain only letters and spaces (Arabic and English characters)',
     }),
 
-  nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
+  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
   currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
   religion: z.enum(['muslim', 'christian']),
   enrolmentYear: z.enum(['2016-2017', '2017-2018']),
   applyingforGrade: z.enum(['grade 11', 'grade 12']),
-  aramcoRelation: z.enum(['father', 'mother', 'both']),
 
   DAS: z.enum(['yes', 'no']),
   passportNumber: z.string().refine((data) => /^[a-zA-Z0-9]{12}$/.test(data), {
     message: 'Passport Number must be 12 characters (numbers and/or letters)',
   }),
 
-  StudentID: z.coerce.string().min(1, { message: 'Please enter national id' }),
+  // StudentID: z.coerce.string().min(1, { message: 'Please enter national id' }),
   placeofBirth: z.string().min(3, 'please enter a valid city name'),
 
   birthDate: z.date({
@@ -125,10 +128,25 @@ const FormDataSchema = z.object({
     .string()
     .min(1, 'Email is required')
     .email('Invalid email address'),
-  // images
-  birthCertificateimage: z.custom((value: any) => {
-    return value;
+  fatherwork: z.string().min(3, 'father work is required'),
+  expDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: 'Format invalid',
   }),
+  faterAramcoId: z.string().optional(),
+
+  // faterAramcoId: z
+  //   .string()
+  //   .min(12, { message: 'Father Aramco ID must have at least 12 numbers' })
+  //   .max(14, { message: 'Father Aramco ID cannot have more than 14 numbers' })
+  //   .refine((data) => /^\d+$/.test(data), {
+  //     message: 'Father Aramco ID must be only numbers',
+  //   }),
+
+  // images---------------
+  // birthCertificateimage: z.custom((value: any) => {
+  //   return value;
+  // }),
   familyNationalId: z.custom((value: any) => {
     return value;
   }),
@@ -144,14 +162,16 @@ const FormDataSchema = z.object({
   aramcoID: z.custom((value: any) => {
     return value;
   }),
-  diseaseFree: z.custom((value: any) => {
-    return value;
-  }),
-  // birthCertificateimage: z
-  //   .custom((value) => value)
-  //   .refine((value) => value !== null, {
-  //     message: 'Birth certificate image is required',
-  //   }),
+  diseaseFree: z.optional(
+    z.custom((value: any) => {
+      return value;
+    })
+  ),
+  birthCertificateimage: z
+    .custom((value) => value)
+    .refine((value) => value !== null, {
+      message: 'Birth certificate image is required',
+    }),
   // familyNationalId: z
   //   .custom((value) => value)
   //   .refine((value) => value !== null, {
@@ -186,19 +206,6 @@ const FormDataSchema = z.object({
   //   return value;
   // }),
   //images
-
-  fatherwork: z.string().min(3, 'father work is required'),
-  expDate: z.date({
-    required_error: 'Date is required',
-    invalid_type_error: 'Format invalid',
-  }),
-  faterAramcoId: z
-    .string()
-    .min(12, { message: 'Father Aramco ID must have at least 12 numbers' })
-    .max(14, { message: 'Father Aramco ID cannot have more than 14 numbers' })
-    .refine((data) => /^\d+$/.test(data), {
-      message: 'Father Aramco ID must be only numbers',
-    }),
 
   // mother Info----------------
   motherDASalumnus: z.enum(['yes', 'no']),
@@ -268,7 +275,7 @@ function TestForm() {
       middleName: '',
       thirdName: '',
       StudentID: '',
-      // email: '',
+      diseaseFree: [],
       arabicfirstName: '',
       arabiclastName: '',
       arabicmiddleName: '',
@@ -434,7 +441,7 @@ function TestForm() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(processForm)} className="py-12 ">
           {/* {steps[currentStep].component} */}
-          {currentStep === 2 && (
+          {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -452,7 +459,7 @@ function TestForm() {
               <FatherForm form={form} />
             </motion.div>
           )}
-          {currentStep === 0 && (
+          {currentStep === 2 && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
