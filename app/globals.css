@@ -57,7 +57,7 @@
     @apply bg-gray-100 text-foreground;
   }
   select {
-    height: 55px;
+    height: 40px;
     padding-left: 3px;
     padding-right: 3px;
     background: white;
@@ -65,15 +65,16 @@
     @apply !shadow-none;
   }
   #ReactDatePicker {
-    height: 55px;
+    height: 40px;
     padding-left: 3px;
     padding-right: 3px;
   }
   #PhoneInput {
-    height: 35px;
+    height: 40px;
     padding-left: 3px;
     padding-right: 3px;
   }
+
   Label {
     /* color: rgb(2, 132, 199); */
     @apply text-black;

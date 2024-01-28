@@ -67,7 +67,7 @@
 //                     placeholder={'student national id'}
 //                     type="text"
 //                     {...field}
-//                     className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+//                     className="mt-10  p-4    text-sm md:text-lg font-normal "
 //                   />
 //                 </FormControl>
 //                 <FormMessage />
@@ -147,47 +147,13 @@ function StudentFormTest({ form }: any) {
             name="nationality"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Nationality
                   </FormLabel>
                   <div className="w-[100%] items-start ">
                     <FormControl className="bg-slate-500 ">
-<<<<<<< HEAD
-                      {/* <FormField
-                  control={form.control}
-                  name="nationality"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Role</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a role" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value={'saudi arabia'}>
-                            Saudi Arabia
-                          </SelectItem>
-                          <SelectItem value={'Jordan'}>
-                            Jordan
-                          </SelectItem>
-                          <SelectItem value={'korean'}>
-                            Korean
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                /> */}
-=======
->>>>>>> f988cf382b3b78e08802b91f7f52dc52ba763fa1
                       <>
                         <select
                           id="nationality"
@@ -197,20 +163,17 @@ function StudentFormTest({ form }: any) {
                      ring-gray-300 focus:ring-2 focus:ring-inset
                       focus:ring-green-500  sm:text-sm sm:leading-6"
                         >
-                            <option
+                          <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
-                            selected
-                          >
-                            Select nationality
-                          </option>
+                          ></option>
                           <option value={'saudi arabia'}>Saudi Arabia</option>
                           <option value={'Jordan'}>Jordan</option>
                           <option value={'korean'}>Korean</option>
                         </select>
                       </>
                     </FormControl>
+
                     <FormMessage className="my-2" />
                   </div>
                 </div>
@@ -225,8 +188,8 @@ function StudentFormTest({ form }: any) {
             name="studentNationalID"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent ">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent ">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Student National ID
                   </FormLabel>
@@ -237,7 +200,7 @@ function StudentFormTest({ form }: any) {
                         type="text"
                         {...field}
                         // {...register('studentNationalID')}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className="   text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -263,8 +226,8 @@ function StudentFormTest({ form }: any) {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent ">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6  ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent ">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6  ">
                     {' '}
                     <span className="text-red-500">*</span>
                     First name
@@ -273,7 +236,7 @@ function StudentFormTest({ form }: any) {
                     <FormControl {...field}>
                       <Input
                         placeholder={'first name'}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className=" p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -290,8 +253,8 @@ function StudentFormTest({ form }: any) {
             name="middleName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Middle name
@@ -300,7 +263,7 @@ function StudentFormTest({ form }: any) {
                     <FormControl {...field}>
                       <Input
                         placeholder={'middle name'}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className=" p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -317,8 +280,8 @@ function StudentFormTest({ form }: any) {
             name="thirdName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Third name
@@ -328,7 +291,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'third name'}
                         {...field}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className=" p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -345,8 +308,8 @@ function StudentFormTest({ form }: any) {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Last name
@@ -356,7 +319,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'last name'}
                         {...field}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className=" p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -376,8 +339,8 @@ function StudentFormTest({ form }: any) {
             name="arabicfirstName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     First name (Arabic)
@@ -387,7 +350,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'arabic first name'}
                         {...field}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="  p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -404,8 +367,8 @@ function StudentFormTest({ form }: any) {
             name="arabicmiddleName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Middle name (Arabic)
@@ -415,7 +378,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'arabic middle name'}
                         {...field}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="  p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -432,8 +395,8 @@ function StudentFormTest({ form }: any) {
             name="arabicthirdName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Third name (Arabic)
@@ -443,7 +406,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'arabic third name'}
                         {...field}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="  p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -460,8 +423,8 @@ function StudentFormTest({ form }: any) {
             name="arabiclastName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Last name (Arabic)
@@ -471,7 +434,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'arabic last name'}
                         {...field}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="  p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -491,8 +454,8 @@ function StudentFormTest({ form }: any) {
             name="placeofBirth"
             render={({ field, fieldState }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Place of Birth
@@ -503,7 +466,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'place of birth'}
                         {...field}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className=" p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -515,8 +478,8 @@ function StudentFormTest({ form }: any) {
         </div>
 
         {/* Date of Birth */}
-        <div className="md:flex w-full justify- items-center  bg-transparent">
-          <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
+        <div className="md:flex w-full justify- items-center gap-3  bg-transparent">
+          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
             {' '}
             <span className="text-red-500">*</span>
             Select Brith Date:
@@ -565,8 +528,8 @@ function StudentFormTest({ form }: any) {
             name="religion"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Religion
                   </FormLabel>
@@ -574,7 +537,6 @@ function StudentFormTest({ form }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="religion"
                           {...field}
                           // autoComplete="religion-name"
@@ -591,7 +553,6 @@ function StudentFormTest({ form }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
                           ></option>
                           <option value={'muslim'}>Muslim</option>
                           <option value={'christian'}>Christian</option>
@@ -612,8 +573,8 @@ function StudentFormTest({ form }: any) {
             name="currentGrade"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     <span className="text-red-600">*</span>
                     Current Grade
                   </FormLabel>
@@ -621,7 +582,6 @@ function StudentFormTest({ form }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="currentGrade"
                           {...field}
                           // autoComplete="currentGrade-name"
@@ -637,7 +597,6 @@ function StudentFormTest({ form }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
                           ></option>
                           <option value={'excellent'}>Excellent</option>
                           <option value={'very good'}>Very Good</option>
@@ -660,8 +619,8 @@ function StudentFormTest({ form }: any) {
             name="enrolmentYear"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-600">*</span>
                     Enrolment Year
@@ -670,7 +629,6 @@ function StudentFormTest({ form }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="enrolmentYear"
                           {...field}
                           // autoComplete="enrolmentYear-name"
@@ -686,7 +644,6 @@ function StudentFormTest({ form }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
                           ></option>
                           <option value={'2016-2017'}>2016-2017</option>
                           <option value={'2017-2018'}>2017-2018</option>
@@ -707,8 +664,8 @@ function StudentFormTest({ form }: any) {
             name="applyingforGrade"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-600">*</span>
                     Applying for Grade
@@ -717,7 +674,6 @@ function StudentFormTest({ form }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="applyingforGrade"
                           {...field}
                           // autoComplete="applyingforGrade-name"
@@ -735,7 +691,6 @@ function StudentFormTest({ form }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
                           ></option>
                           <option value={'grade 11'}>Grade 11</option>
                           <option value={'grade 12'}>Grade 12</option>
@@ -757,8 +712,8 @@ function StudentFormTest({ form }: any) {
             name="DAS"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-600">*</span>
                     DAS
@@ -767,7 +722,6 @@ function StudentFormTest({ form }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="DAS"
                           {...field}
                           // autoComplete="DAS-name"
@@ -786,7 +740,6 @@ function StudentFormTest({ form }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
                           ></option>
                           <option value={'yes'}>Yes</option>
                           <option value={'no'}>No</option>
@@ -808,8 +761,8 @@ function StudentFormTest({ form }: any) {
             name="aramcoRelation"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-600">*</span>
                     Aramco Relation
@@ -828,8 +781,6 @@ function StudentFormTest({ form }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            selected
-                            disabled
                           ></option>
                           <option value={'father'}>Father</option>
                           <option value={'mother'}>Mother</option>
@@ -850,8 +801,8 @@ function StudentFormTest({ form }: any) {
             name="aramcoRelation"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-600">*</span>
                     Aramco Relation
@@ -891,17 +842,17 @@ function StudentFormTest({ form }: any) {
             name="currentSchoolName"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center gap-3 items-center bg-transparent">
+                  <FormLabel className="md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
-                    Current SchoolName
+                    Current School Name
                   </FormLabel>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
                         placeholder={'current school name'}
                         {...field}
-                        className="mb-2 h-14  text-sm md:text-lg font-normal "
+                        className="mb-2    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -919,8 +870,8 @@ function StudentFormTest({ form }: any) {
             name="passportNumber"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Passport Number
@@ -930,7 +881,7 @@ function StudentFormTest({ form }: any) {
                       <Input
                         placeholder={'passport number'}
                         {...field}
-                        className="mb-2  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="mb-2  p-4    text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -950,7 +901,7 @@ function StudentFormTest({ form }: any) {
             name="gender"
             render={({ field }) => (
               <FormItem>
-                <div className="md:flex w-full justify- items-center bg-transparent   space-y-3">
+                <div className="md:flex w-full justify- items-center bg-transparent gap-3  space-y-3">
                   <FormLabel className="w-[100%]  block text-sm font-medium leading-6 md:me-14 ">
                     <span className="text-red-500">*</span>
                     Select Gender...
@@ -966,7 +917,7 @@ function StudentFormTest({ form }: any) {
                           <FormControl>
                             <RadioGroupItem value="male" />
                           </FormControl>
-                          <FormLabel className="md:w-[30%] mt-3 md:mt-0 font-normal">
+                          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 font-normal">
                             Male
                           </FormLabel>
                         </FormItem>
@@ -974,7 +925,7 @@ function StudentFormTest({ form }: any) {
                           <FormControl>
                             <RadioGroupItem value="female" />
                           </FormControl>
-                          <FormLabel className="md:w-[30%] mt-3 md:mt-0 font-normal">
+                          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 font-normal">
                             Female
                           </FormLabel>
                         </FormItem>
@@ -1052,7 +1003,7 @@ function StudentFormTest({ form }: any) {
     //                 type="text"
     //                 {...field}
     //                 // onChange={onChange}
-    //                 className="mt-10  p-4 h-14  text-sm md:text-lg font-normal "
+    //                 className="mt-10  p-4    text-sm md:text-lg font-normal "
     //               />
     //             </FormControl>
     //             <FormMessage />

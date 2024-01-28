@@ -15,7 +15,7 @@ function Steps({ currentStep, steps }: any) {
               </div>
             ) : currentStep === index ? (
               <div
-                className="flex w-full flex-col border-l-4 border-green-500 py-2 pl-4 md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4"
+                className="flex w-full flex-col border-l-4 border-green-500 py-2 pl-4 md:border-l-0 md:border-b-4 md:pt-0 md:pl-0 md:pb-4"
                 aria-current="step"
               >
                 <span className="text-sm font-medium text-green-500">
@@ -24,7 +24,7 @@ function Steps({ currentStep, steps }: any) {
                 <span className="text-sm font-medium">{step.name}</span>
               </div>
             ) : (
-              <div className="group flex w-full flex-col border-l-4 border-gray-200 py-2 pl-4 transition-colors md:border-l-0 md:border-t-4 md:pb-0 md:pl-0 md:pt-4">
+              <div className="group flex w-full flex-col border-l-4 border-gray-200 py-2 pl-4 transition-colors md:border-l-0 md:border-b-4 md:pt-0 md:pl-0 md:pb-4">
                 <span className="text-sm font-medium text-gray-500 transition-colors">
                   {step.id}
                 </span>
