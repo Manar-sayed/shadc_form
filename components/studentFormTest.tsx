@@ -943,13 +943,13 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex w-full justify- items-center bg-transparent gap-3  space-y-3">
-                  <div className="flex mb-1 mt-3 md:mt-0   w-[100%] ">
-                    <FormLabel className=" w-[100%]   block text-sm font-medium leading-6 ">
+                  <div className="flex mb-1 mt-3 md:mt-0    md:w-[300px] ">
+                    <FormLabel className="  block text-sm font-medium leading-6 ">
                       <span className="text-red-500">*</span>
                       Select Gender...
                     </FormLabel>
                     {isLargeScreen ? (
-                      <TooltipComp title={'select gender'} />
+                      <TooltipComp className="ms-0" title={'select gender'} />
                     ) : (
                       <PopverComp title={'select gender'} />
                     )}{' '}

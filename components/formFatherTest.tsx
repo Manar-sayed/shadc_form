@@ -158,48 +158,50 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
 
           {/* Exp Date */}
           <div className="md:flex justify-center items-center gap-3 bg-transparent">
-            <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-              <span className="text-red-500">*</span>
-              Father Aramco Exp Date
-            </FormLabel>
-            {isLarge ? (
-              <TooltipComp title={'select father aramco id exp date'} />
-            ) : (
-              <PopverComp title={'select father aramco id exp date'} />
-            )}
-          </div>
-          <div className="w-[100%]">
-            <Controller
-              control={form.control}
-              name="expDate"
-              render={({ field: { onChange, value }, fieldState }) => (
-                <>
-                  <div
-                    className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
-                  >
-                    <ReactDatePicker
-                      placeholderText="Select Date Picker"
-                      id="ReactDatePicker"
-                      onChange={onChange}
-                      selected={value}
-                      maxDate={new Date()}
-                      className={`
+            <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+              <FormLabel className="   block text-sm font-medium leading-6 ">
+                <span className="text-red-500">*</span>
+                Father Aramco Exp Date
+              </FormLabel>
+              {isLarge ? (
+                <TooltipComp title={'select father aramco id exp date'} />
+              ) : (
+                <PopverComp title={'select father aramco id exp date'} />
+              )}
+            </div>
+            <div className="w-[100%]">
+              <Controller
+                control={form.control}
+                name="expDate"
+                render={({ field: { onChange, value }, fieldState }) => (
+                  <>
+                    <div
+                      className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                    >
+                      <ReactDatePicker
+                        placeholderText="Select Date Picker"
+                        id="ReactDatePicker"
+                        onChange={onChange}
+                        selected={value}
+                        maxDate={new Date()}
+                        className={`
                    text-sm md:text-lg font-normal 
                    bg-transparent
                     placeholder:text-gray-300 placeholder:text-sm
                     rounded-md  sm:text-sm
                       ${fieldState.error && 'border-red-600'}`}
-                    />
-                    <CalendarCheck2 className=" text-gray-300" />
-                  </div>
-                  {fieldState.error && (
-                    <FormMessage className="my-2">
-                      {fieldState.error.message}
-                    </FormMessage>
-                  )}
-                </>
-              )}
-            />
+                      />
+                      <CalendarCheck2 className=" text-gray-300" />
+                    </div>
+                    {fieldState.error && (
+                      <FormMessage className="my-2">
+                        {fieldState.error.message}
+                      </FormMessage>
+                    )}
+                  </>
+                )}
+              />
+            </div>
           </div>
         </div>
       )}

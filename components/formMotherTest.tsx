@@ -299,7 +299,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
           {/* Exp Date */}
           <div className="md:flex w-full items-center gap-3 bg-transparent">
             <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
-              <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
+              <FormLabel className=" mt-3 md:mt-0 block mb-3">
                 {' '}
                 <span className="text-red-500">*</span>
                 Mother Aramco Exp Date
