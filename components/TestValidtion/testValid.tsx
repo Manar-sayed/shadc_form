@@ -17,7 +17,7 @@ import PhoneTwoComponent from '@/components/phone2-component';
 
 const formSchema = z
   .object({
-    nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+    nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
     phone: z.string().min(1, { message: 'Please enter phone' }),
     //   .min(8, { message: 'Must be between 8 to 16 characters!' })
     //   .max(16, { message: 'Must be between 8 to 16 characters!' }),
@@ -34,7 +34,7 @@ const formSchema = z
   )
   .refine(
     (data) => {
-      if (data.nationality === 'egypt') {
+      if (data.nationality === 'Jordan') {
         return data.phone.length == 12;
       }
       return true;
@@ -89,7 +89,7 @@ const TestFormValidation = () => {
                           Select nationality
                         </option>
                         <option value={'saudi arabia'}>Saudi Arabia</option>
-                        <option value={'egypt'}>Egypt</option>
+                        <option value={'Jordan'}>Jordan</option>
                         <option value={'korean'}>Korean</option>
                       </select>
                       <FormMessage></FormMessage>

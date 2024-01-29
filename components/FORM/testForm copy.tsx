@@ -49,12 +49,21 @@
 //     .min(3, { message: 'Middle name must be at least 3 characters' })
 //     .regex(/^[a-zA-Z]+$/, { message: 'Middle name must contain only letters' }),
 
+<<<<<<< HEAD
+  nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
+  currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
+  religion: z.enum(['muslim', 'christian']),
+  enrolmentYear: z.enum(['2016-2017', '2017-2018']),
+  applyingforGrade: z.enum(['grade 11', 'grade 12']),
+  aramcoRelation: z.enum(['father', 'mother', 'both']),
+=======
 //   nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
 //   currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
 //   religion: z.enum(['muslim', 'christian']),
 //   enrolmentYear: z.enum(['2016-2017', '2017-2018']),
 //   applyingforGrade: z.enum(['grade 11', 'grade 12']),
 //   aramcoRelation: z.enum(['father', 'mother', 'both']),
+>>>>>>> f988cf382b3b78e08802b91f7f52dc52ba763fa1
 
 //   DAS: z.enum(['yes', 'no']),
 //   passportNumber: z.coerce
@@ -106,10 +115,17 @@
 //     .refine((data) => data.trim(), { message: 'Should be trimmed.' })
 //     .refine((data) => data !== '', { message: 'Please write  phone.' }),
 
+<<<<<<< HEAD
+  fatherNationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
+  DASalumnus: z.enum(['yes', 'no']),
+  DASDhahrani: z.enum(['yes', 'no']),
+  DASEmployee: z.enum(['yes', 'no']),
+=======
 //   fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
 //   DASalumnus: z.enum(['yes', 'no']),
 //   DASDhahrani: z.enum(['yes', 'no']),
 //   DASEmployee: z.enum(['yes', 'no']),
+>>>>>>> f988cf382b3b78e08802b91f7f52dc52ba763fa1
 
 //   fatherEmail: z
 //     .string()
@@ -190,6 +206,40 @@
 //       message: 'Father Aramco ID must be only numbers',
 //     }),
 
+<<<<<<< HEAD
+  // mother Info----------------
+  motherDASalumnus: z.enum(['yes', 'no']),
+  motherDASDhahrani: z.enum(['yes', 'no']),
+  motherDASEmployee: z.enum(['yes', 'no']),
+  mothernationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
+  motherEmail: z
+    .string()
+    .min(1, 'Email is required')
+    .email('Invalid email address'),
+  motherNationalID: z.coerce
+    .string()
+    .min(12, {
+      message: 'Mother National ID  must have ayt least 12 numbers',
+    })
+    .max(14, {
+      message: 'Mother National ID  cannot have more than 14 numbers',
+    })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Mother National ID  must be only numbers',
+    }),
+  motherAramcoId: z.coerce
+    .string()
+    .min(12, { message: 'Mother Aramco ID must have at least 12 numbers' })
+    .max(14, { message: 'Mother Aramco ID cannot have more than 14 numbers' })
+    .refine((data) => /^\d+$/.test(data), {
+      message: 'Mother Aramco ID must be only numbers',
+    }),
+  motherwork: z.string().min(3, 'mother work is required'),
+  motherexpDate: z.date({
+    required_error: 'Date is required',
+    invalid_type_error: 'Format invalid',
+  }),
+=======
 //   // mother Info----------------
 //   motherDASalumnus: z.enum(['yes', 'no']),
 //   motherDASDhahrani: z.enum(['yes', 'no']),
@@ -222,6 +272,7 @@
 //     required_error: 'Date is required',
 //     invalid_type_error: 'Format invalid',
 //   }),
+>>>>>>> f988cf382b3b78e08802b91f7f52dc52ba763fa1
 
 //   motherPhone: z
 //     .string()

@@ -45,9 +45,15 @@ export const ResetSchema = z.object({
 });
 
 export const DasSchema = z.object({
-  email: z.string().email({
-    message: 'Email is required',
-  }),
+  email: z
+    .string()
+    .email({
+      message: 'Email is required',
+    })
+    .refine((value) => value.includes('@das.com'), {
+      message: 'Invalid email address. It should end with "@das.com"',
+    }),
+
   code: z.optional(z.string()),
 });
 

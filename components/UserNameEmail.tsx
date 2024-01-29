@@ -48,7 +48,7 @@ const FormDataSchema = z.object({
   arabicmiddleName: z
     .string()
     .min(3, { message: 'arabic middle name must be at least 3 char' }),
-  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   currentGrade: z.enum(['excellent', 'very good', 'good', 'none']),
   religion: z.enum(['muslim', 'christian']),
   enrolmentYear: z.enum(['2016-2017', '2017-2018']),
@@ -103,7 +103,7 @@ const FormDataSchema = z.object({
       message: 'Father National ID  must be only numbers',
     }),
 
-  fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  fatherNationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   DASalumnus: z.enum(['yes', 'no']),
   DASDhahrani: z.enum(['yes', 'no']),
   DASEmployee: z.enum(['yes', 'no']),
@@ -355,7 +355,7 @@ function UserEmail() {
                               <option value={'saudi arabia'}>
                                 Saudi Arabia
                               </option>
-                              <option value={'egypt'}>Egypt</option>
+                              <option value={'Jordan'}>Jordan</option>
                               <option value={'korean'}>Korean</option>
                             </select>
                             <FormMessage></FormMessage>

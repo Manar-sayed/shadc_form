@@ -23,7 +23,7 @@ import ImageForm from '@/components/FORM/ImageForm';
 import { BadgeCheck } from 'lucide-react';
 
 type FormDataSchemaType = z.ZodObject<{
-  nationality: z.ZodEnum<['saudi arabia', 'egypt', 'korean']>;
+  nationality: z.ZodEnum<['saudi arabia', 'Jordan', 'korean']>;
   studentNationalID: z.ZodString;
   firstName: z.ZodString;
   middleName: z.ZodString;
@@ -98,7 +98,7 @@ type FormDataSchemaType = z.ZodObject<{
   CmPhotograph: z.ZodAny;
 }>;
 const FormDataSchema = z.object({
-  nationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  nationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   studentNationalID: z.string().min(1, { message: 'Please enter national id' }),
   aramcoRelation: z.enum(['father', 'mother', 'both']),
   firstName: z
@@ -178,7 +178,7 @@ const FormDataSchema = z.object({
   }),
 
   // father Info----------------
-  fatherNationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  fatherNationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   fatherNationalID: z.string().min(1, { message: 'Please enter national id' }),
   fatherPhone: z
     .string()
@@ -212,7 +212,7 @@ const FormDataSchema = z.object({
   // motherDASDhahrani: z.optional(z.enum(['yes', 'no'])),
   // motherDASEmployee: z.optional(z.enum(['yes', 'no'])),
 
-  mothernationality: z.enum(['saudi arabia', 'egypt', 'korean']),
+  mothernationality: z.enum(['saudi arabia', 'Jordan', 'korean']),
   motherNationalID: z.string().min(1, { message: 'Please enter national id' }),
   motherEmail: z
     .string()
@@ -371,7 +371,7 @@ function FormValidTest() {
   const [currentStep, setCurrentStep] = useState(0);
   const [fatherShow, setFatherShow] = useState(false);
   const [motherShow, setMotherShow] = useState(false);
-  console.log('main page is true-> ', fatherShow);
+
   const [schema, setSchema] = useState<FormDataSchemaType>(
     FormDataSchema as unknown as FormDataSchemaType
   );
@@ -522,6 +522,61 @@ function FormValidTest() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.getValues('aramcoRelation')]);
 
+  useEffect(() => {
+    if (form.getValues('nationality') === 'saudi arabia') {
+      const updatedSchema = z.object({
+        ...FormDataSchema.shape,
+
+        studentNationalID: z
+          .string()
+          .refine((value) => value.length === 12, {
+            message: 'Student ID must be 12 characters long',
+          })
+          .refine((value) => value.startsWith('1'), {
+            message: 'First digit of student ID must be 1',
+          }),
+      });
+      setSchema(updatedSchema as unknown as FormDataSchemaType);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.getValues('nationality')]);
+  useEffect(() => {
+    if (form.getValues('fatherNationality') === 'saudi arabia') {
+      const updatedSchema = z.object({
+        ...FormDataSchema.shape,
+
+        fatherNationalID: z
+          .string()
+          .refine((value) => value.length === 12, {
+            message: 'Father ID must be 12 characters long',
+          })
+          .refine((value) => value.startsWith('1'), {
+            message: 'First digit of father ID must be 1',
+          }),
+      });
+      setSchema(updatedSchema as unknown as FormDataSchemaType);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.getValues('fatherNationality')]);
+  useEffect(() => {
+    if (form.getValues('mothernationality') === 'saudi arabia') {
+      const updatedSchema = z.object({
+        ...FormDataSchema.shape,
+
+        motherNationalID: z
+          .string()
+          .refine((value) => value.length === 12, {
+            message: 'Mother ID must be 12 characters long',
+          })
+          .refine((value) => value.startsWith('1'), {
+            message: 'First digit of mother ID must be 1',
+          }),
+      });
+      setSchema(updatedSchema as unknown as FormDataSchemaType);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [form.getValues('mothernationality')]);
+
   const processForm = async (values: z.infer<typeof schema>) => {
     console.log({ values });
   };
@@ -535,93 +590,6 @@ function FormValidTest() {
     });
 
     if (!output) return;
-    // student nationality and id
-    const x = form.watch('studentNationalID');
-
-    const y = form.watch('nationality');
-
-    // if (y == 'saudi arabia' && x.length < 12) {
-    //   const updatedSchema = z.object({
-    //     ...FormDataSchema.shape,
-    //     studentNationalID: z.coerce
-    //       .string()
-    //       .min(12, {
-    //         message: 'Mother Aramco ID must have at least 12 numbers',
-    //       })
-    //       .max(14, {
-    //         message: 'Mother Aramco ID cannot have more than 14 numbers',
-    //       })
-    //       .refine((data) => /^\d+$/.test(data), {
-    //         message: 'Mother Aramco ID must be only numbers',
-    //       }),
-    //   });
-    //   setSchema(updatedSchema as unknown as FormDataSchemaType);
-    // }
-
-    if (y == 'saudi arabia' && x.length !== 10) {
-      form.setError('studentNationalID', {
-        type: 'manual',
-        message: 'Student National ID must be at least 10 characters',
-      });
-      return;
-    }
-    if (y == 'saudi arabia' && x.length == 10 && x.charAt(0) !== '1') {
-      const xAsString = x.toString();
-
-      // if (xAsString.charAt(0) !== '1') {
-      form.setError('studentNationalID', {
-        type: 'manual',
-        message: 'Student National ID must be Started with 1',
-      });
-      return;
-      // }
-    }
-    //father nationality and id
-    const x1 = form.watch('fatherNationalID');
-
-    const y1 = form.watch('fatherNationality');
-
-    if (y1 == 'saudi arabia' && x1?.length !== 10) {
-      form.setError('fatherNationalID', {
-        type: 'manual',
-        message: 'Father National ID must be at least 10 characters',
-      });
-      return;
-    }
-    if (y1 == 'saudi arabia' && x1?.length == 10 && x1?.charAt(0) !== '1') {
-      const xAsString = x1?.toString();
-
-      // if (xAsString.charAt(0) !== '1') {
-      form.setError('fatherNationalID', {
-        type: 'manual',
-        message: 'Father National ID must be Started with 1',
-      });
-      return;
-      // }
-    }
-    //mother nationality and id
-    const x2 = form.watch('motherNationalID');
-
-    const y2 = form.watch('mothernationality');
-
-    if (y2 == 'saudi arabia' && x2?.length !== 10) {
-      form.setError('motherNationalID', {
-        type: 'manual',
-        message: 'Mother National ID must be at least 10 characters',
-      });
-      return;
-    }
-    if (y2 == 'saudi arabia' && x2?.length == 10 && x2?.charAt(0) !== '1') {
-      const xAsString = x1?.toString();
-
-      // if (xAsString.charAt(0) !== '1') {
-      form.setError('motherNationalID', {
-        type: 'manual',
-        message: 'Mother National ID must be Started with 1',
-      });
-      return;
-      // }
-    }
 
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
@@ -640,11 +608,11 @@ function FormValidTest() {
   };
 
   return (
-    <section className="absolute inset-0 flex flex-col justify-between p-6 md:p-24">
+    <section className="p-6 md:p-8">
       {' '}
       <Steps currentStep={currentStep} steps={steps} />{' '}
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(processForm)} className=" py-12 ">
+        <form onSubmit={form.handleSubmit(processForm)} className=" py-8 ">
           {currentStep === 0 && (
             <motion.div
               initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}

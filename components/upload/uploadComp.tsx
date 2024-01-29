@@ -107,6 +107,7 @@ import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { UpdateIcon } from '@radix-ui/react-icons';
 import { Edit, LucideDelete, Trash } from 'lucide-react';
+import Image from 'next/image';
 
 const ImageUploader = ({
   images,
@@ -134,14 +135,14 @@ const ImageUploader = ({
         dragProps,
         errors,
       }) => (
-        <div className="w-full p-6 bg-white rounded-md shadow-md upload__image-wrapper">
+        <div className="w-full p-3 bg-white rounded-md shadow-md upload__image-wrapper">
           <Label className="text-base md:text-lg xl:text-xl flex   ">
             {title}
           </Label>
           <Label className=" text-gray-300 text-xs md:text-sm xl:text-base ">
             {desc}
           </Label>
-          <div className="my-6">
+          <div className="my-3">
             {imageList.length < 1 && (
               <Button
                 type="button"
@@ -159,27 +160,27 @@ const ImageUploader = ({
           {imageList.map((image, index) => (
             <div key={index} className="image-item">
               <div className="flex justify-center">
-                <img
+                <Image
                   src={image['data_url']}
                   alt=""
-                  className="w-full rounded-md -mt-10 h-36"
+                  className="w-full rounded-md  h-36"
+                  width={200}
+                  height={200}
                 />
               </div>
 
-              <div className="flex justify-between items-center mt-2">
+              <div className="flex justify-between items-center mt-1">
                 <Button
-                  type="button"
-                  className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                  className="py-1 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
                   onClick={() => onImageUpdate(index)}
                 >
                   <UpdateIcon />
                 </Button>
                 <Button
-                  type="button"
-                  className="py-2 px-4  bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                  className="py-1 px-4  bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
                   onClick={() => onImageRemove(index)}
                 >
-                  <Trash className="w-5 h-5" />
+                  <Trash className="w-4 h-4" />
                 </Button>
               </div>
             </div>

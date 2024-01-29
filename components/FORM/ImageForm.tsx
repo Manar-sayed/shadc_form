@@ -21,7 +21,7 @@ import ImageUploader from '../upload/uploadComp';
 function ImageForm({ form, setImages }: any) {
   return (
     <div>
-      <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-2 gap-3 grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4">
         {/* birthCertificateimage required */}
         {/* <div>
           <FormField

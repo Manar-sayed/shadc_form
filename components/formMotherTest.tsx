@@ -16,7 +16,7 @@ import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-input-2';
 import { CalendarCheck2 } from 'lucide-react';
 function MotherFormTest({ form, motherShow, setMotherShow }: any) {
-  setMotherShow(motherShow);
+  // setMotherShow(motherShow);
   return (
     <div>
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
@@ -27,8 +27,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="mothernationality"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Mother Nationality
                   </FormLabel>
@@ -36,7 +36,6 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                     <FormControl className="bg-slate-500 ">
                       <>
                         <select
-                          defaultValue=""
                           id="mothernationality"
                           {...field}
                           className="w-full rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
@@ -46,12 +45,9 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
-                          >
-                            Select nationality
-                          </option>
+                          ></option>
                           <option value={'saudi arabia'}>Saudi Arabia</option>
-                          <option value={'egypt'}>Egypt</option>
+                          <option value={'Jordan'}>Jordan</option>
                           <option value={'korean'}>Korean</option>
                         </select>
                       </>
@@ -71,8 +67,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherNationalID"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     mother National ID
                   </FormLabel>
@@ -82,7 +78,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                         placeholder={'mother national id'}
                         type="text"
                         {...field}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className="  text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -102,8 +98,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherDASEmployee"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     <span className="text-red-500">*</span>
                     Is the mother a DAS employee
                   </FormLabel>
@@ -111,7 +107,6 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="motherDASEmployee"
                           {...field}
                           className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color   sm:leading-6"
@@ -119,10 +114,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
-                          >
-                            Select DAS Employee
-                          </option>
+                          ></option>
                           <option value={'yes'}>Yes</option>
                           <option value={'no'}>No</option>
                         </select>
@@ -143,8 +135,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherDASDhahrani"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Did the mother study in DAS (Dhahrani)
@@ -153,7 +145,6 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="motherDASDhahrani"
                           {...field}
                           className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color  sm:text-sm sm:leading-6"
@@ -161,10 +152,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
-                          >
-                            Select DAS Dhahrani
-                          </option>
+                          ></option>
                           <option value={'yes'}>Yes</option>
                           <option value={'no'}>No</option>
                         </select>
@@ -186,8 +174,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherDASalumnus"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Is the mother a DAS alumnus
@@ -196,7 +184,6 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                     <FormControl>
                       <>
                         <select
-                          defaultValue=""
                           id="motherDASalumnus"
                           {...field}
                           className="px-3 placeholder:text-gray-300 placeholder:text-sm block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-color  sm:text-sm sm:leading-6"
@@ -204,10 +191,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                           <option
                             className="text-gray-200 text-sm"
                             value=""
-                            disabled
-                          >
-                            Select DAS Alumnus
-                          </option>
+                          ></option>
                           <option value={'yes'}>Yes</option>
                           <option value={'no'}>No</option>
                         </select>
@@ -227,8 +211,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherwork"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     Mother work
@@ -239,7 +223,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                         placeholder={'mother work'}
                         type="text"
                         {...field}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="   text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -253,8 +237,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
       {motherShow && (
         <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
           {/* Exp Date */}
-          <div className="md:flex w-full justify- items-center  bg-transparent">
-            <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
+          <div className="md:flex w-full items-center gap-3 bg-transparent">
+            <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
               {' '}
               <span className="text-red-500">*</span>
               Mother Aramco Exp Date
@@ -301,8 +285,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
               name="motherAramcoId"
               render={({ field }) => (
                 <FormItem className="bg-transparent">
-                  <div className="md:flex justify-center items-center bg-transparent">
-                    <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                  <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                    <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                       {' '}
                       <span className="text-red-500">*</span>
                       mother Aramco ID
@@ -313,7 +297,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                           placeholder={'mother aramco id'}
                           type="text"
                           {...field}
-                          className="  p-4 h-14  text-sm md:text-lg font-normal "
+                          className="   text-sm md:text-lg font-normal "
                         />
                       </FormControl>
                       <FormMessage className="my-2" />
@@ -334,8 +318,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherName"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     mother name
@@ -344,7 +328,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                     <FormControl {...field}>
                       <Input
                         placeholder={'mother name'}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="   text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -361,8 +345,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherNameArabic"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     mother Name Arabic
@@ -371,7 +355,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                     <FormControl {...field}>
                       <Input
                         placeholder={'mother name arabic'}
-                        className="  p-4 h-14  text-sm md:text-lg font-normal "
+                        className="   text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -391,8 +375,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             name="motherEmail"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center bg-transparent">
-                  <FormLabel className="md:w-[30%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
                     {' '}
                     <span className="text-red-500">*</span>
                     mother Email Address
@@ -403,7 +387,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                         placeholder={'motherEmail'}
                         type="motherEmail"
                         {...field}
-                        className=" p-4 h-14  text-sm md:text-lg font-normal "
+                        className="  text-sm md:text-lg font-normal "
                       />
                     </FormControl>
                     <FormMessage className="my-2" />
@@ -414,8 +398,8 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
           />
         </div>
         {/* motherphone */}
-        <div className="md:flex w-full justify- items-center  bg-transparent">
-          <FormLabel className="md:w-[30%] mt-3 md:mt-0 block mb-3">
+        <div className="md:flex w-full items-center gap-3  bg-transparent">
+          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
             {' '}
             <span className="text-red-500">*</span>
             Phone Number:
@@ -437,7 +421,7 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
                         borderColor: 'lightgray',
                         width: '100%',
                         borderRadius: '5px',
-                        height: '50px',
+                        height: '40px',
                       }}
                       country="sa"
                       //

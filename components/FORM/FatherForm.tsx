@@ -60,7 +60,7 @@ function FatherForm({ form, istrue }: any) {
                             Select nationality
                           </option>
                           <option value={'saudi arabia'}>Saudi Arabia</option>
-                          <option value={'egypt'}>Egypt</option>
+                          <option value={'Jordan'}>Jordan</option>
                           <option value={'korean'}>Korean</option>
                         </select>
                       </>
