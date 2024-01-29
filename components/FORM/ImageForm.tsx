@@ -23,7 +23,7 @@ function ImageForm({ form, setImages }: any) {
     <div>
       <div className="mt-5 gap-6 grid grid-cols-1  md:grid-cols-2 xl:grid-cols-4">
         {/* birthCertificateimage required */}
-        <div>
+        {/* <div>
           <FormField
             control={form.control}
             name="birthCertificateimage"
@@ -49,14 +49,47 @@ function ImageForm({ form, setImages }: any) {
               </FormItem>
             )}
           />
-        </div>
+        </div> */}
+        <FormField
+          control={form.control}
+          name="birthCertificateimage"
+          render={({ field: { onChange, value }, fieldState }) => (
+            <>
+              <FormItem className="bg-transparent">
+                <FormLabel className="block text-sm font-medium leading-6 ">
+                  <span className="text-red-500">*</span>
+                  birthCertificateimage
+                </FormLabel>
+                {/* <div
+                  className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                > */}
+                <FormControl className="bg-gray-800">
+                  <ImageUploader
+                    images={value}
+                    onChange={onChange}
+                    maxNumber={1}
+                    title="Birth Certificate"
+                    desc="(For Kids And Grade 1 only)"
+                    dataURLKey="data_url"
+                  />
+                </FormControl>
+                {/* </div> */}
+                {fieldState.error && (
+                  <FormMessage className=" my-2">
+                    {fieldState.error.message}
+                  </FormMessage>
+                )}
+              </FormItem>
+            </>
+          )}
+        />
 
         {/* Family National Id  required */}
         <div>
           <FormField
             control={form.control}
             name="familyNationalId"
-            render={({ field }) => (
+            render={({ field: { onChange, value }, fieldState }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
                   <span className="text-red-500">*</span>
@@ -65,9 +98,7 @@ function ImageForm({ form, setImages }: any) {
                 <FormControl>
                   <ImageUploader
                     images={form.getValues('familyNationalId')}
-                    onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('familyNationalId', imageList);
-                    }}
+                    onChange={onChange}
                     maxNumber={1}
                     title="Family National Id"
                     desc="(For Kids And Grade 1 only)"
@@ -109,11 +140,11 @@ function ImageForm({ form, setImages }: any) {
         </div>
 
         {/* Student Immuniazation  required */}
-        <div>
+        {/* <div>
           <FormField
             control={form.control}
             name="studentImmuniazation"
-            render={({ field }) => (
+            render={({ field: { onChange, value }, fieldState }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
                   <span className="text-red-500">*</span>
@@ -122,10 +153,7 @@ function ImageForm({ form, setImages }: any) {
                 <FormControl>
                   <ImageUploader
                     images={form.getValues('studentImmuniazation')}
-                    onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('studentImmuniazation', imageList),
-                        { ...field };
-                    }}
+                    onChange={onchange}
                     maxNumber={1}
                     title="Student Immuniazation"
                     desc="(For Kids And Grade 1 only)"
@@ -136,7 +164,40 @@ function ImageForm({ form, setImages }: any) {
               </FormItem>
             )}
           />
-        </div>
+        </div> */}
+        <FormField
+          control={form.control}
+          name="studentImmuniazation"
+          render={({ field: { onChange, value }, fieldState }) => (
+            <>
+              <FormItem className="bg-transparent">
+                <FormLabel className="block text-sm font-medium leading-6 ">
+                  <span className="text-red-500">*</span>
+                  studentImmuniazation
+                </FormLabel>
+                {/* <div
+                  className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                > */}
+                <FormControl className="bg-gray-800">
+                  <ImageUploader
+                    images={value}
+                    onChange={onChange}
+                    maxNumber={1}
+                    title="Student Immuniazation"
+                    desc="(For Kids And Grade 1 only)"
+                    dataURLKey="data_url"
+                  />
+                </FormControl>
+                {/* </div> */}
+                {fieldState.error && (
+                  <FormMessage className=" my-2">
+                    {fieldState.error.message}
+                  </FormMessage>
+                )}
+              </FormItem>
+            </>
+          )}
+        />
 
         {/* Medical Report */}
         <div>
@@ -195,11 +256,11 @@ function ImageForm({ form, setImages }: any) {
         </div>
 
         {/* Aramco ID   required */}
-        <div>
+        {/* <div>
           <FormField
             control={form.control}
             name="aramcoID"
-            render={({ field }) => (
+            render={({ field: { onChange, value }, fieldState }) => (
               <FormItem className="bg-transparent">
                 <FormLabel className="block text-sm font-medium leading-6 ">
                   <span className="text-red-500">*</span>
@@ -208,9 +269,7 @@ function ImageForm({ form, setImages }: any) {
                 <FormControl>
                   <ImageUploader
                     images={form.getValues('aramcoID')}
-                    onChange={(imageList: any, addUpdateIndex: any) => {
-                      form.setValue('aramcoID', imageList), { ...field };
-                    }}
+                    onChange={onchange}
                     maxNumber={1}
                     title="Aramco ID"
                     desc="(For Kids And Grade 1 only)"
@@ -221,7 +280,41 @@ function ImageForm({ form, setImages }: any) {
               </FormItem>
             )}
           />
-        </div>
+        </div> */}
+
+        <FormField
+          control={form.control}
+          name="aramcoID"
+          render={({ field: { onChange, value }, fieldState }) => (
+            <>
+              <FormItem className="bg-transparent">
+                <FormLabel className="block text-sm font-medium leading-6 ">
+                  <span className="text-red-500">*</span>
+                  aramcoID
+                </FormLabel>
+                {/* <div
+                  className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                > */}
+                <FormControl className="bg-gray-800">
+                  <ImageUploader
+                    images={value}
+                    onChange={onChange}
+                    maxNumber={1}
+                    title="Aramco ID"
+                    desc="(For Kids And Grade 1 only)"
+                    dataURLKey="data_url"
+                  />
+                </FormControl>
+                {/* </div> */}
+                {fieldState.error && (
+                  <FormMessage className=" my-2">
+                    {fieldState.error.message}
+                  </FormMessage>
+                )}
+              </FormItem>
+            </>
+          )}
+        />
       </div>
     </div>
   );

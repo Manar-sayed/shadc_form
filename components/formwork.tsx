@@ -71,10 +71,27 @@ type FormDataSchemaType = z.ZodObject<{
   motherName: z.ZodString;
   motherNameArabic: z.ZodString;
   //images----------
-  birthCertificateimage: z.ZodAny;
-  familyNationalId: z.ZodAny;
-  studentImmuniazation: z.ZodAny;
-  aramcoID: z.ZodAny;
+  // birthCertificateimage: z.ZodAny;
+  birthCertificateimage: z.ZodArray<
+    z.ZodObject<{
+      data_url: z.ZodString;
+    }>
+  >;
+  familyNationalId: z.ZodArray<
+    z.ZodObject<{
+      data_url: z.ZodString;
+    }>
+  >;
+  studentImmuniazation: z.ZodArray<
+    z.ZodObject<{
+      data_url: z.ZodString;
+    }>
+  >;
+  aramcoID: z.ZodArray<
+    z.ZodObject<{
+      data_url: z.ZodString;
+    }>
+  >;
 
   diseaseFree: z.ZodAny;
   medicalReport: z.ZodAny;
@@ -228,29 +245,49 @@ const FormDataSchema = z.object({
     }),
 
   //images -----------------
-  birthCertificateimage: z.custom((value: any) => {
-    return value;
-  }),
-  familyNationalId: z.custom((value: any) => {
-    return value;
-  }),
-  CmPhotograph: z.optional(
-    z.custom((value: any) => {
-      return value;
-    })
-  ),
-  studentImmuniazation: z.custom((value: any) => {
-    return value;
-  }),
+  // birthCertificateimage: z.custom((value: any) => {
+  //   return value;
+  // }),
+  birthCertificateimage: z
+    .array(
+      z.object({
+        data_url: z.string(),
+      })
+    )
+    .nonempty(),
+  familyNationalId: z
+    .array(
+      z.object({
+        data_url: z.string(),
+      })
+    )
+    .nonempty(),
+
+  studentImmuniazation: z
+    .array(
+      z.object({
+        data_url: z.string(),
+      })
+    )
+    .nonempty(),
   medicalReport: z.optional(
     z.custom((value: any) => {
       return value;
     })
   ),
-  aramcoID: z.custom((value: any) => {
-    return value;
-  }),
+  aramcoID: z
+    .array(
+      z.object({
+        data_url: z.string(),
+      })
+    )
+    .nonempty(),
   diseaseFree: z.optional(
+    z.custom((value: any) => {
+      return value;
+    })
+  ),
+  CmPhotograph: z.optional(
     z.custom((value: any) => {
       return value;
     })
@@ -374,6 +411,11 @@ function FormValidTest() {
       diseaseFree: [],
       CmPhotograph: [],
       medicalReport: [],
+
+      birthCertificateimage: [],
+      studentImmuniazation: [],
+      aramcoID: [],
+      familyNationalId: [],
     },
   });
 
