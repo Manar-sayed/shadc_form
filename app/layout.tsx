@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
+import { TailwindIndicator } from '@/components/tailwind-indicator';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +23,7 @@ export default async function RootLayout({
       <html lang="en" suppressHydrationWarning={true}>
         <body cz-shortcut-listen="false" className={inter.className}>
           {children}
+          <TailwindIndicator />
         </body>
       </html>
     </SessionProvider>

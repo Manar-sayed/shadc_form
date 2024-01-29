@@ -1,88 +1,4 @@
-// import React from 'react';
-// import {
-//   FormControl,
-//   FormField,
-//   FormItem,
-//   FormLabel,
-//   FormMessage,
-// } from '././ui/form';
-// import { Input } from '././ui/input';
-// function StudentFormTest({ form }: any) {
-
-//   return (
-//     <div>
-//       <div className="mt-5 grid grid-cols-1 md:grid-cols-3  gap-6 ">
-//         <div className="">
-//           <FormField
-//             control={form.control}
-//             name="nationality"
-//             render={({ field }) => (
-//               <FormItem className="bg-transparent">
-//                 <FormLabel className="block text-sm font-medium leading-6 ">
-//                   {' '}
-//                   <span className="text-red-500">*</span>
-//                   Nationality
-//                 </FormLabel>
-//                 <FormControl className="bg-slate-500 ">
-//                   <>
-//                     <select
-//                       defaultValue=""
-//                       id="nationality"
-//                       {...field}
-//                       className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
-//                        ring-gray-300 focus:ring-2 focus:ring-inset
-//                         focus:ring-green-500  sm:text-sm sm:leading-6"
-//                     >
-//                       <option
-//                         className="text-gray-200 text-sm"
-//                         value=""
-//                         disabled
-//                       >
-//                         Select nationality
-//                       </option>
-//                       <option value={'saudi arabia'}>Saudi Arabia</option>
-//                       <option value={'Jordan'}>Jordan</option>
-//                       <option value={'korean'}>Korean</option>
-//                     </select>
-//                     <FormMessage></FormMessage>
-//                   </>
-//                 </FormControl>
-//               </FormItem>
-//             )}
-//           />
-//         </div>
-//         <div className="">
-//           <FormField
-//             control={form.control}
-//             name="StudentID"
-//             render={({ field }) => (
-//               <FormItem className="bg-transparent">
-//                 <FormLabel className="block text-sm font-medium leading-6 ">
-//                   {' '}
-//                   <span className="text-red-500">*</span>
-//                   Student ID
-//                 </FormLabel>
-//                 <FormControl>
-//                   <Input
-//                     placeholder={'student national id'}
-//                     type="text"
-//                     {...field}
-//                     className="mt-10  p-4    text-sm md:text-lg font-normal "
-//                   />
-//                 </FormControl>
-//                 <FormMessage />
-//               </FormItem>
-//             )}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default StudentFormTest;
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl,
   FormField,
@@ -92,50 +8,27 @@ import {
 } from '././ui/form';
 import { Input } from '././ui/input';
 import { Label } from './ui/label';
-import { CalendarCheck2 } from 'lucide-react';
+import { BadgeInfo, CalendarCheck2, Trash } from 'lucide-react';
 import ReactDatePicker from 'react-datepicker';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
+import TooltipComp from './FORM/tooltipComp';
+import PopverComp from './FORM/popverComp';
 
 function StudentFormTest({ form }: any) {
-  // Custom validation rule for StudentID based on selected nationality
-  //   useEffect(() => {
-  //     const unregister = form.register('StudentID', {
-  //       validate: (value: any) => {
-  //         const selectedNationality = form.getValues('nationality');
-  //         if (selectedNationality === 'Jordan') {
-  //           return (
-  //             value.length === 12 &&
-  //             /^\d+$/.test(value) &&
-  //             'Student ID must have 12 numbers for Jordanian nationality'
-  //           );
-  //         }
-  //         // Reset validation for other nationalities
-  //         return true;
-  //       },
-  //     });
+  const isLargeScreen = window.innerWidth >= 1028;
+  const [isLarge, setIsLarge] = useState(isLargeScreen);
 
-  //     return () => unregister();
-  //   }, [form]);
+  const handleWindowSizeChange = () => {
+    setIsLarge(window.innerWidth >= 1028);
+  };
 
-  //   useEffect(() => {
-  //     const unregister = form.register('StudentID', {
-  //       validate: (value:any) => {
-  //         const selectedNationality = form.getValues('nationality');
-  //         if (selectedNationality === 'Jordan') {
-  //           return (
-  //             value.length === 12 &&
-  //             /^\d+$/.test(value) &&
-  //             'Student ID must have 12 numbers for Jordanian nationality'
-  //           );
-  //         }
-  //         // Reset validation for other nationalities
-  //         return true;
-  //       },
-  //     });
-
-  //     return () => {}; // Empty cleanup function
-  //   }, [form]);
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
 
   return (
     <div>
@@ -148,31 +41,44 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Nationality
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Nationality
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'select nationality'} />
+                    ) : (
+                      <PopverComp
+                        title={'select nationality'}
+                        placement="top"
+                      />
+                    )}
+                  </div>
+
                   <div className="w-[100%] items-start ">
-                    <FormControl className="bg-slate-500 ">
-                      <>
-                        <select
-                          id="nationality"
-                          {...field}
-                          // autoComplete="nationality-name"
-                          className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
+                    <div className="flex">
+                      <FormControl className="bg-slate-500 ">
+                        <>
+                          <select
+                            id="nationality"
+                            {...field}
+                            // autoComplete="nationality-name"
+                            className="w-full   rounded-md border-0 py-1.5 px-3  shadow-sm ring-1 ring-inset
                      ring-gray-300 focus:ring-2 focus:ring-inset
                       focus:ring-green-500  sm:text-sm sm:leading-6"
-                        >
-                          <option
-                            className="text-gray-200 text-sm"
-                            value=""
-                          ></option>
-                          <option value={'saudi arabia'}>Saudi Arabia</option>
-                          <option value={'Jordan'}>Jordan</option>
-                          <option value={'korean'}>Korean</option>
-                        </select>
-                      </>
-                    </FormControl>
+                          >
+                            <option
+                              className="text-gray-200 text-sm"
+                              value=""
+                            ></option>
+                            <option value={'saudi arabia'}>Saudi Arabia</option>
+                            <option value={'Jordan'}>Jordan</option>
+                            <option value={'korean'}>Korean</option>
+                          </select>
+                        </>
+                      </FormControl>
+                    </div>
 
                     <FormMessage className="my-2" />
                   </div>
@@ -188,30 +94,34 @@ function StudentFormTest({ form }: any) {
             name="studentNationalID"
             render={({ field }) => (
               <FormItem className="bg-transparent">
-                <div className="md:flex justify-center items-center gap-3 bg-transparent ">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Student National ID
-                  </FormLabel>
+                <div className="md:flex justify-center items-center gap-3 bg-transparent">
+                  <div className="flex mb-1 mt-3 md:mt-0  md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Student National ID
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write national id'} />
+                    ) : (
+                      <PopverComp title={'write national id'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
-                    <FormControl>
-                      <Input
-                        placeholder={'student national id'}
-                        type="text"
-                        {...field}
-                        // {...register('studentNationalID')}
-                        className="   text-sm md:text-lg font-normal "
-                      />
-                    </FormControl>
+                    <div className="flex">
+                      <FormControl>
+                        <Input
+                          placeholder={'student national id'}
+                          type="text"
+                          {...field}
+                          // {...register('studentNationalID')}
+                          className="   text-sm md:text-lg font-normal "
+                        />
+                      </FormControl>
+                    </div>
                     <FormMessage className="my-2" />
                   </div>
                 </div>
-
-                {/* {form.formState.errors.studentNationalID && (
-                  <div className="text-red-500 text-sm mt-2">
-                    {form.formState.errors.studentNationalID.message}
-                  </div>
-                )} */}
               </FormItem>
             )}
           />
@@ -227,11 +137,17 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent ">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6  ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    First name
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      First name
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write first name (en)'} />
+                    ) : (
+                      <PopverComp title={'write first name (en)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl {...field}>
                       <Input
@@ -254,11 +170,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Middle name
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Middle name
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write second name (en)'} />
+                    ) : (
+                      <PopverComp title={'write second name (en)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl {...field}>
                       <Input
@@ -281,11 +204,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Third name
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Third name
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write third name (en)'} />
+                    ) : (
+                      <PopverComp title={'write third name (en)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -309,11 +239,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Last name
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Last name
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write third name (en)'} />
+                    ) : (
+                      <PopverComp title={'write third name (en)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -340,11 +277,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    First name (Arabic)
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      First name (Arabic)
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write first name (ar)'} />
+                    ) : (
+                      <PopverComp title={'write first name (ar)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -368,11 +312,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Middle name (Arabic)
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Middle name (Arabic)
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write middle name (ar)'} />
+                    ) : (
+                      <PopverComp title={'write middle name (ar)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -396,11 +347,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Third name (Arabic)
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className=" block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Third name (Arabic)
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write third name (ar)'} />
+                    ) : (
+                      <PopverComp title={'write third name (ar)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -424,11 +382,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Last name (Arabic)
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Last name (Arabic)
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write last name (ar)'} />
+                    ) : (
+                      <PopverComp title={'write last name (ar)'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -455,12 +420,18 @@ function StudentFormTest({ form }: any) {
             render={({ field, fieldState }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Place of Birth
-                  </FormLabel>
-
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Place of Birth
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'enter place of birth'} />
+                    ) : (
+                      <PopverComp title={'enter place of birth'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -479,11 +450,18 @@ function StudentFormTest({ form }: any) {
 
         {/* Date of Birth */}
         <div className="md:flex w-full justify- items-center gap-3  bg-transparent">
-          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
-            {' '}
-            <span className="text-red-500">*</span>
-            Select Brith Date:
-          </FormLabel>
+          <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+            <FormLabel className="   block text-sm font-medium leading-6 ">
+              {' '}
+              <span className="text-red-500">*</span>
+              Select Brith Date:
+            </FormLabel>
+            {isLargeScreen ? (
+              <TooltipComp title={'select brith date'} />
+            ) : (
+              <PopverComp title={'select brith date'} />
+            )}{' '}
+          </div>
           <div className="w-full">
             <Controller
               control={form.control}
@@ -529,10 +507,17 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Religion
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Religion
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'select religion'} />
+                    ) : (
+                      <PopverComp title={'select religion'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <>
@@ -574,10 +559,17 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    <span className="text-red-600">*</span>
-                    Current Grade
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-600">*</span>
+                      Current Grade
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'select current grade'} />
+                    ) : (
+                      <PopverComp title={'select current grade'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <>
@@ -620,11 +612,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-600">*</span>
-                    Enrolment Year
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-600">*</span>
+                      Enrolment Year
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'select religion'} />
+                    ) : (
+                      <PopverComp title={'select religion'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <>
@@ -665,11 +664,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-600">*</span>
-                    Applying for Grade
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-600">*</span>
+                      Applying for Grade
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'applying for grade'} />
+                    ) : (
+                      <PopverComp title={'applying for grade'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <>
@@ -713,11 +719,22 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-600">*</span>
-                    DAS
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-600">*</span>
+                      Does the student have siblings at DAS
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp
+                        title={'Does the student have siblings at DAS'}
+                      />
+                    ) : (
+                      <PopverComp
+                        title={'Does the student have siblings at DAS'}
+                      />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <>
@@ -762,11 +779,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-600">*</span>
-                    Aramco Relation
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-600">*</span>
+                      Aramco Relation
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'aramco relation'} />
+                    ) : (
+                      <PopverComp title={'aramco relation'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <>
@@ -802,7 +826,10 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
+                 <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                       
+                <F6 ">
                     {' '}
                     <span className="text-red-600">*</span>
                     Aramco Relation
@@ -843,10 +870,17 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center gap-3 items-center bg-transparent">
-                  <FormLabel className="md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    Current School Name
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      Current School Name
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write current school name'} />
+                    ) : (
+                      <PopverComp title={'write current school name'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -871,11 +905,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Passport Number
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[50%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Passport Number
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'write passport number'} />
+                    ) : (
+                      <PopverComp title={'write passport number'} />
+                    )}{' '}
+                  </div>
                   <div className="w-[100%] items-start  ">
                     <FormControl>
                       <Input
@@ -902,11 +943,18 @@ function StudentFormTest({ form }: any) {
             render={({ field }) => (
               <FormItem>
                 <div className="md:flex w-full justify- items-center bg-transparent gap-3  space-y-3">
-                  <FormLabel className="w-[100%]  block text-sm font-medium leading-6 md:me-14 ">
-                    <span className="text-red-500">*</span>
-                    Select Gender...
-                  </FormLabel>
-                  <div className="w-[100%] items-start  ">
+                  <div className="flex mb-1 mt-3 md:mt-0   w-[100%] ">
+                    <FormLabel className=" w-[100%]   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Select Gender...
+                    </FormLabel>
+                    {isLargeScreen ? (
+                      <TooltipComp title={'select gender'} />
+                    ) : (
+                      <PopverComp title={'select gender'} />
+                    )}{' '}
+                  </div>
+                  <div className="w-[100%] items-start ms-[10%]  ">
                     <FormControl className=" ">
                       <RadioGroup
                         onValueChange={field.onChange}
@@ -917,7 +965,7 @@ function StudentFormTest({ form }: any) {
                           <FormControl>
                             <RadioGroupItem value="male" />
                           </FormControl>
-                          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 font-normal">
+                          <FormLabel className=" md:w-[50%] mt-3 md:mt-0 font-normal">
                             Male
                           </FormLabel>
                         </FormItem>
@@ -925,7 +973,7 @@ function StudentFormTest({ form }: any) {
                           <FormControl>
                             <RadioGroupItem value="female" />
                           </FormControl>
-                          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 font-normal">
+                          <FormLabel className=" md:w-[50%] mt-3 md:mt-0 font-normal">
                             Female
                           </FormLabel>
                         </FormItem>

@@ -21,6 +21,7 @@ import FatherFormTest from '@/components/formFatherTest';
 import MotherFormTest from '@/components/formMotherTest';
 import ImageForm from '@/components/FORM/ImageForm';
 import { BadgeCheck } from 'lucide-react';
+import TooltipComp from './FORM/tooltipComp';
 
 type FormDataSchemaType = z.ZodObject<{
   nationality: z.ZodEnum<['saudi arabia', 'Jordan', 'korean']>;
@@ -622,69 +623,46 @@ function FormValidTest() {
               <StudentFormTest form={form} />
             </motion.div>
           )}
-          {/* father info */}
-          {
-            currentStep === 1 && (
-              // (form.getValues('aramcoRelation') === 'father' ||
-              //   form.getValues('aramcoRelation') === 'both') && (
-              <motion.div
-                initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <FatherFormTest
-                  form={form}
-                  fatherShow={fatherShow}
-                  setFatherShow={setFatherShow}
-                />
-              </motion.div>
-            )
-            // )
-          }
+          {currentStep === 1 && (
+            // (form.getValues('aramcoRelation') === 'father' ||
+            //   form.getValues('aramcoRelation') === 'both') && (
+            <motion.div
+              initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <FatherFormTest
+                form={form}
+                fatherShow={fatherShow}
+                setFatherShow={setFatherShow}
+              />
+            </motion.div>
+          )}
           {/* mother info */}
-          {
-            currentStep === 2 && (
-              // form.getValues('aramcoRelation') === 'mother' && (
-              <motion.div
-                initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <MotherFormTest
-                  form={form}
-                  motherShow={motherShow}
-                  setMotherShow={setMotherShow}
-                />
-              </motion.div>
-            )
-            //)
-          }
-          {/* {
-            currentStep == 2 && (
-              // form.getValues('aramcoRelation') === 'both' && (
-              <motion.div
-                initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <MotherFormTest form={form} />
-              </motion.div>
-            )
-            //  )
-          } */}
-          {
-            currentStep == 3 && (
-              // form.getValues('aramcoRelation') !== 'both' && (
-              <motion.div
-                initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-              >
-                <ImageForm form={form} />
-              </motion.div>
-            )
-            //)
-          }
+          {currentStep === 2 && (
+            // form.getValues('aramcoRelation') === 'mother' && (
+            <motion.div
+              initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <MotherFormTest
+                form={form}
+                motherShow={motherShow}
+                setMotherShow={setMotherShow}
+              />
+            </motion.div>
+          )}
+          {currentStep == 3 && (
+            // form.getValues('aramcoRelation') !== 'both' && (
+            <motion.div
+              initial={{ x: delta >= 0 ? '50%' : '-50%', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <ImageForm form={form} />
+            </motion.div>
+          )}
           {currentStep === steps.length - 1 && (
             <div>
               <motion.div

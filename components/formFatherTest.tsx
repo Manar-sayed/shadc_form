@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl,
   FormField,
@@ -14,10 +14,23 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Input } from './ui/input';
 import { Controller, useForm } from 'react-hook-form';
 import { CalendarCheck2 } from 'lucide-react';
+import TooltipComp from './FORM/tooltipComp';
+import PopverComp from './FORM/popverComp';
 
 function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
-  // setFatherShow(fatherShow);
+  const isLargeScreen = window.innerWidth >= 1028;
+  const [isLarge, setIsLarge] = useState(isLargeScreen);
 
+  const handleWindowSizeChange = () => {
+    setIsLarge(window.innerWidth >= 1028);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
   return (
     <div className="">
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 md:gap-7">
@@ -29,10 +42,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Father Nationality
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Father Nationality
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'select nationality'} />
+                    ) : (
+                      <PopverComp title={'select nationality'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -68,10 +88,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent space-y-0">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Father National ID
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Father National ID
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write father national id'} />
+                    ) : (
+                      <PopverComp title={'write father national id'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <Input
@@ -101,10 +128,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
               render={({ field }) => (
                 <FormItem className="bg-transparent ">
                   <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                    <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                      <span className="text-red-500">*</span>
-                      Father Aramco ID
-                    </FormLabel>
+                    <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                      <FormLabel className="   block text-sm font-medium leading-6 ">
+                        <span className="text-red-500">*</span>
+                        Father Aramco ID
+                      </FormLabel>
+                      {isLarge ? (
+                        <TooltipComp title={'write father aramco id'} />
+                      ) : (
+                        <PopverComp title={'write father aramco id'} />
+                      )}
+                    </div>
                     <div className="w-[100%] items-start ">
                       <FormControl>
                         <Input
@@ -128,65 +162,44 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
               <span className="text-red-500">*</span>
               Father Aramco Exp Date
             </FormLabel>
-            <div className="w-[100%]">
-              <Controller
-                control={form.control}
-                name="expDate"
-                render={({ field: { onChange, value }, fieldState }) => (
-                  // <>
-                  //   <div
-                  //     className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
-                  //   >
-                  //     <ReactDatePicker
-                  //       placeholderText="Select Date Picker"
-                  //       id="ReactDatePicker"
-                  //       onChange={onChange}
-                  //       selected={value}
-                  //       maxDate={new Date()}
-                  //       className={`
-                  //       text-sm md:text-lg font-normal
-                  //       bg-transparent w-full
-                  //        placeholder:text-gray-300 placeholder:text-sm
-                  //        rounded-md  sm:text-sm
-                  //          ${fieldState.error && 'border-red-600'}`}
-                  //     />
-                  //     <CalendarCheck2 className=" text-gray-300" />
-                  //   </div>
-
-                  //   {fieldState.error && (
-                  //     <FormMessage className=" my-2">
-                  //       {fieldState.error.message}
-                  //     </FormMessage>
-                  //   )}
-                  // </>
-                  <>
-                    <div
-                      className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
-                    >
-                      <ReactDatePicker
-                        placeholderText="Select Date Picker"
-                        id="ReactDatePicker"
-                        onChange={onChange}
-                        selected={value}
-                        maxDate={new Date()}
-                        className={`
+            {isLarge ? (
+              <TooltipComp title={'select father aramco id exp date'} />
+            ) : (
+              <PopverComp title={'select father aramco id exp date'} />
+            )}
+          </div>
+          <div className="w-[100%]">
+            <Controller
+              control={form.control}
+              name="expDate"
+              render={({ field: { onChange, value }, fieldState }) => (
+                <>
+                  <div
+                    className={`border-2  bg-white rounded-md  border-gray-200 flex justify-between items-center px-3 `}
+                  >
+                    <ReactDatePicker
+                      placeholderText="Select Date Picker"
+                      id="ReactDatePicker"
+                      onChange={onChange}
+                      selected={value}
+                      maxDate={new Date()}
+                      className={`
                    text-sm md:text-lg font-normal 
                    bg-transparent
                     placeholder:text-gray-300 placeholder:text-sm
                     rounded-md  sm:text-sm
                       ${fieldState.error && 'border-red-600'}`}
-                      />
-                      <CalendarCheck2 className=" text-gray-300" />
-                    </div>
-                    {fieldState.error && (
-                      <FormMessage className="my-2">
-                        {fieldState.error.message}
-                      </FormMessage>
-                    )}
-                  </>
-                )}
-              />
-            </div>
+                    />
+                    <CalendarCheck2 className=" text-gray-300" />
+                  </div>
+                  {fieldState.error && (
+                    <FormMessage className="my-2">
+                      {fieldState.error.message}
+                    </FormMessage>
+                  )}
+                </>
+              )}
+            />
           </div>
         </div>
       )}
@@ -199,10 +212,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Is the father a DAS employee
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Is the father a DAS employee
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'is the father a DAS employee?'} />
+                    ) : (
+                      <PopverComp title={'is the father a DAS employee?'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -236,10 +256,21 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Did the father study in DAS (Dhahrani)
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Did the father study in DAS (Dhahrani)
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp
+                        title={'did father study in DAS (Dhahrani)?'}
+                      />
+                    ) : (
+                      <PopverComp
+                        title={'did father study in DAS (Dhahrani)?'}
+                      />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -273,10 +304,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Is the father a DAS alumnus
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Is the father a DAS alumnus
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'is father a DAS alumnus?'} />
+                    ) : (
+                      <PopverComp title={'is father a DAS alumnus?'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -308,10 +346,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Father work
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Father work
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write father wrok'} />
+                    ) : (
+                      <PopverComp title={'write father wrok'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <Input
@@ -340,10 +385,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Father Email Address
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Father Email Address
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write father email address'} />
+                    ) : (
+                      <PopverComp title={'write father email address'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <Input
@@ -364,10 +416,17 @@ function FatherFormTest({ form, fatherShow, setFatherShow }: any) {
         {/* father phone */}
 
         <div className="md:flex w-full justify- items-center gap-3 bg-transparent">
-          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
-            <span className="text-red-500">*</span>
-            Father Mobile No
-          </FormLabel>
+          <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+            <FormLabel className="   block text-sm font-medium leading-6 ">
+              <span className="text-red-500">*</span>
+              Father Mobile No
+            </FormLabel>
+            {isLarge ? (
+              <TooltipComp title={'write father phone number'} />
+            ) : (
+              <PopverComp title={'write father phone number'} />
+            )}
+          </div>
           <div className="w-[100%] items-start ">
             <Controller
               name="fatherPhone"

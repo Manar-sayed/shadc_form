@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FormControl,
   FormField,
@@ -15,8 +15,22 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-input-2';
 import { CalendarCheck2 } from 'lucide-react';
+import TooltipComp from './FORM/tooltipComp';
+import PopverComp from './FORM/popverComp';
 function MotherFormTest({ form, motherShow, setMotherShow }: any) {
-  // setMotherShow(motherShow);
+  const isLargeScreen = window.innerWidth >= 1028;
+  const [isLarge, setIsLarge] = useState(isLargeScreen);
+
+  const handleWindowSizeChange = () => {
+    setIsLarge(window.innerWidth >= 1028);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
   return (
     <div>
       <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
@@ -28,10 +42,17 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Mother Nationality
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Mother Nationality
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'select nationality'} />
+                    ) : (
+                      <PopverComp title={'select nationality'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl className="bg-slate-500 ">
                       <>
@@ -68,10 +89,17 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    mother National ID
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      mother National ID
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write mother National id'} />
+                    ) : (
+                      <PopverComp title={'write mother National id'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <Input
@@ -99,10 +127,17 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    <span className="text-red-500">*</span>
-                    Is the mother a DAS employee
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      <span className="text-red-500">*</span>
+                      Is the mother a DAS employee
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'is mother a DAS employee?'} />
+                    ) : (
+                      <PopverComp title={'is mother a DAS employee?'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -136,11 +171,22 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Did the mother study in DAS (Dhahrani)
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Did the mother study in DAS (Dhahrani)
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp
+                        title={'did mother study in DAS (Dhahrani)?'}
+                      />
+                    ) : (
+                      <PopverComp
+                        title={'did mother study in DAS (Dhahrani)?'}
+                      />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -175,11 +221,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Is the mother a DAS alumnus
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Is the mother a DAS alumnus
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'is mother a DAS alumnus?'} />
+                    ) : (
+                      <PopverComp title={'is mother a DAS alumnus?'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <>
@@ -212,11 +265,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    Mother work
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      Mother work
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write mother work'} />
+                    ) : (
+                      <PopverComp title={'write mother work'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <Input
@@ -238,11 +298,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
         <div className="mb-2 grid grid-cols-1 lg:grid-cols-2 justify-center items-center gap-2 xl:gap-7">
           {/* Exp Date */}
           <div className="md:flex w-full items-center gap-3 bg-transparent">
-            <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
-              {' '}
-              <span className="text-red-500">*</span>
-              Mother Aramco Exp Date
-            </FormLabel>
+            <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+              <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
+                {' '}
+                <span className="text-red-500">*</span>
+                Mother Aramco Exp Date
+              </FormLabel>
+              {isLarge ? (
+                <TooltipComp title={'select mother aramco id exp date'} />
+              ) : (
+                <PopverComp title={'select mother aramco id exp date'} />
+              )}
+            </div>
             <div className="w-full">
               <Controller
                 control={form.control}
@@ -278,7 +345,6 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             </div>
           </div>
 
-          {/* mother Aramco ID*/}
           <div className="">
             <FormField
               control={form.control}
@@ -286,11 +352,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
               render={({ field }) => (
                 <FormItem className="bg-transparent">
                   <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                    <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                      {' '}
-                      <span className="text-red-500">*</span>
-                      mother Aramco ID
-                    </FormLabel>
+                    <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                      <FormLabel className="   block text-sm font-medium leading-6 ">
+                        {' '}
+                        <span className="text-red-500">*</span>
+                        mother Aramco ID
+                      </FormLabel>
+                      {isLarge ? (
+                        <TooltipComp title={'write mother aramco id'} />
+                      ) : (
+                        <PopverComp title={'write mother aramco id'} />
+                      )}
+                    </div>
                     <div className="w-[100%] items-start ">
                       <FormControl>
                         <Input
@@ -319,11 +392,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    mother name
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      mother name
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write mother name (en)'} />
+                    ) : (
+                      <PopverComp title={'write mother name (en)'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl {...field}>
                       <Input
@@ -346,11 +426,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    mother Name Arabic
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      mother Name Arabic
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write mother name (ar)'} />
+                    ) : (
+                      <PopverComp title={'write mother name (ar)'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl {...field}>
                       <Input
@@ -376,11 +463,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
             render={({ field }) => (
               <FormItem className="bg-transparent">
                 <div className="md:flex justify-center items-center gap-3 bg-transparent">
-                  <FormLabel className=" md:w-[40%] mt-3 md:mt-0  block text-sm font-medium leading-6 ">
-                    {' '}
-                    <span className="text-red-500">*</span>
-                    mother Email Address
-                  </FormLabel>
+                  <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+                    <FormLabel className="   block text-sm font-medium leading-6 ">
+                      {' '}
+                      <span className="text-red-500">*</span>
+                      mother Email Address
+                    </FormLabel>
+                    {isLarge ? (
+                      <TooltipComp title={'write mother email address'} />
+                    ) : (
+                      <PopverComp title={'write mother email address'} />
+                    )}
+                  </div>
                   <div className="w-[100%] items-start ">
                     <FormControl>
                       <Input
@@ -399,11 +493,18 @@ function MotherFormTest({ form, motherShow, setMotherShow }: any) {
         </div>
         {/* motherphone */}
         <div className="md:flex w-full items-center gap-3  bg-transparent">
-          <FormLabel className=" md:w-[40%] mt-3 md:mt-0 block mb-3">
-            {' '}
-            <span className="text-red-500">*</span>
-            Phone Number:
-          </FormLabel>
+          <div className="flex mb-1 mt-3 md:mt-0   md:w-[70%] ">
+            <FormLabel className="   block text-sm font-medium leading-6 ">
+              {' '}
+              <span className="text-red-500">*</span>
+              Phone Number:
+            </FormLabel>
+            {isLarge ? (
+              <TooltipComp title={'write mother phone number'} />
+            ) : (
+              <PopverComp title={'write mother phone number'} />
+            )}
+          </div>
           <div className="w-[100%] items-start ">
             <Controller
               name="motherPhone"

@@ -101,13 +101,15 @@
 
 // export default ImageUploader;
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ImageUploading from 'react-images-uploading';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { UpdateIcon } from '@radix-ui/react-icons';
 import { Edit, LucideDelete, Trash } from 'lucide-react';
 import Image from 'next/image';
+import TooltipComp from '../FORM/tooltipComp';
+import PopverComp from '../FORM/popverComp';
 
 const ImageUploader = ({
   images,
@@ -116,7 +118,21 @@ const ImageUploader = ({
   dataURLKey,
   title,
   desc,
+  isRequired,
 }: any) => {
+  const isLargeScreen = window.innerWidth >= 1028;
+  const [isLarge, setIsLarge] = useState(isLargeScreen);
+
+  const handleWindowSizeChange = () => {
+    setIsLarge(window.innerWidth >= 1028);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
   return (
     <ImageUploading
       // multiple
@@ -135,56 +151,70 @@ const ImageUploader = ({
         dragProps,
         errors,
       }) => (
-        <div className="w-full p-3 bg-white rounded-md shadow-md upload__image-wrapper">
-          <Label className="text-base md:text-lg xl:text-xl flex   ">
-            {title}
-          </Label>
-          <Label className=" text-gray-300 text-xs md:text-sm xl:text-base ">
-            {desc}
-          </Label>
-          <div className="my-3">
-            {imageList.length < 1 && (
-              <Button
-                type="button"
-                className={`w-full py-2 px-4 border border-dashed bg-transparent hover:bg-slate-100 border-gray-400 rounded-md transition-colors ${
-                  isDragging ? 'border-red-500 text-red-500' : 'text-gray-700'
-                }`}
-                onClick={onImageUpload}
-                {...dragProps}
-              >
-                Click or Drop here
-              </Button>
+        <div>
+          <div className="flex mb-1 my-7 md:mt-0   md:w-[70%] ">
+            <Label className=" block text-sm font-medium leading-6 ">
+              {isRequired && <span className="text-red-500">*</span>}
+              {title}
+            </Label>
+            {isLarge ? (
+              <TooltipComp title={`Upload Image of ${title}`} />
+            ) : (
+              <PopverComp title={`Upload Image of ${title}`} />
             )}
           </div>
-          &nbsp;
-          {imageList.map((image, index) => (
-            <div key={index} className="image-item">
-              <div className="flex justify-center">
-                <Image
-                  src={image['data_url']}
-                  alt=""
-                  className="w-full rounded-md  h-36"
-                  width={200}
-                  height={200}
-                />
-              </div>
-
-              <div className="flex justify-between items-center mt-1">
+          <div className="w-full p-3 bg-white rounded-md shadow-md upload__image-wrapper">
+            <Label className="block text-sm font-medium leading-6 ">
+              {isRequired && <span className="text-red-500">*</span>}
+              {title}
+            </Label>
+            <Label className=" text-gray-300 text-xs md:text-sm xl:text-base ">
+              {desc}
+            </Label>
+            <div className="my-3">
+              {imageList.length < 1 && (
                 <Button
-                  className="py-1 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                  onClick={() => onImageUpdate(index)}
+                  type="button"
+                  className={`w-full py-2 px-4 border border-dashed bg-transparent hover:bg-slate-100 border-gray-400 rounded-md transition-colors ${
+                    isDragging ? 'border-red-500 text-red-500' : 'text-gray-700'
+                  }`}
+                  onClick={onImageUpload}
+                  {...dragProps}
                 >
-                  <UpdateIcon />
+                  Click or Drop here
                 </Button>
-                <Button
-                  className="py-1 px-4  bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
-                  onClick={() => onImageRemove(index)}
-                >
-                  <Trash className="w-4 h-4" />
-                </Button>
-              </div>
+              )}
             </div>
-          ))}
+            &nbsp;
+            {imageList.map((image, index) => (
+              <div key={index} className="image-item">
+                <div className="flex justify-center">
+                  <Image
+                    src={image['data_url']}
+                    alt=""
+                    className="w-full rounded-md  h-36"
+                    width={200}
+                    height={200}
+                  />
+                </div>
+
+                <div className="flex justify-between items-center mt-1">
+                  <Button
+                    className="py-1 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                    onClick={() => onImageUpdate(index)}
+                  >
+                    <UpdateIcon />
+                  </Button>
+                  <Button
+                    className="py-1 px-4  bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
+                    onClick={() => onImageRemove(index)}
+                  >
+                    <Trash className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </ImageUploading>
